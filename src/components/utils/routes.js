@@ -14,7 +14,7 @@ export const ROUTES = {
   reviews: "/reviews",
   privacy: "/privacy-policy",
   blog: "/blog",
-  careers: "/careers-at-premier",
+
 };
 
 export const NAV = [

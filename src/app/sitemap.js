@@ -8,7 +8,7 @@ export default function sitemap() {
     "/contact",
     "/projects",
     "/reviews",
-    "/careers-at-premier",
+
   ];
 
   return routes.map((route) => ({
