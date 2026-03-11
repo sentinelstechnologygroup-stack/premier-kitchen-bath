@@ -1,0 +1,12 @@
+# /public/robots.txt
+
+User-agent: *
+Allow: /
+
+# Prevent indexing of build/system files
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.vscode/
+
+# Sitemap
+Sitemap: https://premierkitchens.us/sitemap.xml
