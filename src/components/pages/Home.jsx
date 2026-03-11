@@ -4,12 +4,11 @@
 import React, { useEffect } from "react";
 import HeroSection from "../home/HeroSection";
 import PhilosophySection from "../home/PhilosophySection";
+import StatsBand from "../home/StatsBand";
 import ServicesSection from "../home/ServicesSection";
 import FeaturedProjects from "../home/FeaturedProjects";
-import TestimonialsSection from "../home/TestimonialsSection.jsx";
-import MiddleCTA from "../shared/MiddleCTA";
-import CTASection from "@/components/home/CTASection";
-import TrustMarquee from "@/components/trust/TrustMarquee";
+import HowWeWorkSection from "../home/HowWeWorkSection";
+import CTASection from "../home/CTASection";
 import { registerPageMeta } from "@/lib/intelligence";
 
 export default function Home() {
@@ -18,7 +17,7 @@ export default function Home() {
       page: "Home",
       route: "/",
       intent: "discovery",
-      primaryCta: "View Projects",
+      primaryCta: "Begin Your Project",
     });
   }, []);
 
@@ -26,14 +25,10 @@ export default function Home() {
     <main>
       <HeroSection />
       <PhilosophySection />
-
-      <TrustMarquee label="Houzz Awards" tone="light" speed="normal" />
-
-      <MiddleCTA tone="dark" />
-
+      <StatsBand />
       <ServicesSection />
       <FeaturedProjects />
-      <TestimonialsSection />
+      <HowWeWorkSection />
       <CTASection />
     </main>
   );

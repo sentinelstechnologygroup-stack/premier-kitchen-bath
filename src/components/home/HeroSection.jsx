@@ -1,117 +1,87 @@
 // src/components/home/HeroSection.jsx
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { ROUTES } from "@/components/utils/routes";
 import { trackCTA } from "@/lib/intelligence";
 
-const HERO_IMAGES = [
-  "/images/home/hero-01.jpg",
-  "/images/home/hero-02.jpg",
-  "/images/home/hero-03.jpg",
-  "/images/home/hero-04.jpg",
-];
-
 export default function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
   useEffect(() => {
     if (typeof document === "undefined") return;
     document.body.classList.add("premier-has-hero");
     return () => document.body.classList.remove("premier-has-hero");
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <section className="relative w-full h-[56vh] min-h-[460px] max-h-[740px] overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1] }}
-          className="absolute inset-0"
-        >
-          <img
-            src={HERO_IMAGES[currentSlide]}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover object-center"
-            loading="eager"
-            decoding="async"
-          />
+    <section className="relative min-h-[680px] overflow-hidden md:min-h-[760px]">
+      <img
+        src="/images/home/hero-01.jpg"
+        alt="Premier Kitchens Houston kitchen remodeling"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        loading="eager"
+        decoding="async"
+      />
 
-          <div className="absolute inset-0 bg-[#102018]/48" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#09110D]/72 via-[#102018]/28 to-[#102018]/70" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F1B15]/28 via-transparent to-[#0F1B15]/10" />
-          <div className="absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-[#102018]/84 to-transparent" />
-        </motion.div>
-      </AnimatePresence>
+      {/* Global contrast control */}
+      <div className="absolute inset-0 bg-[#120F0D]/34" />
 
-      <div className="absolute inset-0 flex items-end px-6 pb-16 md:px-12 md:pb-20 lg:px-20">
-        <div className="mx-auto w-full max-w-[1440px]">
-          <div className="max-w-5xl">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
-              className="max-w-[24ch] font-serif-display text-[2.6rem] font-light leading-[0.98] tracking-[-0.02em] text-[#F5F0EA] sm:text-[3.1rem] md:text-[3.55rem] lg:text-[3.9rem] xl:text-[4.15rem] [text-wrap:balance] [text-shadow:0_2px_16px_rgba(0,0,0,0.34)]"
+      {/* Strong directional darkening behind copy */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#120F0D]/78 via-[#120F0D]/46 to-[#120F0D]/12" />
+
+      {/* Top header protection */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#120F0D]/34 via-transparent to-transparent" />
+
+      {/* Bottom grounding */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D]/22 via-transparent to-transparent" />
+
+      <div className="relative mx-auto flex min-h-[680px] max-w-[1440px] items-center px-6 pt-28 pb-16 md:min-h-[760px] md:px-12 lg:px-20">
+        <div className="max-w-[660px]">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#D4C1AE]">
+            Houston Kitchen &amp; Bath Remodeling
+          </div>
+
+          <h1
+            className="mt-6 font-serif-display text-[3rem] font-semibold leading-[0.95] tracking-[-0.03em] text-white sm:text-[3.6rem] md:text-[4.4rem] lg:text-[5rem]"
+            style={{ textShadow: "0 4px 20px rgba(0,0,0,0.32)" }}
+          >
+            Houston
+            <br />
+            Kitchen &amp; Bath
+            <br />
+            Remodeling
+            <br />
+            Since 1979
+          </h1>
+
+          <p
+            className="mt-6 max-w-[560px] text-[15px] leading-[1.85] text-white/86 md:text-[17px]"
+            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.22)" }}
+          >
+            Thousands of successful renovations. Premium craftsmanship.
+            Beautifully refined spaces designed around the way you live.
+          </p>
+
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <Link
+              href={ROUTES.consultation}
+              onClick={() => trackCTA("begin-your-project", "home-hero")}
+              className="inline-flex h-14 items-center justify-center gap-3 rounded-full bg-[#151312] px-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#F6F1EA] transition hover:bg-[#2A2421]"
             >
-              Landscape Architecture, Site Planning, and Construction Services
-            </motion.h1>
+              Begin Your Project
+              <ArrowRight className="h-4 w-4" />
+            </Link>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.5, ease: [0.33, 1, 0.68, 1] }}
-              className="mt-6 max-w-xl font-sans-clean text-base text-[#F5F0EA]/90 md:text-lg"
+            <Link
+              href={ROUTES.projects}
+              onClick={() => trackCTA("explore-portfolio", "home-hero")}
+              className="inline-flex h-14 items-center justify-center gap-3 rounded-full border border-white/22 bg-black/16 px-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm transition hover:bg-black/28"
             >
-              Site planning, grading design, and landscape construction for
-              residential and commercial projects throughout The Woodlands and
-              Houston.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, delay: 0.65, ease: [0.33, 1, 0.68, 1] }}
-              className="mt-9"
-            >
-              <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-                <Link
-                  href={ROUTES.projects}
-                  onClick={() => trackCTA("view-projects", "home-hero")}
-                  className="inline-flex h-14 items-center justify-center gap-3 rounded-full bg-[#6B7F5E] px-10 font-sans-clean text-[11px] font-semibold uppercase tracking-[0.22em] text-[#F5F0EA] transition-all duration-300 hover:bg-[#5C714F]"
-                >
-                  View Projects
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </motion.div>
+              View Portfolio
+            </Link>
           </div>
         </div>
-      </div>
-
-      <div className="absolute bottom-8 left-6 flex gap-2 md:left-12 lg:left-20">
-        {HERO_IMAGES.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrentSlide(idx)}
-            className={`h-px w-8 rounded-full transition-all ${
-              idx === currentSlide ? "bg-[#F5F0EA]" : "bg-[#F5F0EA]/30"
-            }`}
-            aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
       </div>
     </section>
   );

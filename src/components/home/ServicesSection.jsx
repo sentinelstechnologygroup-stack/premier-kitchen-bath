@@ -1,86 +1,85 @@
 // src/components/home/ServicesSection.jsx
 import React from "react";
 import Link from "next/link";
-import AnimatedSection from "../shared/AnimatedSection";
-import { ROUTES } from "@/components/utils/routes";
 
-const SERVICES = [
+const SECTIONS = [
   {
-    title: "Residential Landscape Architecture",
-    subtitle: "Master Planning & Outdoor Living",
-    description:
-      "Comprehensive landscape design for private estates and custom homes—from site analysis and grading plans to planting systems and construction documentation.",
-    image: "/images/home/services-residential.jpg",
-    page: ROUTES.designResidential,
-    tags: ["Master Planning", "Grading & Drainage", "Pool & Outdoor Living", "Planting Design"],
+    id: "kitchens",
+    eyebrow: "What We Do",
+    title: "Kitchen\nRenovations",
+    body:
+      "From custom cabinetry to stone surfaces and integrated appliances, we design kitchens that are as beautiful to look at as they are to cook in. Every project begins with your vision and ends with precision.",
+    cta: "Explore Kitchens",
+    href: "/kitchens",
+    image: "/images/home/featured-03.jpg",
   },
   {
-    title: "Commercial Site Planning & Design",
-    subtitle: "Multifamily, Office & Retail",
-    description:
-      "Site planning, grading design, and landscape architecture for commercial developments—multifamily communities, office parks, retail centers, and mixed-use projects.",
-    image: "/images/home/services-commercial.jpg",
-    page: ROUTES.designCommercial,
-    tags: ["Site Planning", "Entry Monuments", "Amenity Design", "Permitting"],
-  },
-  {
-    title: "Landscape Construction & Installation",
-    subtitle: "Design-Build Implementation",
-    description:
-      "In-house construction crews executing landscape plans from grading and hardscape installation to irrigation systems and planting—ensuring design intent translates to built reality.",
-    image: "/images/home/services-construction.jpg",
-    page: ROUTES.construction,
-    tags: ["Hardscape", "Irrigation", "Grading", "Planting Installation"],
+    id: "bathrooms",
+    eyebrow: "What We Do",
+    title: "Bathroom\nRenovations",
+    body:
+      "Spa-like retreats crafted for the everyday. We transform ordinary bathrooms into spaces of quiet luxury through thoughtful tile selection, premium fixtures, and layouts that breathe.",
+    cta: "Explore Bathrooms",
+    href: "/bathrooms",
+    image: "/images/home/featured-02.jpg",
   },
 ];
 
+function ImagePanel({ section }) {
+  return (
+    <div className="overflow-hidden rounded-[26px] bg-[#E7DED3]">
+      <div className="aspect-[1.18/1] w-full">
+        <img
+          src={section.image}
+          alt={section.title.replace("\n", " ")}
+          className="h-full w-full object-cover"
+        />
+      </div>
+    </div>
+  );
+}
+
+function TextPanel({ section }) {
+  return (
+    <div className="flex h-full items-center rounded-[26px] bg-[#F3EEE7] px-8 py-8 md:px-10 md:py-10">
+      <div className="max-w-[360px]">
+        <div className="text-[9px] font-semibold uppercase tracking-[0.34em] text-[#B09A86]">
+          {section.eyebrow}
+        </div>
+
+        <h3 className="mt-4 whitespace-pre-line font-serif-display text-[2.1rem] font-semibold leading-[0.95] tracking-[-0.03em] text-[#241D19] md:text-[2.7rem]">
+          {section.title}
+        </h3>
+
+        <div className="mt-5 h-px w-12 bg-[#D3C6B8]" />
+
+        <p className="mt-5 text-[14px] leading-[1.9] text-[#6A5A4D]/82 md:text-[15px]">
+          {section.body}
+        </p>
+
+        <Link
+          href={section.href}
+          className="mt-6 inline-flex items-center justify-center rounded-full border border-[#D7CCC0] px-5 py-2.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#8A7563] transition hover:border-[#241D19] hover:bg-[#241D19] hover:text-[#F6F1EA]"
+        >
+          {section.cta}
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 export default function ServicesSection() {
   return (
-    <section className="py-10 md:py-14 bg-[#1F2E23]">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-        {/* ✅ Match gallery spacing (no “mosaic” gap-1) */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {SERVICES.map((service, idx) => (
-            <AnimatedSection key={service.title} delay={idx * 0.15}>
-              <Link href={service.page} className="block">
-                <div className="group relative overflow-hidden h-[70vh] bg-[#1F2E23] rounded-2xl">
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl">
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1F2E23]/20 to-[#1F2E23]/90" />
-                  </div>
+    <section className="bg-[#F6F1EA] py-6 md:py-8">
+      <div className="mx-auto max-w-[1440px] space-y-4 px-6 md:space-y-5 md:px-12 lg:px-20">
+        <div id="kitchens" className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          <ImagePanel section={SECTIONS[0]} />
+          <TextPanel section={SECTIONS[0]} />
+        </div>
 
-                  <div className="absolute inset-0 flex flex-col justify-end p-8">
-                    <div className="text-[9px] tracking-[0.3em] uppercase text-[#F5F0EA]/100 font-sans-clean font-semibold mb-3">
-                      {service.subtitle}
-                    </div>
-                    <h3 className="font-serif-display text-[#F5F0EA]/100 text-2xl md:text-3xl font-light mb-4 leading-[1.1]">
-                      {service.title}
-                    </h3>
-                    <p className="text-[#F5F0EA]/100 font-sans-clean text-sm leading-[1.7] mb-6">
-                      {service.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {service.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[10px] tracking-[0.15em] uppercase text-[#F5F0EA]/100 font-sans-clean px-3 py-1 border border-[#F5F0EA]/100 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </AnimatedSection>
-          ))}
+        <div id="bathrooms" className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          <TextPanel section={SECTIONS[1]} />
+          <ImagePanel section={SECTIONS[1]} />
         </div>
       </div>
     </section>

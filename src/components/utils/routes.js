@@ -3,84 +3,29 @@ export const ROUTES = {
   home: "/",
   about: "/about",
 
+  kitchens: "/kitchens",
+  bathrooms: "/bathrooms",
+
+  projects: "/projects",
+  showroom: "/showroom",
   contact: "/contact",
-  // schedule consultation anchors to the form section
   consultation: "/contact#contact-form",
 
   reviews: "/reviews",
+  privacy: "/privacy-policy",
+  blog: "/blog",
   careers: "/careers-at-premier",
-
-  design: "/design",
-  designCommercial: "/design/commercial",
-  designResidential: "/design/residential",
-
-  residentialMasterPlans: "/design/residential/master-plans",
-  residentialPoolOutdoorLiving: "/design/residential/pool-outdoor-living",
-  residentialDrainagePlanting: "/design/residential/drainage-planting",
-  residentialOutdoorLivingLegacy: "/design/residential/outdoor-living",
-
-  commercialLifestyleCenter: "/design/commercial/lifestyle-center",
-  commercialMultifamily: "/design/commercial/multifamily",
-  commercialOffice: "/design/commercial/office",
-  commercialRenderings: "/design/commercial/renderings",
-
-  commercialGalleries: "/design/commercial/galleries",
-  commercialGallery: "/design/commercial/galleries/:slug",
-
-  residentialGalleries: "/design/residential/galleries",
-  residentialGallery: "/design/residential/galleries/:slug",
-
-  renderings: "/gallery/renderings",
-
-  construction: "/construction",
-
-  projects: "/projects",
-  projectDetail: "/projects/:slug",
-
-  gallery: "/gallery",
-  galleryCollection: "/gallery/:collection",
 };
 
 export const NAV = [
   { label: "Home", href: ROUTES.home },
-  { label: "About", href: ROUTES.about },
-
-  {
-    label: "Design",
-    href: ROUTES.design,
-    children: [
-      { label: "Overview", href: ROUTES.design },
-      { label: "Commercial", href: ROUTES.designCommercial },
-      { label: "Residential", href: ROUTES.designResidential },
-    ],
-  },
-
-  { label: "Construction", href: ROUTES.construction },
-
-  {
-    label: "Projects",
-    href: ROUTES.projects,
-    children: [
-      { label: "All Projects", href: ROUTES.projects },
-      { label: "Gallery", href: ROUTES.gallery },
-    ],
-  },
-
-  {
-    label: "Contact",
-    href: ROUTES.contact,
-    children: [
-      { label: "Schedule Consultation", href: ROUTES.consultation },
-      { label: "Careers", href: ROUTES.careers },
-      { label: "Reviews", href: ROUTES.reviews },
-    ],
-  },
+  { label: "Kitchens", href: ROUTES.kitchens },
+  { label: "Bathrooms", href: ROUTES.bathrooms },
+  { label: "Portfolio", href: ROUTES.projects },
+  { label: "Showroom", href: ROUTES.showroom },
+  { label: "Contact", href: ROUTES.contact },
 ];
 
 export function createProjectUrl(slug) {
   return `/projects/${slug}`;
-}
-
-export function createGalleryUrl(collection) {
-  return `/gallery/${collection}`;
 }

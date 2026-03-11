@@ -55,7 +55,7 @@ export default function ContactClient() {
       showBottomCta={false}
     >
       {submitted ? (
-        <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto text-center">
+        <section className="py-10 md:py-14 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto text-center">
           <p className="text-[#1F2E23]/65 font-sans-clean text-lg max-w-xl mx-auto leading-[1.8]">
             If you need to add details, email us directly at{" "}
             <a
@@ -68,7 +68,7 @@ export default function ContactClient() {
           </p>
         </section>
       ) : (
-        <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-[#F5F0EA]">
+        <section className="py-10 md:py-14 px-6 md:px-12 lg:px-20 bg-[#F5F0EA]">
           <div className="max-w-[1440px] mx-auto">
             <Panel className="border border-[#1F2E23]/10 bg-[#F8F4ED]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 px-8 md:px-12 lg:px-16 py-14 md:py-16">
@@ -117,9 +117,9 @@ export default function ContactClient() {
                             Address
                           </div>
                           <div className="text-[#1F2E23] font-sans-clean text-base leading-relaxed">
-                            P.O. Box 131264
+                            1918 Baker Rd.
                             <br />
-                            The Woodlands, TX 77393
+                            Houston, TX 77074
                           </div>
                         </div>
                       </div>
