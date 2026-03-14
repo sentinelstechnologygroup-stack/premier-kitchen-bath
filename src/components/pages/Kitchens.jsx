@@ -17,7 +17,8 @@ export default function Kitchens() {
       }}
       intro={{
         eyebrow: "Crafted in Houston",
-        title: "Beautiful kitchens designed for gathering, cooking, and daily life.",
+        title:
+          "Beautiful kitchens designed for gathering, cooking, and daily life.",
         body:
           "A kitchen should feel as functional as it is refined. We design around how your household lives—bringing together cabinetry, surfaces, appliances, storage, and lighting into one cohesive environment built for daily use and lasting beauty.",
       }}
@@ -27,7 +28,8 @@ export default function Kitchens() {
       }}
       narrowCta={{
         eyebrow: "Plan Your Kitchen Project",
-        title: "Ready to define layout, cabinetry, materials, and scope with our team?",
+        title:
+          "Ready to define layout, cabinetry, materials, and scope with our team?",
         body:
           "Start with a consultation to review how your kitchen needs to function and the finish combinations that will bring it together.",
         ctaLabel: "Schedule Consultation",
@@ -62,7 +64,7 @@ export default function Kitchens() {
         title: "Ready to Reimagine Your Kitchen?",
         body:
           "Visit our Houston showroom, compare cabinetry and surface combinations in person, and begin shaping a kitchen renovation tailored to your home and daily life.",
-        image: "/images/kitchens/kitchens-footer-cta.jpg",
+        image: "/images/cta/kitchens.jpg",
         alt: "Premier Kitchens kitchen showroom inspiration",
         primaryCtaLabel: "Begin Your Project",
         primaryCtaHref: ROUTES.consultation,

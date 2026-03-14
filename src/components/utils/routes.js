@@ -1,10 +1,12 @@
 // src/components/utils/routes.js
+
 export const ROUTES = {
   home: "/",
   about: "/about",
 
   kitchens: "/kitchens",
   bathrooms: "/bathrooms",
+  products: "/products",
 
   projects: "/projects",
   showroom: "/showroom",
@@ -14,7 +16,6 @@ export const ROUTES = {
   reviews: "/reviews",
   privacy: "/privacy-policy",
   blog: "/blog",
-
 };
 
 export const NAV = [
@@ -22,6 +23,7 @@ export const NAV = [
   { label: "Kitchens", href: ROUTES.kitchens },
   { label: "Bathrooms", href: ROUTES.bathrooms },
   { label: "Portfolio", href: ROUTES.projects },
+  { label: "Products", href: ROUTES.products },
   { label: "Showroom", href: ROUTES.showroom },
   { label: "Contact", href: ROUTES.contact },
 ];

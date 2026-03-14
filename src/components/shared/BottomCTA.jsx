@@ -1,4 +1,6 @@
 // src/components/shared/BottomCTA.jsx
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -6,58 +8,99 @@ import AnimatedSection from "./AnimatedSection";
 import { ROUTES } from "@/components/utils/routes";
 import { trackCTA } from "@/lib/intelligence";
 import { Button } from "@/components/ui/button";
+import { getCTAVariant } from "@/content/ctaVariants";
 
 export default function BottomCTA({
+  variant = null,
   eyebrow = "Ready to start?",
   title = "Schedule a Design Consultation",
   body = "Premier Kitchens & Bath is a Houston kitchen and bath remodeling company specializing in custom renovations and premium craftsmanship. Schedule a consultation to discuss your vision, explore design possibilities, and plan your project timeline. Our team typically responds within one business day.",
   primaryLabel = "Schedule Consultation",
-  primaryHref = ROUTES.consultation,
+  primaryHref = ROUTES.consultation ?? "/contact",
   secondaryLabel = "View Projects",
-  secondaryHref = ROUTES.projects,
+  secondaryHref = ROUTES.projects ?? "/projects",
   tone = "forest", // "forest" | "sage"
 }) {
-  const toneClass = tone === "sage" ? "bg-[#6B7F5E]" : "bg-[#545E55]";
+  const variantConfig = getCTAVariant(variant);
+
+  const resolvedEyebrow = variantConfig?.eyebrow ?? eyebrow;
+  const resolvedTitle = variantConfig?.title ?? title;
+  const resolvedBody = variantConfig?.body ?? body;
+  const resolvedPrimaryLabel = variantConfig?.primaryLabel ?? primaryLabel;
+  const resolvedPrimaryHref = variantConfig?.primaryHref ?? primaryHref;
+  const resolvedSecondaryLabel = variantConfig?.secondaryLabel ?? secondaryLabel;
+  const resolvedSecondaryHref = variantConfig?.secondaryHref ?? secondaryHref;
+  const resolvedTone = variantConfig?.tone ?? tone;
+  const backgroundImage = variantConfig?.backgroundImage ?? null;
+
+  const toneClass =
+    resolvedTone === "sage" ? "bg-[#6B7F5E]" : "bg-[#545E55]";
+
+  const primaryTrackingLabel = resolvedPrimaryLabel
+    .toLowerCase()
+    .replace(/\s+/g, "-");
+
+  const secondaryTrackingLabel = resolvedSecondaryLabel
+    .toLowerCase()
+    .replace(/\s+/g, "-");
 
   return (
-    <section className={`border-t border-[#1F2E23]/10 ${toneClass}`}>
-      <div className="py-12 md:py-16 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto">
+    <section
+      className={`relative overflow-hidden border-t border-[#1F2E23]/10 ${toneClass}`}
+    >
+      {backgroundImage ? (
+        <>
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url("${backgroundImage}")` }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-0 bg-[#1F2E23]/60"
+            aria-hidden="true"
+          />
+        </>
+      ) : null}
+
+      <div className="relative mx-auto max-w-[1440px] px-6 py-12 md:px-12 md:py-16 lg:px-20">
         <AnimatedSection>
           <div className="text-center">
-            {eyebrow ? (
-              <div className="text-[10px] tracking-[0.35em] uppercase font-sans-clean font-semibold text-[#F5F0EA]/70 mb-6">
-                {eyebrow}
+            {resolvedEyebrow ? (
+              <div className="mb-6 text-[10px] font-sans-clean font-semibold uppercase tracking-[0.35em] text-[#F5F0EA]/70">
+                {resolvedEyebrow}
               </div>
             ) : null}
 
-            <h2 className="font-serif-display text-[#F5F0EA] text-3xl md:text-4xl lg:text-5xl font-light leading-[1.05]">
-              {title}
+            <h2 className="font-serif-display text-3xl font-light leading-[1.05] text-[#F5F0EA] md:text-4xl lg:text-5xl">
+              {resolvedTitle}
             </h2>
 
-            {body ? (
-              <p className="mt-6 text-[#F5F0EA]/75 font-sans-clean text-sm md:text-base leading-[1.9] max-w-3xl mx-auto">
-                {body}
+            {resolvedBody ? (
+              <p className="mx-auto mt-6 max-w-3xl font-sans-clean text-sm leading-[1.9] text-[#F5F0EA]/75 md:text-base">
+                {resolvedBody}
               </p>
             ) : null}
 
-            <div className="mt-10 flex flex-col sm:flex-row gap-5 justify-center">
+            <div className="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
               <Button asChild variant="cta" size="ctaLg">
                 <Link
-                  href={primaryHref}
-                  onClick={() => trackCTA("schedule-consultation", "bottom-cta")}
+                  href={resolvedPrimaryHref}
+                  onClick={() => trackCTA(primaryTrackingLabel, "bottom-cta")}
                 >
-                  {primaryLabel}
-                  <ArrowRight className="w-4 h-4" />
+                  {resolvedPrimaryLabel}
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
 
               <Button asChild variant="ctaSecondary" size="ctaLg">
                 <Link
-                  href={secondaryHref}
-                  onClick={() => trackCTA("view-projects", "bottom-cta")}
+                  href={resolvedSecondaryHref}
+                  onClick={() =>
+                    trackCTA(secondaryTrackingLabel, "bottom-cta")
+                  }
                 >
-                  {secondaryLabel}
-                  <ArrowRight className="w-4 h-4" />
+                  {resolvedSecondaryLabel}
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
             </div>

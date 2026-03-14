@@ -62,7 +62,7 @@ export default function Bathrooms() {
         title: "Ready to Reimagine Your Bathroom?",
         body:
           "Visit our Houston showroom, compare bath finishes in person, and begin shaping a bathroom renovation that feels refined, functional, and unmistakably yours.",
-        image: "/images/bathrooms/bathrooms-footer-cta.jpg",
+        image: "/images/cta/bathrooms.jpg",
         alt: "Premier Kitchens bathroom showroom inspiration",
         primaryCtaLabel: "Begin Your Project",
         primaryCtaHref: ROUTES.consultation,

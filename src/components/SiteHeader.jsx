@@ -28,7 +28,9 @@ export default function SiteHeader({ currentPageName }) {
   useEffect(() => {
     const syncHeroState = () => {
       if (typeof document === "undefined") return;
-      setHasHeroUnderHeader(document.body.classList.contains("premier-has-hero"));
+      setHasHeroUnderHeader(
+        document.body.classList.contains("premier-has-hero")
+      );
     };
 
     syncHeroState();
@@ -42,7 +44,10 @@ export default function SiteHeader({ currentPageName }) {
     return () => observer.disconnect();
   }, [pathname]);
 
-  const heroTop = useMemo(() => hasHeroUnderHeader && !scrolled, [hasHeroUnderHeader, scrolled]);
+  const heroTop = useMemo(
+    () => hasHeroUnderHeader && !scrolled && !mobileOpen,
+    [hasHeroUnderHeader, scrolled, mobileOpen]
+  );
 
   const shellClass = heroTop
     ? "fixed inset-x-0 top-0 z-[1000] border-b border-white/10 bg-transparent"
@@ -54,18 +59,23 @@ export default function SiteHeader({ currentPageName }) {
     : "text-[#1E1A17] hover:text-[#7A6552]";
 
   const onScheduleClick = (where) => {
-    trackCTA("schedule-consultation", where, { page: currentPageName || "unknown" });
-    trackLeadIntent("contact_open", { source: where, page: currentPageName || "unknown" });
+    trackCTA("schedule-consultation", where, {
+      page: currentPageName || "unknown",
+    });
+    trackLeadIntent("contact_open", {
+      source: where,
+      page: currentPageName || "unknown",
+    });
   };
 
   return (
     <header className={shellClass}>
-      <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-6 md:px-12 lg:px-20">
+      <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:h-[76px] md:px-12 lg:px-20">
         <Link href={ROUTES.home} className={`leading-none ${textClass}`}>
-          <div className="font-serif-display text-[18px] font-semibold tracking-[0.08em]">
+          <div className="font-serif-display text-[15px] font-semibold tracking-[0.08em] md:text-[18px]">
             PREMIER KITCHENS
           </div>
-          <div className="mt-1 text-[9px] uppercase tracking-[0.34em] opacity-75">
+          <div className="mt-1 text-[8px] uppercase tracking-[0.30em] opacity-75 md:text-[9px] md:tracking-[0.34em]">
             Kitchen &amp; Bath
           </div>
         </Link>
@@ -106,47 +116,51 @@ export default function SiteHeader({ currentPageName }) {
 
         <button
           type="button"
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-full border lg:hidden ${
+          className={`inline-flex h-10 w-10 items-center justify-center rounded-full border lg:hidden ${
             heroTop
-              ? "border-white/20 bg-white/8 text-white backdrop-blur-sm"
-              : "border-[#1E1A17]/10 text-[#1E1A17]"
+              ? "border-white/20 bg-white/10 text-white backdrop-blur-sm"
+              : "border-[#1E1A17]/10 bg-[#F6F1EA] text-[#1E1A17]"
           }`}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen((prev) => !prev)}
         >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
       </div>
 
       {mobileOpen ? (
         <div className="border-t border-[#1E1A17]/10 bg-[#F6F1EA] lg:hidden">
-          <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-6 py-6 md:px-12">
-            {NAV.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-[12px] font-semibold uppercase tracking-[0.24em] text-[#1E1A17]"
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="mx-auto max-w-[1440px] px-5 py-6 md:px-12">
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-5">
+                {NAV.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="text-[12px] font-semibold uppercase tracking-[0.28em] text-[#1E1A17]"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
 
-            <div className="mt-2 border-t border-[#1E1A17]/10 pt-5">
-              <a
-                href="tel:17135206570"
-                className="block text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1E1A17]"
-              >
-                (713) 520-6570
-              </a>
+              <div className="border-t border-[#1E1A17]/10 pt-5">
+                <a
+                  href="tel:17135206570"
+                  className="block text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1E1A17]"
+                >
+                  (713) 520-6570
+                </a>
 
-              <Link
-                href={ROUTES.consultation}
-                className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1E1A17] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F6F1EA]"
-                onClick={() => onScheduleClick("Mobile Header CTA")}
-              >
-                Schedule Consultation
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
+                <Link
+                  href={ROUTES.consultation}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1E1A17] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F6F1EA]"
+                  onClick={() => onScheduleClick("Mobile Header CTA")}
+                >
+                  Schedule Consultation
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
