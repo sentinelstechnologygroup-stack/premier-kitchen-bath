@@ -3,7 +3,9 @@
 
 import React, { useEffect } from "react";
 import BottomCTA from "@/components/shared/BottomCTA";
-import { PRODUCTS_PAGE_HERO, PRODUCT_CATEGORIES } from "@/content/productsData";
+import SEO from "@/components/shared/SEO";
+import { PRODUCT_CATEGORIES } from "@/content/productsData";
+import { getPageContent } from "@/config/seo";
 
 function ProductCategorySection({ title, brands }) {
   return (
@@ -34,6 +36,8 @@ function ProductCategorySection({ title, brands }) {
 }
 
 export default function ProductsPage() {
+  const content = getPageContent("products");
+
   useEffect(() => {
     document.body.classList.add("premier-has-hero");
 
@@ -44,6 +48,8 @@ export default function ProductsPage() {
 
   return (
     <>
+      <SEO pageKey="products" />
+
       <section className="relative isolate overflow-hidden border-b border-[#1F2E23]/10">
         <div
           className="absolute inset-0 bg-cover bg-no-repeat"
@@ -58,19 +64,19 @@ export default function ProductsPage() {
 
         <div className="relative mx-auto max-w-[980px] px-6 py-24 text-center md:px-10 md:py-32 lg:px-12">
           <div className="mb-6 text-[10px] font-sans-clean font-semibold uppercase tracking-[0.35em] text-[#F5EBDD]/80">
-            {PRODUCTS_PAGE_HERO.eyebrow}
+            {content.eyebrow}
           </div>
 
           <h1 className="font-serif-display text-4xl font-light leading-[1.02] text-[#F5F0EA] md:text-5xl lg:text-6xl">
-            {PRODUCTS_PAGE_HERO.title}
+            {content.heroTitle}
           </h1>
 
           <p className="mx-auto mt-8 max-w-3xl font-sans-clean text-sm leading-[1.95] text-[#F5F0EA]/85 md:text-base">
-            {PRODUCTS_PAGE_HERO.intro}
+            {content.heroBody}
           </p>
 
           <p className="mx-auto mt-5 max-w-2xl font-sans-clean text-xs leading-[1.9] text-[#F5F0EA]/65 md:text-sm">
-            {PRODUCTS_PAGE_HERO.note}
+            {content.heroNote}
           </p>
         </div>
       </section>
@@ -79,10 +85,7 @@ export default function ProductsPage() {
         <div className="mx-auto max-w-[1200px] px-6 py-14 md:px-10 md:py-18 lg:px-12">
           <div className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
             <p className="font-sans-clean text-sm leading-[1.95] text-[#5E5A55] md:text-base">
-              We help homeowners compare materials, finishes, and product lines
-              in the context of the full renovation—not as isolated selections.
-              That means better coordination between cabinetry, surfaces, tile,
-              fixtures, hardware, and lighting from the start.
+              {content.sectionBody}
             </p>
           </div>
 
@@ -101,18 +104,15 @@ export default function ProductsPage() {
       <section className="border-t border-[#1F2E23]/10 bg-[#FAF7F2]">
         <div className="mx-auto max-w-[980px] px-6 py-16 text-center md:px-10 md:py-20 lg:px-12">
           <div className="mb-6 text-[10px] font-sans-clean font-semibold uppercase tracking-[0.35em] text-[#9C7B4F]">
-            Design Guidance
+            {content.ctaEyebrow}
           </div>
 
           <h2 className="font-serif-display text-3xl font-light leading-[1.08] text-[#1F1A17] md:text-4xl lg:text-5xl">
-            See Samples, Finishes, and Combinations in Person
+            {content.ctaTitle}
           </h2>
 
           <p className="mx-auto mt-6 max-w-3xl font-sans-clean text-sm leading-[1.95] text-[#5E5A55] md:text-base">
-            The showroom experience helps narrow selections faster and makes it
-            easier to evaluate tone, texture, scale, and coordination across
-            the entire space. We use that process to guide kitchens,
-            bathrooms, and renovation projects toward a more complete result.
+            {content.ctaBody}
           </p>
         </div>
       </section>

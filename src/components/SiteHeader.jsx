@@ -109,7 +109,7 @@ export default function SiteHeader({ currentPageName }) {
                 : "bg-[#1E1A17] text-[#F6F1EA] hover:bg-[#322A24]"
             }`}
           >
-            Schedule Consultation
+            Consultation
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
@@ -157,7 +157,7 @@ export default function SiteHeader({ currentPageName }) {
                   className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1E1A17] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F6F1EA]"
                   onClick={() => onScheduleClick("Mobile Header CTA")}
                 >
-                  Schedule Consultation
+                  Consultation
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </div>

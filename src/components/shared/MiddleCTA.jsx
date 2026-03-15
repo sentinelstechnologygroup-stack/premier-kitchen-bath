@@ -11,7 +11,7 @@ export default function MiddleCTA({
   eyebrow = "Ready to start?",
   title = "Schedule a Landscape Design Consultation",
   body = "",
-  primaryLabel = "Schedule Consultation",
+  primaryLabel = "Consultation",
   primaryHref = ROUTES.consultation,
   secondaryLabel = "View Projects",
   secondaryHref = ROUTES.projects,

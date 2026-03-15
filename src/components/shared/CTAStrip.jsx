@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 
 export default function CTAStrip({
   title = "Schedule a design consultation today.",
-  body = "Click the button to Schedule Consultation. We look forward to speaking with you about your project.",
-  primaryLabel = "Schedule Consultation",
+  body = "Click the button to Consultation. We look forward to speaking with you about your project.",
+  primaryLabel = "Consultation",
   primaryHref = ROUTES.consultation,
   secondaryLabel = "View Projects",
   secondaryHref = ROUTES.projects,

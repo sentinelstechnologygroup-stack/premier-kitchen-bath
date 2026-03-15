@@ -145,7 +145,7 @@ export function registerPageMeta(meta = {}) {
 
 /**
  * Track CTA clicks
- * name: "Schedule Consultation"
+ * name: "Consultation"
  * location: "Header" | "Hero" | "Footer" | etc
  * extras: optional: { variant, routeTo, ... }
  */

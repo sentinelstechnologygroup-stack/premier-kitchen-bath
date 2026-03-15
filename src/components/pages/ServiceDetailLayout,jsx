@@ -1,0 +1,229 @@
+// src/components/pages/ServiceDetailLayout.jsx
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import PageShell from "@/components/PageShell";
+import AnimatedSection from "@/components/shared/AnimatedSection";
+import { Panel } from "@/components/ui/panel";
+
+function SectionEyebrow({ children }) {
+  if (!children) return null;
+
+  return (
+    <div className="mb-4 font-sans-clean text-[10px] font-semibold uppercase tracking-[0.25em] text-[#1F2E23]/45">
+      {children}
+    </div>
+  );
+}
+
+function CtaButton({ href, children, variant = "primary" }) {
+  if (!href || !children) return null;
+
+  const base =
+    "inline-flex items-center justify-center rounded-full px-6 py-3 text-[11px] font-sans-clean font-semibold uppercase tracking-[0.2em] transition-colors";
+  const styles =
+    variant === "secondary"
+      ? "border border-[#1F2E23]/20 bg-transparent text-[#1F2E23] hover:bg-[#1F2E23]/5"
+      : "bg-[#171310] text-white hover:bg-[#2A211B]";
+
+  return (
+    <Link href={href} className={`${base} ${styles}`}>
+      {children}
+    </Link>
+  );
+}
+
+function ProcessStep({ number, title, body }) {
+  return (
+    <div>
+      <div className="mb-4 font-sans-clean text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C6A173]">
+        {number}
+      </div>
+      <h3 className="mb-4 font-serif-display text-2xl font-light text-[#F5F0EA]">
+        {title}
+      </h3>
+      <p className="font-sans-clean text-sm leading-[1.8] text-[rgba(245,240,234,0.78)]">
+        {body}
+      </p>
+    </div>
+  );
+}
+
+export default function ServiceDetailLayout({
+  hero,
+  intro,
+  featureBand,
+  narrowCta,
+  process,
+  footerImageCta,
+  children,
+}) {
+  return (
+    <PageShell
+      hero
+      heroImage={hero?.image}
+      eyebrow={hero?.eyebrow}
+      title={hero?.title}
+      subtitle={hero?.subtitle}
+    >
+      <section className="mx-auto max-w-[1440px] px-6 py-10 md:px-12 lg:px-20">
+        <div className="grid grid-cols-1 items-start gap-16 md:grid-cols-2 md:gap-20">
+          <AnimatedSection>
+            <div>
+              <SectionEyebrow>{intro?.eyebrow}</SectionEyebrow>
+
+              {intro?.title ? (
+                <h2 className="font-serif-display text-4xl font-light leading-[1.06] text-[#1F2E23] md:text-5xl">
+                  {intro.title}
+                </h2>
+              ) : null}
+
+              {intro?.body ? (
+                <p className="mt-8 max-w-2xl font-sans-clean text-base leading-[1.8] text-[#1F2E23]/70">
+                  {intro.body}
+                </p>
+              ) : null}
+            </div>
+          </AnimatedSection>
+
+          {featureBand?.image ? (
+            <AnimatedSection delay={0.15}>
+              <Panel className="overflow-hidden border border-[#1F2E23]/10 bg-[#F8F4ED]">
+                <img
+                  src={featureBand.image}
+                  alt={featureBand.alt || ""}
+                  className="aspect-[4/3] w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </Panel>
+            </AnimatedSection>
+          ) : null}
+        </div>
+      </section>
+
+      {children ? (
+        <section className="border-t border-[#1F2E23]/10">
+          <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 lg:px-20">
+            <AnimatedSection>{children}</AnimatedSection>
+          </div>
+        </section>
+      ) : null}
+
+      {narrowCta?.title || narrowCta?.body ? (
+        <section className="border-t border-[#1F2E23]/10 bg-[#FAF7F2]">
+          <div className="mx-auto max-w-[980px] px-6 py-14 text-center md:px-10 md:py-18 lg:px-12">
+            <AnimatedSection>
+              <SectionEyebrow>{narrowCta?.eyebrow}</SectionEyebrow>
+
+              {narrowCta?.title ? (
+                <h2 className="font-serif-display text-3xl font-light leading-[1.08] text-[#1F2E23] md:text-4xl lg:text-5xl">
+                  {narrowCta.title}
+                </h2>
+              ) : null}
+
+              {narrowCta?.body ? (
+                <p className="mx-auto mt-6 max-w-3xl font-sans-clean text-sm leading-[1.95] text-[#5E5A55] md:text-base">
+                  {narrowCta.body}
+                </p>
+              ) : null}
+
+              {narrowCta?.ctaLabel && narrowCta?.ctaHref ? (
+                <div className="mt-8 flex items-center justify-center">
+                  <CtaButton href={narrowCta.ctaHref}>
+                    {narrowCta.ctaLabel}
+                  </CtaButton>
+                </div>
+              ) : null}
+            </AnimatedSection>
+          </div>
+        </section>
+      ) : null}
+
+      {process?.steps?.length ? (
+        <section className="border-t border-[#1F2E23]/10">
+          <div className="bg-[#1F2E23]">
+            <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 lg:px-20">
+              <AnimatedSection>
+                <SectionEyebrow>{process?.eyebrow}</SectionEyebrow>
+                {process?.title ? (
+                  <h2 className="mb-16 font-serif-display text-4xl font-light text-[#F5F0EA] md:text-5xl">
+                    {process.title}
+                  </h2>
+                ) : null}
+              </AnimatedSection>
+
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-3">
+                {process.steps.map((step, idx) => (
+                  <AnimatedSection key={`${step.title}-${idx}`} delay={idx * 0.1}>
+                    <ProcessStep
+                      number={step.number}
+                      title={step.title}
+                      body={step.body}
+                    />
+                  </AnimatedSection>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {footerImageCta ? (
+        <section className="border-t border-[#1F2E23]/10">
+          <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 lg:px-20">
+            <div className="grid grid-cols-1 items-start gap-16 md:grid-cols-2 md:gap-20">
+              {footerImageCta.image ? (
+                <AnimatedSection>
+                  <Panel className="overflow-hidden border border-[#1F2E23]/10 bg-[#F8F4ED]">
+                    <img
+                      src={footerImageCta.image}
+                      alt={footerImageCta.alt || ""}
+                      className="aspect-[4/3] w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </Panel>
+                </AnimatedSection>
+              ) : null}
+
+              <AnimatedSection delay={0.15}>
+                <div className="flex h-full flex-col justify-start">
+                  <SectionEyebrow>{footerImageCta.eyebrow}</SectionEyebrow>
+
+                  {footerImageCta.title ? (
+                    <h2 className="font-serif-display text-3xl font-light text-[#1F2E23] md:text-4xl">
+                      {footerImageCta.title}
+                    </h2>
+                  ) : null}
+
+                  <div className="my-7 h-px w-14 bg-[#1F2E23]/80" />
+
+                  {footerImageCta.body ? (
+                    <div className="space-y-5 font-sans-clean text-[15px] leading-[1.75] text-[#1F2E23]/70">
+                      <p>{footerImageCta.body}</p>
+                    </div>
+                  ) : null}
+
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <CtaButton href={footerImageCta.primaryCtaHref}>
+                      {footerImageCta.primaryCtaLabel}
+                    </CtaButton>
+
+                    <CtaButton
+                      href={footerImageCta.secondaryCtaHref}
+                      variant="secondary"
+                    >
+                      {footerImageCta.secondaryCtaLabel}
+                    </CtaButton>
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </section>
+      ) : null}
+    </PageShell>
+  );
+}

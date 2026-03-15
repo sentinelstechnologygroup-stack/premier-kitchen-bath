@@ -1,17 +1,22 @@
-// src/pages/Reviews.jsx
+// src/components/pages/Reviews.jsx
+"use client";
+
 import React, { useMemo, useState } from "react";
 import { ExternalLink, Quote, Star } from "lucide-react";
 import PageShell from "../PageShell";
 import AnimatedSection from "../shared/AnimatedSection";
+import SEO from "@/components/shared/SEO";
 import { Panel } from "@/components/ui/panel";
 import { Button } from "@/components/ui/button";
 import { REVIEW_SOURCES, getReviews } from "@/content/reviews";
+import { getPageContent } from "@/config/seo";
 
 const MEDIA = {
   hero: "/images/contact/reviews/hero.jpg",
 };
 
 export default function Reviews() {
+  const content = getPageContent("reviews");
   const [visibleCount, setVisibleCount] = useState(9);
   const REVIEWS = useMemo(() => getReviews(), []);
   const visibleReviews = REVIEWS.slice(0, visibleCount);
@@ -52,7 +57,9 @@ export default function Reviews() {
       </div>
 
       <div className="mt-8 border-t border-white/10 pt-6">
-        <div className="font-sans-clean text-sm font-semibold text-white">{String(name).toUpperCase()}</div>
+        <div className="font-sans-clean text-sm font-semibold text-white">
+          {String(name).toUpperCase()}
+        </div>
         <div className="mt-2 font-sans-clean text-[11px] uppercase tracking-[0.14em] text-white/55">
           {meta}
         </div>
@@ -61,58 +68,64 @@ export default function Reviews() {
   );
 
   return (
-    <PageShell
-      hero
-      heroImage={MEDIA.hero}
-      eyebrow="Reviews"
-      title="Reviews & Client Feedback"
-      subtitle="Disciplined planning. Clear deliverables. Professional execution. Explore feedback and updates across our profiles."
-      heroExtras={
-        <div className="flex flex-wrap items-center gap-3">
-          {REVIEW_SOURCES.map((s) => (
-            <HeroSourcePill key={s.name} name={s.name} href={s.href} />
-          ))}
-        </div>
-      }
-    >
-      <section className="bg-[#F5F0EA] px-6 py-14 md:px-12 md:py-18 lg:px-20">
-        <div className="mx-auto max-w-[1440px]">
-          <AnimatedSection>
-            <div className="max-w-3xl">
-              <div className="mb-6 font-sans-clean text-[10px] font-semibold uppercase tracking-[0.25em] text-[#1F2E23]/45">
-                Client Reviews
-              </div>
-              <h2 className="font-serif-display text-3xl font-light leading-[1.12] tracking-tight text-[#1F2E23] md:text-4xl">
-                Trusted for disciplined planning and results that hold up over time.
-              </h2>
-              <p className="mt-5 max-w-[78ch] font-sans-clean text-sm leading-[1.9] text-[#1F2E23]/65 md:text-base">
-                Below are selected reviews.
-              </p>
-            </div>
-          </AnimatedSection>
+    <>
+      <SEO pageKey="reviews" />
 
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-            {visibleReviews.map((r, idx) => (
-              <AnimatedSection key={`${r.name}-${idx}`}>
-                <ReviewCard {...r} />
-              </AnimatedSection>
+      <PageShell
+        hero
+        heroImage={MEDIA.hero}
+        eyebrow={content.heroEyebrow}
+        title={content.heroTitle}
+        subtitle={content.heroSubtitle}
+        heroExtras={
+          <div className="flex flex-wrap items-center gap-3">
+            {REVIEW_SOURCES.map((s) => (
+              <HeroSourcePill key={s.name} name={s.name} href={s.href} />
             ))}
           </div>
+        }
+      >
+        <section className="bg-[#F5F0EA] px-6 py-14 md:px-12 md:py-18 lg:px-20">
+          <div className="mx-auto max-w-[1440px]">
+            <AnimatedSection>
+              <div className="max-w-3xl">
+                <div className="mb-6 font-sans-clean text-[10px] font-semibold uppercase tracking-[0.25em] text-[#1F2E23]/45">
+                  {content.introEyebrow}
+                </div>
+                <h2 className="font-serif-display text-3xl font-light leading-[1.12] tracking-tight text-[#1F2E23] md:text-4xl">
+                  {content.introTitle}
+                </h2>
+                <p className="mt-5 max-w-[78ch] font-sans-clean text-sm leading-[1.9] text-[#1F2E23]/65 md:text-base">
+                  {content.introBody}
+                </p>
+              </div>
+            </AnimatedSection>
 
-          {hasMore && (
-            <div className="mt-12 flex justify-center">
-              <Button
-                type="button"
-                variant="premier"
-                onClick={() => setVisibleCount((n) => Math.min(n + 9, REVIEWS.length))}
-                className="h-auto px-12 py-4"
-              >
-                Load More Reviews
-              </Button>
+            <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+              {visibleReviews.map((r, idx) => (
+                <AnimatedSection key={`${r.name}-${idx}`}>
+                  <ReviewCard {...r} />
+                </AnimatedSection>
+              ))}
             </div>
-          )}
-        </div>
-      </section>
-    </PageShell>
+
+            {hasMore && (
+              <div className="mt-12 flex justify-center">
+                <Button
+                  type="button"
+                  variant="premier"
+                  onClick={() =>
+                    setVisibleCount((n) => Math.min(n + 9, REVIEWS.length))
+                  }
+                  className="h-auto px-12 py-4"
+                >
+                  Load More Reviews
+                </Button>
+              </div>
+            )}
+          </div>
+        </section>
+      </PageShell>
+    </>
   );
 }

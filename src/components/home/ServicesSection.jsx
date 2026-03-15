@@ -1,29 +1,7 @@
 // src/components/home/ServicesSection.jsx
 import React from "react";
 import Link from "next/link";
-
-const SECTIONS = [
-  {
-    id: "kitchens",
-    eyebrow: "What We Do",
-    title: "Kitchen\nRenovations",
-    body:
-      "From custom cabinetry to stone surfaces and integrated appliances, we design kitchens that are as beautiful to look at as they are to cook in. Every project begins with your vision and ends with precision.",
-    cta: "Explore Kitchens",
-    href: "/kitchens",
-    image: "/images/home/featured-03.jpg",
-  },
-  {
-    id: "bathrooms",
-    eyebrow: "What We Do",
-    title: "Bathroom\nRenovations",
-    body:
-      "Spa-like retreats crafted for the everyday. We transform ordinary bathrooms into spaces of quiet luxury through thoughtful tile selection, premium fixtures, and layouts that breathe.",
-    cta: "Explore Bathrooms",
-    href: "/bathrooms",
-    image: "/images/home/featured-02.jpg",
-  },
-];
+import { getPageContent } from "@/config/seo";
 
 function ImagePanel({ section }) {
   return (
@@ -69,17 +47,40 @@ function TextPanel({ section }) {
 }
 
 export default function ServicesSection() {
+  const home = getPageContent("home");
+
+  const sections = [
+    {
+      id: "kitchens",
+      eyebrow: home.services?.kitchens?.eyebrow,
+      title: home.services?.kitchens?.title,
+      body: home.services?.kitchens?.body,
+      cta: home.services?.kitchens?.cta,
+      href: "/kitchens",
+      image: "/images/home/featured-03.jpg",
+    },
+    {
+      id: "bathrooms",
+      eyebrow: home.services?.bathrooms?.eyebrow,
+      title: home.services?.bathrooms?.title,
+      body: home.services?.bathrooms?.body,
+      cta: home.services?.bathrooms?.cta,
+      href: "/bathrooms",
+      image: "/images/home/featured-02.jpg",
+    },
+  ];
+
   return (
     <section className="bg-[#F6F1EA] py-6 md:py-8">
       <div className="mx-auto max-w-[1440px] space-y-4 px-6 md:space-y-5 md:px-12 lg:px-20">
         <div id="kitchens" className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
-          <ImagePanel section={SECTIONS[0]} />
-          <TextPanel section={SECTIONS[0]} />
+          <ImagePanel section={sections[0]} />
+          <TextPanel section={sections[0]} />
         </div>
 
         <div id="bathrooms" className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
-          <TextPanel section={SECTIONS[1]} />
-          <ImagePanel section={SECTIONS[1]} />
+          <TextPanel section={sections[1]} />
+          <ImagePanel section={sections[1]} />
         </div>
       </div>
     </section>

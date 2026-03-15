@@ -1,229 +1,113 @@
 // src/pages/Design.jsx
-import React, { useMemo } from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+"use client";
+
+import React from "react";
 import PageShell from "../PageShell";
 import AnimatedSection from "../shared/AnimatedSection";
-import { ROUTES } from "@/components/utils/routes";
-import PortfolioMarquee from "@/components/portfolio/PortfolioMarquee";
+import SEO from "@/components/shared/SEO";
+import { Panel } from "@/components/ui/panel";
 import BottomCTA from "@/components/shared/BottomCTA";
 
 const MEDIA = {
-  hero: "/images/design/hub/hero.jpg",
-  commercial: "/images/design/hub/tile-commercial.jpg",
-  residential: "/images/design/hub/tile-residential.jpg",
-  support: "/images/design/hub/support.jpg",
+  hero: "/images/design/hero.jpg",
+  feature: "/images/design/feature.jpg",
 };
 
-const HUBS = [
+const DESIGN_POINTS = [
   {
-    href: ROUTES.designCommercial,
-    title: "Commercial Site Planning & Design",
-    subtitle:
-      "Comprehensive landscape architecture and grading plans for commercial developments, multifamily communities, and office campuses.",
-    meta: ["Site Planning", "Grading + Drainage", "Permitting Docs"],
-    image: MEDIA.commercial,
-    enterLabel: "Enter Commercial Design Hub",
+    title: "Space Planning",
+    body:
+      "We begin with how the room needs to function—traffic flow, storage, appliance placement, lighting, and the practical use of every surface.",
   },
   {
-    href: ROUTES.designResidential,
-    title: "Residential Landscape Architecture",
-    subtitle:
-      "Custom home master plans and buildable documentation—outdoor living, drainage strategy, planting systems, and details.",
-    meta: ["Master Plans", "Outdoor Living", "Drainage + Planting"],
-    image: MEDIA.residential,
-    enterLabel: "Enter Residential Design Hub",
+    title: "Material Coordination",
+    body:
+      "Cabinetry, countertops, tile, fixtures, hardware, and finishes are selected as a complete system so the final space feels intentional and refined.",
+  },
+  {
+    title: "Decision Clarity",
+    body:
+      "Our design process helps homeowners make confident decisions before construction begins, reducing confusion, delays, and costly late-stage changes.",
   },
 ];
 
 export default function Design() {
-  const PORTFOLIO_GALLERIES = useMemo(
-    () => [
-      {
-        href: ROUTES.gallery ?? "/gallery",
-        title: "Residential Estate Master Plan",
-        subtitle: "Grading, drainage strategy, outdoor circulation, and planting systems.",
-        image: MEDIA.support,
-      },
-      {
-        href: ROUTES.gallery ?? "/gallery",
-        title: "Pool & Outdoor Living",
-        subtitle: "Outdoor living layout, lighting, materials coordination, and build-ready details.",
-        image: MEDIA.residential,
-      },
-      {
-        href: ROUTES.gallery ?? "/gallery",
-        title: "Commercial Site Plan",
-        subtitle: "Site planning, civil coordination, and documentation for permitting.",
-        image: MEDIA.commercial,
-      },
-      {
-        href: ROUTES.gallery ?? "/gallery",
-        title: "Drainage + Planting Systems",
-        subtitle: "Performance-first drainage solutions with cohesive planting design.",
-        image: MEDIA.support,
-      },
-      {
-        href: ROUTES.gallery ?? "/gallery",
-        title: "Entry + Streetscape Improvements",
-        subtitle: "Arrival sequence, hardscape structure, and planting composition.",
-        image: MEDIA.residential,
-      },
-      {
-        href: ROUTES.gallery ?? "/gallery",
-        title: "Multifamily / Community Landscape",
-        subtitle: "Phasing, durability, and cohesive design across shared amenities.",
-        image: MEDIA.commercial,
-      },
-    ],
-    []
-  );
-
   return (
-    <PageShell
-      currentPageName="Design"
-      hero
-      heroImage={MEDIA.hero}
-      eyebrow="Design"
-      title="Landscape Architecture Services"
-      subtitle="Licensed landscape architects providing site planning, grading design, drainage engineering, and construction documentation for residential and commercial projects throughout Texas."
-    >
-      {/* HUB TILES */}
-      <section className="px-6 md:px-12 lg:px-20 py-14 md:py-18 max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {HUBS.map((hub, idx) => (
-            <AnimatedSection key={hub.title} delay={idx * 0.1}>
-              <Link href={hub.href} className="group block h-full">
-                {/* Card */}
-                <div className="relative h-full overflow-hidden border border-[#1F2E23]/10 bg-[#E8E0D4] rounded-3xl">
-                  {/* Image */}
-                  <div className="h-[360px] md:h-[420px] lg:h-[460px] overflow-hidden">
-                    <img
-                      src={hub.image}
-                      alt={hub.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
+    <>
+      <SEO pageKey="about" overrides={{
+        path: "/design",
+        title:
+          "Kitchen & Bath Design Process Houston TX | Premier Kitchen & Bath",
+        description:
+          "Explore the Premier Kitchen & Bath design process for Houston kitchen and bathroom remodeling projects, from layout planning to finish coordination.",
+        h1: "Kitchen & Bath Design Process in Houston, TX",
+        schemaType: "Service",
+      }} />
 
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/0" />
-
-                  {/* Content overlay */}
-                  <div className="absolute inset-0 p-7 md:p-9">
-                    {/* ✅ Top-left: ENTER HUB (replaces "Design Hub" position) */}
-                    <div className="flex items-center gap-3 text-[11px] tracking-[0.22em] uppercase font-sans-clean font-semibold text-white">
-                      {hub.enterLabel}
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-
-                    {/* ✅ Keep the rest of the text EXACTLY where it was (no flex / no reflow) */}
-                    <p className="mt-10 text-[10px] tracking-[0.28em] uppercase font-sans-clean font-semibold text-white/70">
-                      Design Hub
-                    </p>
-
-                    <h3 className="mt-3 font-serif-display text-white text-2xl md:text-3xl font-light leading-[1.1]">
-                      {hub.title}
-                    </h3>
-
-                    <p className="mt-4 text-white/70 font-sans-clean text-sm leading-[1.8] max-w-[56ch]">
-                      {hub.subtitle}
-                    </p>
-
-                    {/* ✅ Pills pinned to bottom of the IMAGE PANEL */}
-                    <div className="absolute left-7 right-7 bottom-7 md:left-9 md:right-9 md:bottom-9">
-                      <div className="flex flex-wrap gap-2">
-                        {hub.meta.map((m) => (
-                          <span
-                            key={m}
-                            className="text-[10px] tracking-[0.22em] uppercase font-sans-clean font-semibold text-white/75 border border-white/20 px-3 py-1 rounded-full"
-                          >
-                            {m}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+      <PageShell
+        hero
+        heroImage={MEDIA.hero}
+        eyebrow="Design Process"
+        title="Thoughtful Design Before Construction Begins"
+        subtitle="Our design process helps Houston homeowners align layout, materials, finish selections, and project direction before the build moves forward."
+      >
+        <section className="mx-auto max-w-[1440px] px-6 py-10 md:px-12 lg:px-20">
+          <div className="grid grid-cols-1 items-start gap-16 md:grid-cols-2 md:gap-20">
+            <AnimatedSection>
+              <div>
+                <div className="mb-4 font-sans-clean text-[10px] font-semibold uppercase tracking-[0.25em] text-[#1F2E23]/45">
+                  Why Design Matters
                 </div>
-              </Link>
-            </AnimatedSection>
-          ))}
-        </div>
-      </section>
-
-      {/* SUPPORT */}
-      <section>
-        <div className="px-6 md:px-12 lg:px-20 py-16 md:py-24 max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
-            <div className="md:col-span-5">
-              <AnimatedSection>
-                <div className="relative overflow-hidden border border-[#1F2E23]/10 bg-white rounded-2xl">
-                  <div className="h-[260px] sm:h-[300px] md:h-[320px] overflow-hidden">
-                    <img
-                      src={MEDIA.support}
-                      alt="Design details and execution"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                </div>
-
-                <p className="mt-4 text-[#1F2E23]/45 font-sans-clean text-xs leading-[1.6]">
-                  Image or video may live on this page.
-                </p>
-              </AnimatedSection>
-            </div>
-
-            <div className="md:col-span-7">
-              <AnimatedSection delay={0.1}>
-                <p className="text-[11px] tracking-[0.28em] uppercase font-sans-clean font-semibold text-[#1F2E23]/55 mb-5">
-                  Approach
-                </p>
-
-                <h2 className="font-serif-display text-[#1F2E23] text-3xl md:text-4xl font-light leading-[1.1] mb-6">
-                  Clean details. Real-world execution.
+                <h2 className="font-serif-display text-4xl font-light leading-[1.06] text-[#1F2E23] md:text-5xl">
+                  Better decisions
+                  <br />
+                  create better remodels.
                 </h2>
-
-                <p className="text-[#1F2E23]/60 font-sans-clean text-base leading-[1.85] mb-6">
-                  Our documentation is developed to coordinate disciplines, satisfy municipal requirements,
-                  and translate clearly to the field. We prioritize grading logic, drainage performance,
-                  constructible details, and planting systems that hold up over time.
+                <p className="mt-8 max-w-2xl font-sans-clean text-base leading-[1.8] text-[#1F2E23]/70">
+                  Kitchen remodeling and bathroom remodeling projects succeed
+                  when design decisions are made with clarity. We help clients
+                  think through layout, storage, surfaces, fixture selections,
+                  and finish coordination early so the final result feels
+                  cohesive rather than assembled piece by piece.
                 </p>
+              </div>
+            </AnimatedSection>
 
-                <p className="text-[#1F2E23]/60 font-sans-clean text-base leading-[1.85] mb-10">
-                  Whether the scope is a commercial site plan or a residential master plan, the goal is the
-                  same: a cohesive design supported by accurate drawings, smart detailing, and
-                  accountability through install.
-                </p>
+            <AnimatedSection delay={0.15}>
+              <Panel className="border border-[#1F2E23]/10 bg-[#F8F4ED]">
+                <img
+                  src={MEDIA.feature}
+                  alt="Premier Kitchen & Bath design planning and material coordination"
+                  className="aspect-[4/3] w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </Panel>
+            </AnimatedSection>
+          </div>
+        </section>
 
-                <Link href={ROUTES.gallery ?? "/gallery"}
-                  className="group inline-flex items-center gap-3 text-[#1F2E23] text-[12px] tracking-[0.2em] uppercase font-sans-clean font-semibold"
-                >
-                  View Design Portfolio
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </AnimatedSection>
+        <section className="border-t border-[#1F2E23]/10">
+          <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 lg:px-20">
+            <div className="grid grid-cols-1 gap-14 md:grid-cols-3">
+              {DESIGN_POINTS.map((item, idx) => (
+                <AnimatedSection key={item.title} delay={idx * 0.1}>
+                  <div>
+                    <h3 className="mb-4 font-serif-display text-2xl font-light text-[#1F2E23]">
+                      {item.title}
+                    </h3>
+                    <p className="font-sans-clean text-sm leading-[1.8] text-[#1F2E23]/65">
+                      {item.body}
+                    </p>
+                  </div>
+                </AnimatedSection>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* GALLERY TEASER — SINGLE SOURCE OF TRUTH */}
-      <section className="bg-[#E8E0D4] py-10 md:py-14">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-          <PortfolioMarquee
-            items={PORTFOLIO_GALLERIES}
-            title="Design Project Portfolio"
-            ctaLabel="View Full Portfolio"
-            ctaHref={ROUTES.gallery ?? "/gallery"}
-            bgColor="#E8E0D4"
-          />
-        </div>
-      </section>
-
-      <BottomCTA />
-    </PageShell>
+        <BottomCTA variant="about" />
+      </PageShell>
+    </>
   );
 }

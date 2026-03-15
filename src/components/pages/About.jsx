@@ -1,170 +1,89 @@
 // src/pages/About.jsx
+"use client";
+
 import React from "react";
-import Link from "next/link";
-import { ArrowRight, Award, Users, MapPin } from "lucide-react";
+import { Award, Users, MapPin } from "lucide-react";
 import PageShell from "../PageShell";
 import AnimatedSection from "../shared/AnimatedSection";
-import { ROUTES } from "@/components/utils/routes";
-import { Button } from "@/components/ui/button";
+import SEO from "@/components/shared/SEO";
 import { Panel } from "@/components/ui/panel";
 import BottomCTA from "@/components/shared/BottomCTA";
-
-// =============================
-// Easy-to-edit Config Blocks
-// =============================
 
 const MEDIA = {
   hero: "/images/about/hero.jpg",
   authority: "/images/about/authority.jpg",
-  chris: "/images/about/chris.jpg",
-  matt: "/images/about/matt.jpg",
+  showroom: "/images/about/showroom.jpg",
 };
 
 const METRICS = [
   {
     icon: Award,
-    value: "27+ Years",
+    value: "Since 1979",
     description:
-      "Licensed landscape architecture practice serving Texas clients since 1997",
+      "Serving Houston-area homeowners with premium kitchen and bathroom remodeling for more than four decades.",
   },
   {
     icon: Users,
-    value: "500+ Projects",
+    value: "5,000+ Projects",
     description:
-      "Residential estates, commercial developments, and community landscapes completed",
+      "A long history of completed kitchen, bath, and interior renovation projects across Houston and surrounding communities.",
   },
   {
     icon: MapPin,
-    value: "Regional Focus",
+    value: "Houston Focus",
     description:
-      "The Woodlands, Houston, and surrounding Montgomery and Harris county communities",
+      "Serving River Oaks, Memorial, Tanglewood, West University, Energy Corridor, Bellaire, The Heights, and nearby neighborhoods.",
   },
 ];
 
 const APPROACH = [
   {
-    title: "Planning",
+    title: "Consult",
     description:
-      "Site analysis, grading strategy, drainage design, and construction documentation that accounts for existing conditions, municipal requirements, and buildability constraints.",
+      "Every project begins with a conversation around how you live, how the space needs to function, and what level of finish and craftsmanship your home deserves.",
   },
   {
-    title: "Execution",
+    title: "Design",
     description:
-      "In-house construction crews managing hardscape installation, grading, irrigation, and planting—ensuring design intent translates to built reality without coordination gaps.",
+      "We guide selections across cabinetry, countertops, tile, fixtures, finishes, and layout so the final space feels unified rather than pieced together.",
   },
   {
-    title: "Stewardship",
+    title: "Deliver",
     description:
-      "Long-term project support, warranty service, and consultation for landscape maintenance strategies that preserve design quality and system performance.",
+      "Execution matters as much as concept. Our process is built around disciplined coordination, quality materials, and finished work that feels refined in every detail.",
   },
 ];
-
-const TEAM = [
-  {
-    label: "Principal",
-    name: "Chris K. Eiseman",
-    suffix: "RLA",
-    credentials: [],
-    image: MEDIA.chris,
-    email: " Info@PremierKitchens.us",
-    bio: [
-      " ",
-    ],
-  },
-  {
-    label: "Landscape Architect",
-    name: "Matt Louderback",
-    suffix: "RLA",
-    credentials: [],
-    image: MEDIA.matt,
-    email: null,
-    bio: [
-      " ",
-    ],
-  },
-];
-
-function CredentialsLine({ suffix, credentials }) {
-  const list = [
-    suffix ? suffix : null,
-    ...(Array.isArray(credentials) ? credentials : []),
-  ].filter(Boolean);
-
-  if (!list.length) return null;
-
-  return (
-    <div className="text-[11px] tracking-[0.22em] uppercase text-[#1F2E23]/45 font-sans-clean font-semibold mt-2">
-      {list.join(" • ")}
-    </div>
-  );
-}
-
-function LeaderText({ person }) {
-  return (
-    <div className="flex flex-col justify-start h-full">
-      <div className="text-[9px] tracking-[0.3em] uppercase text-[#1F2E23]/40 font-sans-clean font-semibold mb-4">
-        {person.label}
-      </div>
-
-      <h3 className="font-serif-display text-[#1F2E23] text-3xl md:text-4xl font-light">
-        {person.name}
-      </h3>
-
-      <CredentialsLine suffix={person.suffix} credentials={person.credentials} />
-
-      <div className="w-14 h-px bg-[#1F2E23]/80 my-7"></div>
-
-      <div className="space-y-5 text-[#1F2E23]/70 font-sans-clean text-[15px] leading-[1.75]">
-        {person.bio.map((para, i) => (
-          <p key={i}>{para}</p>
-        ))}
-      </div>
-
-      {person.email ? (
-        <div className="mt-7">
-          <a
-            href={`mailto:${person.email}`}
-            className="text-[#1F2E23]/65 font-sans-clean text-sm underline underline-offset-4 hover:text-[#1F2E23] transition-colors"
-          >
-            {person.email}
-          </a>
-        </div>
-      ) : null}
-    </div>
-  );
-}
 
 export default function About() {
   return (
-    <PageShell
-      hero
-      heroImage={MEDIA.hero}
-      eyebrow="About Premier Kitchen & Bath"
-      title="Landscape Architecture & Construction Services in Texas"
-      subtitle="Licensed landscape architects and construction specialists serving residential and commercial clients throughout The Woodlands, Houston, and surrounding markets since 1997."
-    >
-      {/* Authority Statement */}
-        <section className="py-10 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
-            
-            {/* LEFT COLUMN */}
+    <>
+      <SEO pageKey="about" />
+
+      <PageShell
+        hero
+        heroImage={MEDIA.hero}
+        eyebrow="About Premier Kitchen & Bath"
+        title="Houston Remodeling Expertise Since 1979"
+        subtitle="Premier Kitchen & Bath has helped Houston homeowners reimagine kitchens, bathrooms, and interior spaces with thoughtful design guidance, premium materials, and long-standing craftsmanship."
+      >
+        <section className="mx-auto max-w-[1440px] px-6 py-10 md:px-12 lg:px-20">
+          <div className="grid grid-cols-1 items-start gap-20 md:grid-cols-2">
             <div className="space-y-10">
               <AnimatedSection>
-                <h2 className="font-serif-display text-[#1F2E23] text-4xl md:text-5xl font-light leading-[1.05]">
-                  Technical site planning.
+                <h2 className="font-serif-display text-4xl font-light leading-[1.05] text-[#1F2E23] md:text-5xl">
+                  Design guidance.
                   <br />
-                  Quality construction.
+                  Lasting craftsmanship.
                 </h2>
-                <div className="w-16 h-px bg-[#1F2E23] mt-6"></div>
+                <div className="mt-6 h-px w-16 bg-[#1F2E23]" />
               </AnimatedSection>
 
-              {/* ✅ Rounded Image Panel */}
               <AnimatedSection delay={0.15}>
-                <Panel className="shadow-sm border border-[#1F2E23]/10">
+                <Panel className="border border-[#1F2E23]/10 shadow-sm">
                   <img
                     src={MEDIA.authority}
-                    alt="Landscape design planning and construction documentation"
-                    className="w-full aspect-[4/3] object-cover"
+                    alt="Premier Kitchen & Bath interior remodeling craftsmanship"
+                    className="aspect-[4/3] w-full object-cover"
                     loading="lazy"
                     decoding="async"
                   />
@@ -172,149 +91,139 @@ export default function About() {
               </AnimatedSection>
             </div>
 
-            {/* RIGHT COLUMN */}
             <div className="space-y-6">
               <AnimatedSection delay={0.2}>
-                <p className="text-[#1F2E23]/70 font-sans-clean text-base leading-[1.75]">
-                  Premier Kitchen & Bath was established in 1997 by Chris K. Eiseman, a
-                  licensed Texas landscape architect with expertise in residential
-                  estate design, commercial site planning, and landscape
-                  construction. The firm provides comprehensive services from
-                  initial site analysis through final installation, with in-house
-                  design and construction capabilities.
+                <p className="font-sans-clean text-base leading-[1.75] text-[#1F2E23]/70">
+                  Premier Kitchen & Bath has been a trusted name in Houston
+                  remodeling since 1979. Our work is centered on the spaces that
+                  shape daily life most—kitchens, bathrooms, and the surrounding
+                  interiors that connect them. We believe these rooms should do
+                  more than look beautiful; they should feel intuitive,
+                  durable, and deeply considered.
                 </p>
               </AnimatedSection>
 
               <AnimatedSection delay={0.3}>
-                <p className="text-[#1F2E23]/70 font-sans-clean text-base leading-[1.75]">
-                  Project types include private estates, custom residential
-                  properties, multifamily communities, office parks, retail
-                  centers, and municipal landscapes. Services include master
-                  planning, grading and drainage design, construction
-                  documentation, irrigation design, planting plans, and design-build
-                  installation.
+                <p className="font-sans-clean text-base leading-[1.75] text-[#1F2E23]/70">
+                  Our approach is intentionally hands-on. We help clients think
+                  through layout, cabinetry, countertops, tile, fixtures,
+                  storage, finish combinations, and the practical realities of
+                  construction long before final decisions are locked in. That
+                  process leads to cleaner execution and more cohesive finished
+                  spaces.
                 </p>
               </AnimatedSection>
 
               <AnimatedSection delay={0.4}>
-                <p className="text-[#1F2E23]/70 font-sans-clean text-base leading-[1.75]">
-                  The firm specializes in technically challenging sites—poor
-                  drainage, steep slopes, tight budgets, and coordination with
-                  civil engineers, architects, and general contractors.
+                <p className="font-sans-clean text-base leading-[1.75] text-[#1F2E23]/70">
+                  From classic renovations to more modern, luxury-forward
+                  interiors, our goal remains the same: to deliver Houston
+                  kitchen and bathroom remodeling work that feels elevated,
+                  functional, and built to last.
                 </p>
               </AnimatedSection>
             </div>
           </div>
         </section>
 
-      {/* Experience Stats */}
-      <section className="py-10 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto border-t border-[#1F2E23]/10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-          {METRICS.map((m, idx) => {
-            const Icon = m.icon;
-            return (
-              <AnimatedSection key={m.value} delay={idx * 0.1}>
-                <div className="flex items-start gap-4">
-                  <Icon className="w-6 h-6 text-[#6B7F5E] flex-shrink-0 mt-1" />
-                  <div>
-                    <div className="font-serif-display text-3xl text-[#1F2E23] font-light mb-2">
-                      {m.value}
+        <section className="mx-auto max-w-[1440px] border-t border-[#1F2E23]/10 px-6 py-10 md:px-12 lg:px-20">
+          <div className="grid grid-cols-1 gap-16 md:grid-cols-3">
+            {METRICS.map((metric, idx) => {
+              const Icon = metric.icon;
+
+              return (
+                <AnimatedSection key={metric.value} delay={idx * 0.1}>
+                  <div className="flex items-start gap-4">
+                    <Icon className="mt-1 h-6 w-6 flex-shrink-0 text-[#6B7F5E]" />
+                    <div>
+                      <div className="mb-2 font-serif-display text-3xl font-light text-[#1F2E23]">
+                        {metric.value}
+                      </div>
+                      <p className="font-sans-clean text-sm leading-[1.7] text-[#1F2E23]/60">
+                        {metric.description}
+                      </p>
                     </div>
-                    <p className="text-[#1F2E23]/60 font-sans-clean text-sm leading-[1.7]">
-                      {m.description}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Approach (Color Band) */}
-      <section className="border-t border-[#1F2E23]/10">
-        <div className="bg-[#1F2E23]">
-          <div className="py-10 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto">
-            <AnimatedSection>
-              <h2
-                className="font-serif-display text-4xl md:text-5xl font-light mb-20"
-                style={{ color: "#F5F0EA" }}
-              >
-                Professional Approach
-              </h2>
-            </AnimatedSection>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-              {APPROACH.map((item, idx) => (
-                <AnimatedSection key={item.title} delay={idx * 0.1}>
-                  <div>
-                    <h3
-                      className="font-serif-display text-2xl font-light mb-4"
-                      style={{ color: "#F5F0EA" }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      className="font-sans-clean text-sm leading-[1.7]"
-                      style={{ color: "rgba(245,240,234,0.78)" }}
-                    >
-                      {item.description}
-                    </p>
                   </div>
                 </AnimatedSection>
-              ))}
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="border-t border-[#1F2E23]/10">
+          <div className="bg-[#1F2E23]">
+            <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-12 lg:px-20">
+              <AnimatedSection>
+                <h2 className="mb-20 font-serif-display text-4xl font-light text-[#F5F0EA] md:text-5xl">
+                  Our Process
+                </h2>
+              </AnimatedSection>
+
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-3">
+                {APPROACH.map((item, idx) => (
+                  <AnimatedSection key={item.title} delay={idx * 0.1}>
+                    <div>
+                      <h3 className="mb-4 font-serif-display text-2xl font-light text-[#F5F0EA]">
+                        {item.title}
+                      </h3>
+                      <p className="font-sans-clean text-sm leading-[1.7] text-[rgba(245,240,234,0.78)]">
+                        {item.description}
+                      </p>
+                    </div>
+                  </AnimatedSection>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Leadership */}
-      <section className="py-10 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto border-t border-[#1F2E23]/10">
-        <AnimatedSection>
-          <h2 className="font-serif-display text-[#1F2E23] text-4xl md:text-5xl font-light mb-20">
-            Leadership
-          </h2>
-        </AnimatedSection>
+        <section className="mx-auto max-w-[1440px] border-t border-[#1F2E23]/10 px-6 py-10 md:px-12 lg:px-20">
+          <div className="grid grid-cols-1 items-start gap-16 md:grid-cols-2 md:gap-20">
+            <AnimatedSection>
+              <Panel className="border border-[#1F2E23]/10 bg-[#F8F4ED]">
+                <img
+                  src={MEDIA.showroom}
+                  alt="Premier Kitchen & Bath Houston showroom"
+                  className="aspect-[4/3] w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </Panel>
+            </AnimatedSection>
 
-        <div className="space-y-24">
-          {TEAM.map((p, idx) => {
-            const reverse = idx % 2 === 1;
+            <AnimatedSection delay={0.15}>
+              <div className="flex h-full flex-col justify-start">
+                <div className="mb-4 font-sans-clean text-[9px] font-semibold uppercase tracking-[0.3em] text-[#1F2E23]/40">
+                  Houston Showroom
+                </div>
 
-            return (
-              <div
-                key={p.name}
-                className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start"
-              >
-                {/* IMAGE COLUMN */}
-                <AnimatedSection
-                  className={reverse ? "order-1 md:order-2" : "order-1 md:order-1"}
-                >
-                  <Panel className="border border-[#1F2E23]/10 bg-[#F8F4ED]">
-                    <img
-                      src={p.image}
-                      alt={`${p.name}${p.suffix ? `, ${p.suffix}` : ""}`}
-                      className="w-full aspect-[4/3] md:aspect-[1/1] object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </Panel>
-                </AnimatedSection>
+                <h2 className="font-serif-display text-3xl font-light text-[#1F2E23] md:text-4xl">
+                  A place to compare materials with confidence.
+                </h2>
 
-                {/* TEXT COLUMN */}
-                <AnimatedSection
-                  delay={0.15}
-                  className={reverse ? "order-2 md:order-1" : "order-2 md:order-2"}
-                >
-                  <LeaderText person={p} />
-                </AnimatedSection>
+                <div className="my-7 h-px w-14 bg-[#1F2E23]/80" />
+
+                <div className="space-y-5 font-sans-clean text-[15px] leading-[1.75] text-[#1F2E23]/70">
+                  <p>
+                    Remodeling decisions are easier when materials can be seen
+                    together. Our showroom gives clients the opportunity to
+                    compare cabinetry, countertops, tile, fixtures, and finish
+                    combinations in person before moving deeper into the build.
+                  </p>
+                  <p>
+                    That hands-on process helps create better alignment between
+                    design direction, budget, and final execution—especially for
+                    kitchen remodeling and bathroom remodeling projects where
+                    every surface matters.
+                  </p>
+                </div>
               </div>
-            );
-          })}
-        </div>
-      </section>
+            </AnimatedSection>
+          </div>
+        </section>
 
-      {/* SHARED BOTTOM CTA */}
-
-    </PageShell>
+        <BottomCTA variant="about" />
+      </PageShell>
+    </>
   );
 }

@@ -9,6 +9,7 @@ import ServicesSection from "../home/ServicesSection";
 import FeaturedProjects from "../home/FeaturedProjects";
 import HowWeWorkSection from "../home/HowWeWorkSection";
 import CTASection from "../home/CTASection";
+import SEO from "@/components/shared/SEO";
 import { registerPageMeta } from "@/lib/intelligence";
 
 export default function Home() {
@@ -22,14 +23,18 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
-      <HeroSection />
-      <PhilosophySection />
-      <StatsBand />
-      <ServicesSection />
-      <FeaturedProjects />
-      <HowWeWorkSection />
-      <CTASection />
-    </main>
+    <>
+      <SEO pageKey="home" />
+
+      <main>
+        <HeroSection />
+        <PhilosophySection />
+        <StatsBand />
+        <ServicesSection />
+        <FeaturedProjects />
+        <HowWeWorkSection />
+        <CTASection />
+      </main>
+    </>
   );
 }
