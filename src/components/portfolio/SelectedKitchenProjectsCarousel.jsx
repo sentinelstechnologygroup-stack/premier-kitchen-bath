@@ -51,7 +51,7 @@ export default function SelectedKitchenProjectsCarousel() {
               href={project.href}
               className="group min-w-[320px] md:min-w-[380px] lg:min-w-[420px]"
             >
-              <div className="relative h-[240px] w-[320px] overflow-hidden rounded-[10px] bg-[#EAE1D6] md:h-[280px] md:w-[380px] lg:h-[320px] lg:w-[420px]">
+              <div className="relative h-[240px] w-[320px] overflow-hidden rounded-[10px] bg-[#F8F4ED] md:h-[280px] md:w-[380px] lg:h-[320px] lg:w-[420px]">
                 <img
                   src={project.image}
                   alt={project.title}

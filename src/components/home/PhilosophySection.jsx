@@ -3,6 +3,18 @@ import React from "react";
 import AnimatedSection from "../shared/AnimatedSection";
 import { getPageContent } from "@/config/seo";
 
+function renderMultiline(text = "") {
+  return String(text)
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line, index) => (
+      <span key={`${line}-${index}`} className="block">
+        {line}
+      </span>
+    ));
+}
+
 export default function PhilosophySection() {
   const content = getPageContent("home");
 
@@ -14,8 +26,8 @@ export default function PhilosophySection() {
             {content.philosophyEyebrow}
           </div>
 
-          <h2 className="mx-auto mt-5 max-w-[760px] font-serif-display text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.02em] text-[#241D19] md:text-[2.8rem]">
-            {content.philosophyTitle}
+          <h2 className="mx-auto mt-5 max-w-[900px] font-serif-display text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.02em] text-[#241D19] md:text-[2.8rem]">
+            {renderMultiline(content.philosophyTitle)}
           </h2>
 
           <div className="mx-auto mt-6 h-px w-16 bg-[#CBBEAF]" />

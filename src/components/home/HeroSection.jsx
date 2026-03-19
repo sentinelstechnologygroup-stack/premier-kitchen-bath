@@ -8,25 +8,34 @@ import { ROUTES } from "@/components/utils/routes";
 import { trackCTA } from "@/lib/intelligence";
 import { getPageContent } from "@/config/seo";
 
-function buildHeroLines(content) {
+function getHeroLines(content) {
   if (Array.isArray(content.heroTitleLines) && content.heroTitleLines.length) {
-    return content.heroTitleLines;
-  }
-
-  if (content.heroTitle) {
-    return [content.heroTitle];
+    return content.heroTitleLines.filter(Boolean);
   }
 
   if (content.pageH1) {
     return [content.pageH1];
   }
 
-  return ["Houston Kitchen & Bathroom Remodeling Experts Since 1979"];
+  return [];
+}
+
+function renderHeroLines(lines = []) {
+  if (!Array.isArray(lines) || lines.length === 0) return null;
+
+  return lines.map((line, idx) => (
+    <span
+      key={`${line}-${idx}`}
+      className="block whitespace-normal md:whitespace-nowrap"
+    >
+      {line}
+    </span>
+  ));
 }
 
 export default function HeroSection() {
   const content = getPageContent("home");
-  const heroLines = buildHeroLines(content);
+  const heroLines = getHeroLines(content);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -50,7 +59,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D]/22 via-transparent to-transparent" />
 
       <div className="relative mx-auto flex min-h-[720px] max-w-[1440px] items-center px-6 pb-16 pt-28 md:min-h-[820px] md:px-12 lg:px-20">
-        <div className="max-w-[760px]">
+        <div className="mx-auto w-full max-w-[1280px] text-center">
           <div
             className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#D4C1AE]"
             style={{ textShadow: "0 2px 8px rgba(0,0,0,0.28)" }}
@@ -59,30 +68,23 @@ export default function HeroSection() {
           </div>
 
           <h1
-            className="mt-6 font-serif-display font-semibold leading-[0.92] tracking-[-0.04em] text-white"
+            className="mt-6 font-serif-display font-semibold leading-[0.9] tracking-[-0.045em] text-white"
             style={{
-              fontSize: "clamp(3.2rem, 7vw, 5.8rem)",
-              maxWidth: "10.5ch",
-              textWrap: "balance",
+              fontSize: "clamp(3.1rem, 6vw, 5.6rem)",
               textShadow: "0 6px 24px rgba(0,0,0,0.34)",
             }}
           >
-            {heroLines.map((line, index) => (
-              <React.Fragment key={`${line}-${index}`}>
-                {line}
-                {index < heroLines.length - 1 ? <br /> : null}
-              </React.Fragment>
-            ))}
+            {renderHeroLines(heroLines)}
           </h1>
 
           <p
-            className="mt-7 max-w-[620px] text-[16px] leading-[1.8] text-white/92 md:text-[18px]"
+            className="mt-7 mx-auto max-w-[700px] text-[16px] leading-[1.8] text-white/92 md:text-[18px]"
             style={{ textShadow: "0 2px 10px rgba(0,0,0,0.22)" }}
           >
             {content.heroBody}
           </p>
 
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href={ROUTES.consultation}
               onClick={() => trackCTA("begin-your-project", "home-hero")}

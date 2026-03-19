@@ -6,6 +6,35 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const DEFAULT_TRANSITION = { duration: 1.2, ease: [0.33, 1, 0.68, 1] };
 
+function normalizeTitleLines(title) {
+  if (!title) return [];
+
+  if (Array.isArray(title)) {
+    return title
+      .map((line) => String(line || "").replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+  }
+
+  const clean = String(title).replace(/\r/g, "").trim();
+  if (!clean) return [];
+
+  if (clean.includes("|")) {
+    return clean
+      .split("|")
+      .map((part) => part.replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+  }
+
+  if (clean.includes("\n")) {
+    return clean
+      .split("\n")
+      .map((part) => part.replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+  }
+
+  return [clean];
+}
+
 export default function HeroBanner({
   images,
   image,
@@ -21,6 +50,7 @@ export default function HeroBanner({
   subtitleClassName = "",
   overlayClassName = "",
   dots = false,
+  forceTwoRows = false,
   heightClassName = "h-[56vh] min-h-[460px] max-h-[740px]",
 }) {
   const heroImages = useMemo(() => {
@@ -42,8 +72,23 @@ export default function HeroBanner({
 
   const currentImage = heroImages[currentSlide] || "";
 
+  const titleLines = useMemo(() => {
+    const lines = normalizeTitleLines(title);
+
+    if (!forceTwoRows || lines.length <= 2) return lines;
+
+    return [
+      lines.slice(0, Math.ceil(lines.length / 2)).join(" "),
+      lines.slice(Math.ceil(lines.length / 2)).join(" "),
+    ];
+  }, [title, forceTwoRows]);
+
+  const isMultiLine = titleLines.length > 1;
+
   return (
-    <section className={`relative w-full overflow-hidden ${heightClassName} ${className}`}>
+    <section
+      className={`relative w-full overflow-hidden ${heightClassName} ${className}`}
+    >
       <AnimatePresence mode="wait">
         <motion.div
           key={currentImage || "hero-static"}
@@ -65,34 +110,52 @@ export default function HeroBanner({
             <div className="absolute inset-0 bg-[#1F2E23]" />
           )}
 
-          <div className="absolute inset-0 bg-[#102018]/48" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#09110D]/72 via-[#102018]/28 to-[#102018]/70" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F1B15]/28 via-transparent to-[#0F1B15]/10" />
-          <div className="absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-[#102018]/84 to-transparent" />
-          {overlayClassName ? <div className={`absolute inset-0 ${overlayClassName}`} /> : null}
+          <div className="absolute inset-0 bg-[#102018]/46" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#09110D]/68 via-[#102018]/22 to-[#102018]/64" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F1B15]/18 via-transparent to-[#0F1B15]/18" />
+          <div className="absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-[#102018]/78 to-transparent" />
+          {overlayClassName ? (
+            <div className={`absolute inset-0 ${overlayClassName}`} />
+          ) : null}
         </motion.div>
       </AnimatePresence>
 
-      <div className={`absolute inset-0 flex items-end px-6 pb-16 md:px-12 md:pb-20 lg:px-20 ${bodyClassName}`}>
-        <div className="mx-auto w-full max-w-[1440px]">
-          <div className="max-w-4xl">
+      <div
+        className={`absolute inset-0 flex items-center justify-center px-6 md:px-12 lg:px-20 ${bodyClassName}`}
+      >
+        <div className="mx-auto flex w-full max-w-[1440px] justify-center">
+          <div className="flex w-full max-w-[1320px] flex-col items-center justify-center text-center">
             {eyebrow ? (
-              <div className="mb-6 font-sans-clean text-[10px] font-semibold uppercase tracking-[0.34em] text-white/82 [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
+              <div className="mb-5 font-sans-clean text-[10px] font-semibold uppercase tracking-[0.34em] text-white/82 [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
                 {eyebrow}
               </div>
             ) : null}
 
-            {title ? (
+            {titleLines.length ? (
               <motion.h1
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.95, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
+                transition={{
+                  duration: 0.95,
+                  delay: 0.2,
+                  ease: [0.33, 1, 0.68, 1],
+                }}
                 className={[
-                  "max-w-[24ch] font-serif-display text-[2.6rem] font-light leading-[0.98] tracking-[-0.02em] text-[#F5F0EA] sm:text-[3.1rem] md:text-[3.6rem] lg:text-[3.9rem] xl:text-[4.15rem] [text-wrap:balance] [text-shadow:0_2px_16px_rgba(0,0,0,0.34)]",
+                  "mx-auto flex flex-col items-center text-center font-serif-display font-light tracking-[-0.035em] text-[#F5F0EA] [text-shadow:0_2px_16px_rgba(0,0,0,0.34)]",
+                  isMultiLine
+                    ? "w-full max-w-[16ch] leading-[0.88] text-[2.95rem] sm:text-[3.55rem] md:text-[4.6rem] lg:text-[5.45rem] xl:text-[6.05rem]"
+                    : "w-full max-w-[14ch] leading-[0.9] text-[3rem] sm:text-[3.55rem] md:text-[4.45rem] lg:text-[5.35rem] xl:text-[6rem]",
                   titleClassName,
                 ].join(" ")}
               >
-                {title}
+                {titleLines.map((line, index) => (
+                  <span
+                    key={`${line}-${index}`}
+                    className="block w-full whitespace-nowrap text-center"
+                  >
+                    {line}
+                  </span>
+                ))}
               </motion.h1>
             ) : null}
 
@@ -100,9 +163,14 @@ export default function HeroBanner({
               <motion.p
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.85, delay: 0.35, ease: [0.33, 1, 0.68, 1] }}
+                transition={{
+                  duration: 0.85,
+                  delay: 0.35,
+                  ease: [0.33, 1, 0.68, 1],
+                }}
                 className={[
-                  "mt-5 max-w-[58rem] font-sans-clean text-sm leading-[1.72] text-[#F5F0EA]/90 md:text-[17px] [text-shadow:0_1px_12px_rgba(0,0,0,0.26)]",
+                  "mx-auto mt-6 text-center font-sans-clean text-[15px] leading-[1.72] text-[#F5F0EA]/92 md:text-[17px] [text-shadow:0_1px_12px_rgba(0,0,0,0.26)]",
+                  "max-w-[48rem]",
                   subtitleClassName,
                 ].join(" ")}
               >
@@ -114,25 +182,33 @@ export default function HeroBanner({
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.85, delay: 0.5, ease: [0.33, 1, 0.68, 1] }}
-                className="mt-9"
+                transition={{
+                  duration: 0.85,
+                  delay: 0.5,
+                  ease: [0.33, 1, 0.68, 1],
+                }}
+                className="mt-9 flex justify-center"
               >
                 {actions}
               </motion.div>
             ) : null}
 
-            {extras ? <div className="mt-8">{extras}</div> : null}
+            {extras ? (
+              <div className="mt-8 flex justify-center">{extras}</div>
+            ) : null}
           </div>
         </div>
       </div>
 
       {dots && isSlider ? (
-        <div className="absolute bottom-8 left-6 flex gap-2 md:left-12 lg:left-20">
+        <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 gap-2">
           {heroImages.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`h-px w-8 rounded-full transition-all ${idx === currentSlide ? "bg-[#F5F0EA]" : "bg-[#F5F0EA]/30"}`}
+              className={`h-px w-8 rounded-full transition-all ${
+                idx === currentSlide ? "bg-[#F5F0EA]" : "bg-[#F5F0EA]/30"
+              }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}

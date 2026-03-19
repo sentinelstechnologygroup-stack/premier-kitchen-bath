@@ -1,6 +1,6 @@
+// src/Layout.jsx
 "use client";
 
-// src/Layout.jsx
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import SiteHeader from "./components/SiteHeader";
@@ -13,7 +13,6 @@ export default function Layout({ children, currentPageName = "unknown" }) {
 
   const [hasHeroClass, setHasHeroClass] = useState(false);
 
-  // ✅ Observe body class changes (PageShell sets premier-has-hero)
   useEffect(() => {
     if (typeof document === "undefined") return;
 
@@ -32,16 +31,13 @@ export default function Layout({ children, currentPageName = "unknown" }) {
     return () => observer.disconnect();
   }, [pathname]);
 
-  // ✅ Hero mode is now contract-driven (PageShell), with a Home fallback
   const heroUnderHeader = hasHeroClass || pathname === "/";
 
-  // ✅ Hook #1: page view + dwell time
   useEffect(() => {
     trackPageView(pathname);
     return startEngagementTimer(pathname);
   }, [pathname]);
 
-  // ✅ Hook #2: scroll depth (throttled by rAF)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -59,7 +55,7 @@ export default function Layout({ children, currentPageName = "unknown" }) {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // initial ping
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -68,7 +64,7 @@ export default function Layout({ children, currentPageName = "unknown" }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F5F0EA]">
+    <div className="min-h-screen bg-[#F3EEE7]">
       <SiteHeader currentPageName={currentPageName} heroUnderHeader={heroUnderHeader} />
       <div className={heroUnderHeader ? "" : HEADER_OFFSET}>{children}</div>
       <SiteFooter />

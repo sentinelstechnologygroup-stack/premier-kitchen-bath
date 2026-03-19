@@ -54,6 +54,19 @@ export const CTA_VARIANTS = {
     tone: "forest",
   },
 
+  showroom: {
+    eyebrow: "Let’s Talk",
+    title: "Request Your Free Estimate",
+    body:
+      "Tell us about your kitchen, bathroom, or renovation goals and we’ll help you take the next step with clarity.",
+    primaryLabel: "Request Free Estimate",
+    primaryHref: ROUTES.contact,
+    secondaryLabel: "View Portfolio",
+    secondaryHref: ROUTES.projects,
+    backgroundImage: "/images/cta/bathrooms.jpg",
+    tone: "forest",
+  },
+  
   contact: {
     eyebrow: "Let’s Talk",
     title: "Request Your Free Estimate",

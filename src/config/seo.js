@@ -28,12 +28,16 @@ export const PAGE_SEO = {
     ],
     ui: {
       eyebrow: "Houston Kitchen & Bath Remodeling",
-
+      heroTitleLines: [
+        "Kitchen & Bathroom",
+        "Remodeling Experts",
+        "Since 1979",
+      ],
       heroBody:
         "Thousands of successful kitchen and bathroom remodels. Premium craftsmanship. Beautifully refined spaces designed around the way you live.",
       philosophyEyebrow: "Our Philosophy",
       philosophyTitle:
-        "Houston's Premier Kitchen & Bathroom Remodeling Company Since 1979 — We don't remodel houses. We refine the spaces you live in.",
+        "Premier Kitchen & Bathroom\nWe don't remodel houses.\nWe refine the spaces you live in.",
       philosophyBody:
         "Since 1979, Premier Kitchen & Bath has shaped the kitchens and bathrooms of Houston's most discerning homes across River Oaks, Memorial, Tanglewood, and the Energy Corridor.",
       services: {
@@ -46,7 +50,7 @@ export const PAGE_SEO = {
         },
         bathrooms: {
           eyebrow: "What We Do",
-          title: "Bathroom\Remodeling",
+          title: "Bathroom\nRemodeling",
           body:
             "Spa-like bathroom remodels crafted for Houston homes. We transform ordinary bathrooms into spaces of quiet luxury—walk-in showers, soaking tubs, custom vanities, and precision tile work.",
           cta: "Explore Bathrooms",
@@ -78,6 +82,11 @@ export const PAGE_SEO = {
     ],
     ui: {
       heroEyebrow: "Our Work",
+      heroTitleLines: [
+        "Kitchen Remodeling",
+        "Custom Cabinets &",
+        "Countertops",
+      ],
       heroSubtitle:
         "Custom kitchen remodeling in Houston with cabinetry, countertops, layout refinement, and finish coordination built around the way your household lives.",
       introEyebrow: "Crafted in Houston",
@@ -90,11 +99,32 @@ export const PAGE_SEO = {
         "Ready to define layout, cabinetry, materials, and scope with our team?",
       ctaBody:
         "Start with a consultation to review how your kitchen needs to function and the finish combinations that will bring it together.",
+      processEyebrow: "Our Process",
       processTitle: "Designed Around the Way You Live",
+      processSteps: [
+        {
+          number: "01",
+          title: "Vision Session",
+          body: "We define the way your kitchen needs to function, how you entertain, and what aesthetic direction fits your home.",
+        },
+        {
+          number: "02",
+          title: "Curated Design",
+          body: "Cabinetry, surfaces, fixtures, and appliances are selected into a cohesive plan that balances beauty and utility.",
+        },
+        {
+          number: "03",
+          title: "Flawless Build",
+          body: "Our team executes with precision so the finished kitchen feels intentional, seamless, and built to endure.",
+        },
+      ],
+      ctaButtonLabel: "Schedule Consultation",
       footerEyebrow: "Houston Showroom",
       footerTitle: "Ready to Reimagine Your Kitchen?",
       footerBody:
         "Visit our Houston showroom, compare cabinetry and surface combinations in person, and begin shaping a kitchen renovation tailored to your home and daily life.",
+      footerPrimaryButtonLabel: "Begin Your Project",
+      footerSecondaryButtonLabel: "View Portfolio",
     },
   },
 
@@ -115,6 +145,11 @@ export const PAGE_SEO = {
     ],
     ui: {
       heroEyebrow: "Our Work",
+      heroTitleLines: [
+        "Bathroom Remodeling",
+        "Walk-In Showers",
+        "Vanities & Tile",
+      ],
       heroSubtitle:
         "Luxury bathroom remodeling in Houston with walk-in showers, custom vanities, tile work, soaking tubs, and finish coordination built around daily life.",
       introEyebrow: "Crafted in Houston",
@@ -126,11 +161,32 @@ export const PAGE_SEO = {
       ctaTitle: "Ready to define layout, finishes, and budget with our team?",
       ctaBody:
         "Start with a consultation to review your goals, preferred style, and the materials that will shape the finished space.",
+      processEyebrow: "Our Process",
       processTitle: "Thoughtful From the First Conversation",
+      processSteps: [
+        {
+          number: "01",
+          title: "Vision Session",
+          body: "We explore your sense of style, how you use the space, and what would make it feel distinctly yours.",
+        },
+        {
+          number: "02",
+          title: "Curated Design",
+          body: "Tile, stone, fixtures, lighting, and vanities are selected with purpose and organized into a cohesive design direction.",
+        },
+        {
+          number: "03",
+          title: "Flawless Build",
+          body: "Our craftsmen bring the design to life with the skill, care, and precision required for a lasting result.",
+        },
+      ],
+      ctaButtonLabel: "Schedule Consultation",
       footerEyebrow: "Houston Showroom",
       footerTitle: "Ready to Reimagine Your Bathroom?",
       footerBody:
         "Visit our Houston showroom, compare bath finishes in person, and begin shaping a bathroom renovation that feels refined, functional, and unmistakably yours.",
+      footerPrimaryButtonLabel: "Begin Your Project",
+      footerSecondaryButtonLabel: "View Portfolio",
     },
   },
 
@@ -151,6 +207,7 @@ export const PAGE_SEO = {
     ],
     ui: {
       eyebrow: "What We Carry",
+      heroTitleLines: ["Kitchen & Bath Products", "in Houston, TX"],
       heroBody:
         "We work with trusted brand partners across cabinetry, countertops, tile, hardware, plumbing, and lighting to help bring each kitchen and bathroom remodel together with confidence.",
       heroNote:
@@ -181,6 +238,11 @@ export const PAGE_SEO = {
     ],
     ui: {
       heroEyebrow: "Portfolio",
+      heroTitleLines: [
+        "Kitchen & Bathroom",
+        "Remodel Portfolio",
+        "in Houston",
+      ],
       heroSubtitle:
         "Browse a curated view of kitchen and bathroom remodeling work shaped by craftsmanship, material coordination, and disciplined execution.",
       badgeText:
@@ -205,6 +267,7 @@ export const PAGE_SEO = {
     ],
     ui: {
       heroEyebrow: "Reviews",
+      heroTitleLines: ["Premier Kitchen", "& Bath Reviews"],
       heroSubtitle:
         "Read what Houston-area homeowners say about the design process, communication, craftsmanship, and finished results at Premier Kitchen & Bath.",
       introEyebrow: "Client Reviews",
@@ -232,6 +295,7 @@ export const PAGE_SEO = {
     ],
     ui: {
       heroEyebrow: "Contact",
+      heroTitleLines: ["Schedule a", "Consultation"],
       heroSubtitle:
         "Schedule a kitchen or bathroom remodeling consultation with Premier Kitchen & Bath in Houston, TX. We typically respond within one business day.",
       thankYouTitle: "Thank You",
@@ -260,6 +324,7 @@ export const PAGE_SEO = {
     ],
     ui: {
       heroEyebrow: "Houston Showroom",
+      heroTitleLines: ["Visit Our Kitchen & Bath", "Showroom in Houston"],
       heroSubtitle:
         "Explore cabinetry, countertops, tile, fixtures, and finish combinations in person at Premier Kitchen & Bath.",
       introEyebrow: "Why Visit",
@@ -291,6 +356,7 @@ export function getPageContent(pageKey) {
   return {
     ...ui,
     heroTitle: ui.heroTitle || page.h1 || "",
+    heroTitleLines: ui.heroTitleLines || (page.h1 ? [page.h1] : []),
     pageH1: page.h1 || "",
   };
 }

@@ -71,7 +71,7 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section className="bg-[#F6F1EA] py-6 md:py-8">
+    <section className="bg-[#F3EEE7] py-6 md:py-8">
       <div className="mx-auto max-w-[1440px] space-y-4 px-6 md:space-y-5 md:px-12 lg:px-20">
         <div id="kitchens" className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
           <ImagePanel section={sections[0]} />

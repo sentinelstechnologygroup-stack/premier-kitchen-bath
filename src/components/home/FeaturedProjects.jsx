@@ -29,7 +29,7 @@ const PROJECTS = [
 
 export default function FeaturedProjects() {
   return (
-    <section className="bg-[#F6F1EA] py-12 md:py-16">
+    <section className="bg-[#F3EEE7] py-12 md:py-16">
       <div className="mx-auto max-w-[1440px] px-6 md:px-12 lg:px-20">
         <AnimatedSection>
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">

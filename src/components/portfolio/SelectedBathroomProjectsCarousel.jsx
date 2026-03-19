@@ -36,13 +36,15 @@ export default function SelectedBathroomProjectsCarousel() {
   const track = [...PROJECTS, ...PROJECTS];
 
   return (
-    <section className="overflow-hidden bg-[#F6F1EA] py-12 md:py-14">
+    <section className="overflow-hidden py-12 md:py-14">
+      {/* Header */}
       <div className="mx-auto mb-8 max-w-[1440px] px-6 md:px-12 lg:px-20">
         <h2 className="font-serif-display text-[2rem] font-semibold tracking-[-0.02em] text-[#241D19] md:text-[2.5rem]">
           Selected Projects
         </h2>
       </div>
 
+      {/* Marquee */}
       <div className="relative w-full overflow-hidden">
         <div className="projects-track flex gap-6 md:gap-8">
           {track.map((project, index) => (
@@ -51,7 +53,7 @@ export default function SelectedBathroomProjectsCarousel() {
               href={project.href}
               className="group min-w-[320px] md:min-w-[380px] lg:min-w-[420px]"
             >
-              <div className="relative h-[240px] w-[320px] overflow-hidden rounded-[10px] bg-[#EAE1D6] md:h-[280px] md:w-[380px] lg:h-[320px] lg:w-[420px]">
+              <div className="relative h-[240px] w-[320px] overflow-hidden rounded-[10px] bg-[#F8F4ED] md:h-[280px] md:w-[380px] lg:h-[320px] lg:w-[420px]">
                 <img
                   src={project.image}
                   alt={project.title}
@@ -67,6 +69,7 @@ export default function SelectedBathroomProjectsCarousel() {
         </div>
       </div>
 
+      {/* Animation */}
       <style jsx>{`
         .projects-track {
           width: max-content;

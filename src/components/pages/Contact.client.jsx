@@ -72,7 +72,7 @@ export default function ContactClient() {
         ) : (
           <section className="bg-[#F5F0EA] px-6 py-10 md:px-12 md:py-14 lg:px-20">
             <div className="mx-auto max-w-[1440px]">
-              <Panel className="border border-[#1F2E23]/10 bg-[#F8F4ED]">
+              <Panel className="border border-[#1F2E23]/10 bg-white">
                 <div className="grid grid-cols-1 gap-16 px-8 py-14 md:grid-cols-2 md:gap-20 md:px-12 md:py-16 lg:px-16">
                   <AnimatedSection>
                     <div>

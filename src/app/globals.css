@@ -1,37 +1,68 @@
+/* src/app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* ✅ Typography */
-    --font-sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    /* Typography */
+    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-display: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 
+    /* Brand tokens */
+    --color-sage: #7a8f73;
+    --color-sage-dark: #5f7359;
+
+    --color-bronze-900: #5a4d30;
+    --color-bronze-800: #6e5f3a;
+    --color-bronze-700: #7a6a42;
+    --color-bronze-600: #8c7a4f;
+    --color-bronze-500: #a3915f;
+
+    --color-cream: #f3eee7;
+    --color-sand: #e6ddcf;
+    --color-stone: #c2b8a3;
+    --color-ink: #1a1a1a;
+    --color-soft-white: #fafaf9;
+
+    /* Site-wide surface */
+    --site-background: #f3eee7;
+
+    /* shadcn / site foundation */
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
+
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
+
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
+
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
+
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
+
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
+
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
@@ -47,23 +78,32 @@
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
+
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
+
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
+
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
+
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
+
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
+
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
+
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -89,36 +129,107 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--site-background);
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--site-background);
+    @apply text-foreground;
   }
 
-  /* ✅ Deterministic typography (prevents weight/spacing drift) */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply tracking-tight text-foreground;
   }
-  h1 { @apply font-bold; }
-  h2 { @apply font-semibold; }
-  h3 { @apply font-semibold; }
-  p { @apply leading-relaxed; }
-  a { @apply underline-offset-4; }
+
+  h1 {
+    @apply font-bold;
+  }
+
+  h2,
+  h3 {
+    @apply font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  a {
+    @apply underline-offset-4;
+  }
 
   :focus-visible {
     outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
   }
 
-  /* ✅ Back-compat helpers (these classes exist across the site already) */
-  .font-sans-clean { font-family: var(--font-sans); }
-  .font-serif-display { font-family: var(--font-display); }
+  .font-sans-clean {
+    font-family: var(--font-sans);
+  }
+
+  .font-serif-display {
+    font-family: var(--font-display);
+  }
 }
 
-/* --- Trust Marquee (Awards / Affiliations) --- */
+@layer components {
+  .bg-premier-bronze {
+    background: linear-gradient(180deg, var(--color-bronze-900) 0%, var(--color-bronze-800) 100%);
+  }
+
+  .text-premier-cream {
+    color: var(--color-cream);
+  }
+
+  .text-premier-sand {
+    color: var(--color-sand);
+  }
+
+  .text-premier-bronze {
+    color: var(--color-bronze-800);
+  }
+
+  .border-premier-bronze {
+    border-color: var(--color-bronze-800);
+  }
+
+  .hover-bronze {
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .hover-bronze:hover {
+    background-color: var(--color-bronze-800);
+    border-color: var(--color-bronze-800);
+    color: var(--color-soft-white);
+  }
+
+  .hero-overlay-left {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.15) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+}
+
 @keyframes premier-marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .premier-marquee-track {
@@ -138,15 +249,18 @@
 
 .review-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.28) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
 }
+
 .review-scroll::-webkit-scrollbar {
   width: 6px;
 }
+
 .review-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .review-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.28);
+  background: rgba(255, 255, 255, 0.28);
   border-radius: 9999px;
 }
