@@ -25,12 +25,12 @@ const HIGHLIGHTS = [
 ];
 
 const HOURS = [
-  { day: "Monday", hours: "9:00 AM – 5:00 PM" },
-  { day: "Tuesday", hours: "9:00 AM – 5:00 PM" },
-  { day: "Wednesday", hours: "9:00 AM – 5:00 PM" },
-  { day: "Thursday", hours: "9:00 AM – 5:00 PM" },
-  { day: "Friday", hours: "9:00 AM – 5:00 PM" },
-  { day: "Saturday", hours: "10:00 AM – 3:00 PM" },
+  { day: "Monday", hours: "8:00 AM – 5:00 PM" },
+  { day: "Tuesday", hours: "8:00 AM – 5:00 PM" },
+  { day: "Wednesday", hours: "8:00 AM – 5:00 PM" },
+  { day: "Thursday", hours: "8:00 AM – 5:00 PM" },
+  { day: "Friday", hours: "8:00 AM – 5:00 PM" },
+  { day: "Saturday", hours: "Closed" },
   { day: "Sunday", hours: "Closed" },
 ];
 
@@ -71,7 +71,7 @@ function HighlightList() {
 
 function VisitInfoCard() {
   return (
-    <Panel className="h-full border border-[#1F2E23]/10 bg-white p-8 md:p-10 shadow-[0_18px_48px_rgba(20,24,22,0.05)]">
+    <Panel className="h-full border border-[#1F2E23]/10 bg-white p-8 shadow-[0_18px_48px_rgba(20,24,22,0.05)] md:p-10">
       <div className="mb-6 font-sans-clean text-[10px] font-semibold uppercase tracking-[0.25em] text-[#1F2E23]/45">
         Visit Information
       </div>
@@ -98,10 +98,10 @@ function VisitInfoCard() {
               Phone
             </div>
             <a
-              href="tel:2813518700"
+              href="tel:12815583700"
               className="font-sans-clean text-[15px] text-[#1F2E23] transition-colors hover:text-[#6E5F3A]"
             >
-              281.351.8700
+              (281) 558-3700
             </a>
           </div>
         </div>
@@ -217,7 +217,7 @@ export default function Showroom() {
                     <Panel className="overflow-hidden border border-[#1F2E23]/10 bg-[#F8F4ED] shadow-[0_18px_48px_rgba(20,24,22,0.05)]">
                       <img
                         src={MEDIA.showroom}
-                        alt="Premier Kitchens consultation and showroom planning"
+                        alt="Premier Kitchen & Bath consultation and showroom planning"
                         className="aspect-[16/10] w-full object-cover"
                         loading="lazy"
                         decoding="async"

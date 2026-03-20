@@ -52,10 +52,10 @@ export default function CTASection() {
             </Link>
 
             <a
-              href="tel:17135206570"
+              href="tel:12815583700"
               className="inline-flex items-center justify-center rounded-full border border-white/24 bg-black/14 px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm transition hover:bg-black/24"
             >
-              Call (713) 520-6570
+              Call (281) 558-3700
             </a>
           </div>
         </div>

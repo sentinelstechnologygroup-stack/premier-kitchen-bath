@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
  */
 
 /**
- * Premier Kitchens Standard Panel
+ * Premier Kitchens & Bath Standard Panel
  * - Panels (info + image) = rounded-2xl
  * - Keep border + soft backgrounds consistent sitewide
  *

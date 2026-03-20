@@ -28,16 +28,11 @@ export const PAGE_SEO = {
     ],
     ui: {
       eyebrow: "Houston Kitchen & Bath Remodeling",
-      heroTitleLines: [
-        "Kitchen & Bathroom",
-        "Remodeling Experts",
-        "Since 1979",
-      ],
+      heroTitleLines: ["Kitchen & Bath", "Remodeling Experts", "Since 1979"],
       heroBody:
-        "Thousands of successful kitchen and bathroom remodels. Premium craftsmanship. Beautifully refined spaces designed around the way you live.",
-      philosophyEyebrow: "Our Philosophy",
+        "Thousands of successful kitchen and bathroom remodels. Premium craftsmanship in every detail. Beautifully refined spaces designed around the way you live.",
       philosophyTitle:
-        "Premier Kitchen & Bathroom\nWe don't remodel houses.\nWe refine the spaces you live in.",
+        "Premier Kitchen & Bath\nWe don't remodel houses.\nWe refine the spaces you live in.",
       philosophyBody:
         "Since 1979, Premier Kitchen & Bath has shaped the kitchens and bathrooms of Houston's most discerning homes across River Oaks, Memorial, Tanglewood, and the Energy Corridor.",
       services: {
@@ -68,7 +63,7 @@ export const PAGE_SEO = {
   kitchens: {
     path: "/kitchens",
     title:
-      "Kitchen Remodeling Houston TX | Custom Cabinets & Countertops | Premier Kitchen",
+      "Kitchen Remodeling Houston TX | Custom Cabinets & Countertops | Premier Kitchen & Bath",
     description:
       "Premier Kitchen & Bath designs and builds custom kitchen remodels in Houston, TX. From cabinets and countertops to full layout redesigns. 45+ years of Houston craftsmanship.",
     h1: "Kitchen Remodeling in Houston, TX — Custom Cabinets & Countertops",
@@ -131,7 +126,7 @@ export const PAGE_SEO = {
   bathrooms: {
     path: "/bathrooms",
     title:
-      "Bathroom Remodeling Houston TX | Walk-In Showers & Vanities | Premier Kitchen",
+      "Bathroom Remodeling Houston TX | Walk-In Showers & Vanities | Premier Kitchen & Bath",
     description:
       "Transform your bathroom with Premier Kitchen & Bath. Walk-in showers, custom vanities, soaking tubs, and luxury tile work in Houston, TX. Trusted since 1979.",
     h1: "Bathroom Remodeling Houston — Walk-In Showers, Vanities & Tile",
@@ -193,7 +188,7 @@ export const PAGE_SEO = {
   products: {
     path: "/products",
     title:
-      "Kitchen & Bath Products Houston TX | Cabinets, Countertops, Tile & Fixtures | Premier Kitchen",
+      "Kitchen & Bath Products Houston TX | Cabinets, Countertops, Tile & Fixtures | Premier Kitchen & Bath",
     description:
       "Explore kitchen and bath products at Premier Kitchen & Bath in Houston, including cabinetry, granite and quartz countertops, tile, fixtures, and finish selections for luxury remodels.",
     h1: "Kitchen & Bath Products in Houston, TX",
@@ -223,8 +218,7 @@ export const PAGE_SEO = {
 
   projects: {
     path: "/projects",
-    title:
-      "Kitchen & Bathroom Remodel Portfolio Houston | Premier Kitchen & Bath",
+    title: "Kitchen & Bathroom Remodel Portfolio Houston | Premier Kitchen & Bath",
     description:
       "Browse completed kitchen and bathroom remodels by Premier Kitchen & Bath across Houston, TX. Custom luxury, modern, classic, and transitional projects.",
     h1: "Kitchen & Bathroom Remodel Portfolio in Houston",
@@ -252,8 +246,7 @@ export const PAGE_SEO = {
 
   reviews: {
     path: "/reviews",
-    title:
-      "Premier Kitchen & Bath Reviews | Houston Remodeling Client Feedback",
+    title: "Premier Kitchen & Bath Reviews | Houston Remodeling Client Feedback",
     description:
       "Read Premier Kitchen & Bath reviews from Houston-area homeowners. See client feedback on kitchen remodeling, bathroom remodeling, communication, craftsmanship, and finished results.",
     h1: "Premier Kitchen & Bath Reviews",
@@ -280,8 +273,7 @@ export const PAGE_SEO = {
 
   contact: {
     path: "/contact",
-    title:
-      "Contact Premier Kitchen & Bath | Houston Remodeling Consultations",
+    title: "Contact Premier Kitchen & Bath | Houston Remodeling Consultations",
     description:
       "Schedule a kitchen or bathroom remodeling consultation with Premier Kitchen & Bath in Houston, TX. Visit our showroom or contact our team to begin your project.",
     h1: "Schedule a Consultation",
@@ -303,16 +295,16 @@ export const PAGE_SEO = {
         "We've received your inquiry and will respond within one business day.",
       companyHeading: "Premier Kitchen & Bath",
       serviceAreaText:
-        "Houston, River Oaks, Memorial, Tanglewood, West University, Energy Corridor, Bellaire, The Heights, and surrounding communities.",
+        "We provide remodeling services throughout the Houston area, including Katy, Fulshear, Richmond, Sugar Land, Missouri City, and Cypress. We offer turnkey kitchen remodels, bathroom remodels, and full home renovations.",
     },
   },
 
   showroom: {
     path: "/showroom",
     title:
-      "Kitchen & Bath Showroom Houston TX | 1918 Baker Rd | Premier Kitchen",
+      "Kitchen & Bath Showroom Houston TX | 1918 Baker Rd | Premier Kitchen & Bath",
     description:
-      "Visit Premier Kitchen & Bath's Houston showroom at 1918 Baker Rd. Explore cabinetry, countertops, tile, and fixture combinations in person. Open Monday-Saturday.",
+      "Visit Premier Kitchen & Bath's Houston showroom at 1918 Baker Rd. Explore cabinetry, countertops, tile, and fixture combinations in person. Open Monday through Friday, 8:00–5:00.",
     h1: "Visit Our Kitchen & Bath Showroom in Houston",
     schemaType: "LocalBusiness",
     keywords: [

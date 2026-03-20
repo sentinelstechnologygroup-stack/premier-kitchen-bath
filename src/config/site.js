@@ -3,7 +3,7 @@
 export const SITE = {
   name: "Premier Kitchen & Bath",
 
-  shortName: "Premier Kitchen",
+  shortName: "Premier Kitchen & Bath",
 
   domain: "https://premier-kitchen-bath.vercel.app",
 
@@ -11,7 +11,7 @@ export const SITE = {
 
   email: "info@premierkitchens.us",
 
-  phone: "(281) 351-8700",
+  phone: "(281) 558-3700",
 
   founded: "1979",
 
@@ -37,13 +37,12 @@ export const SITE = {
 
   serviceAreas: [
     "Houston",
-    "River Oaks",
-    "Memorial",
-    "Tanglewood",
-    "West University",
-    "Energy Corridor",
-    "Bellaire",
-    "The Heights",
+    "Katy",
+    "Fulshear",
+    "Richmond",
+    "Sugar Land",
+    "Missouri City",
+    "Cypress",
   ],
 
   social: {
@@ -59,12 +58,12 @@ export const SITE = {
   },
 
   hours: {
-    monday: "9:00 AM – 5:00 PM",
-    tuesday: "9:00 AM – 5:00 PM",
-    wednesday: "9:00 AM – 5:00 PM",
-    thursday: "9:00 AM – 5:00 PM",
-    friday: "9:00 AM – 5:00 PM",
-    saturday: "10:00 AM – 3:00 PM",
+    monday: "8:00 AM – 5:00 PM",
+    tuesday: "8:00 AM – 5:00 PM",
+    wednesday: "8:00 AM – 5:00 PM",
+    thursday: "8:00 AM – 5:00 PM",
+    friday: "8:00 AM – 5:00 PM",
+    saturday: "Closed",
     sunday: "Closed",
   },
 };

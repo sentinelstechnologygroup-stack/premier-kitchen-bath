@@ -73,10 +73,10 @@ export default function SiteHeader({ currentPageName }) {
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:h-[76px] md:px-12 lg:px-20">
         <Link href={ROUTES.home} className={`leading-none ${textClass}`}>
           <div className="font-serif-display text-[15px] font-semibold tracking-[0.08em] md:text-[18px]">
-            PREMIER KITCHENS
+            PREMIER KITCHEN &amp; BATH
           </div>
           <div className="mt-1 text-[8px] uppercase tracking-[0.30em] opacity-75 md:text-[9px] md:tracking-[0.34em]">
-            Kitchen &amp; Bath
+            Houston Remodeling Since 1979
           </div>
         </Link>
 
@@ -94,10 +94,10 @@ export default function SiteHeader({ currentPageName }) {
 
         <div className="hidden items-center gap-5 lg:flex">
           <a
-            href="tel:17135206570"
+            href="tel:12815583700"
             className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${textClass}`}
           >
-            (713) 520-6570
+            (281) 558-3700
           </a>
 
           <Link
@@ -146,10 +146,10 @@ export default function SiteHeader({ currentPageName }) {
 
               <div className="border-t border-[#1E1A17]/10 pt-5">
                 <a
-                  href="tel:17135206570"
+                  href="tel:12815583700"
                   className="block text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1E1A17]"
                 >
-                  (713) 520-6570
+                  (281) 558-3700
                 </a>
 
                 <Link

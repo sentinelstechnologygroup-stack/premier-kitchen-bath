@@ -41,7 +41,7 @@ export default function ContactClient() {
   );
 
   const InputBase =
-    "w-full bg-transparent border-b border-[#1F2E23]/35 hover:border-[#1F2E23]/55 py-3 text-sm md:text-[15px] font-sans-clean text-[#1F2E23] placeholder:text-[#1F2E23]/45 focus:outline-none focus:border-[#545E55]";
+    "w-full border-b border-[#1F2E23]/35 bg-transparent py-3 text-sm font-sans-clean text-[#1F2E23] placeholder:text-[#1F2E23]/45 hover:border-[#1F2E23]/55 focus:border-[#545E55] focus:outline-none md:text-[15px]";
 
   return (
     <>
@@ -88,10 +88,10 @@ export default function ContactClient() {
                               Phone
                             </div>
                             <a
-                              href="tel:2813518700"
+                              href="tel:12815583700"
                               className="font-sans-clean text-lg text-[#1F2E23] transition-colors hover:text-[#545E55]"
                             >
-                              281.351.8700
+                              (281) 558-3700
                             </a>
                           </div>
                         </div>
@@ -131,6 +131,15 @@ export default function ContactClient() {
                           </div>
                           <p className="font-sans-clean text-sm leading-[1.75] text-[#1F2E23]/70">
                             {content.serviceAreaText}
+                          </p>
+                        </div>
+
+                        <div className="border-t border-[#1F2E23]/10 pt-8">
+                          <div className="mb-2 font-sans-clean text-[10px] uppercase tracking-[0.25em] text-[#1F2E23]/45">
+                            Office Hours
+                          </div>
+                          <p className="font-sans-clean text-sm leading-[1.75] text-[#1F2E23]/70">
+                            Monday through Friday, 8:00–5:00
                           </p>
                         </div>
                       </div>
@@ -218,8 +227,7 @@ export default function ContactClient() {
                             value={formData.message}
                             onChange={onChange("message")}
                             required
-                            rows={6}
-                            className={`${InputBase} resize-none`}
+                            className={`${InputBase} min-h-[140px] resize-y`}
                           />
                         </div>
 

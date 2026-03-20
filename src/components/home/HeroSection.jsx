@@ -53,16 +53,16 @@ export default function HeroSection() {
         decoding="async"
       />
 
-      <div className="absolute inset-0 bg-[#120F0D]/38" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#120F0D]/84 via-[#120F0D]/52 to-[#120F0D]/20" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#120F0D]/36 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D]/22 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[#120F0D]/52" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#120F0D]/88 via-[#120F0D]/62 to-[#120F0D]/28" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#120F0D]/42 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D]/30 via-transparent to-transparent" />
 
       <div className="relative mx-auto flex min-h-[720px] max-w-[1440px] items-center px-6 pb-16 pt-28 md:min-h-[820px] md:px-12 lg:px-20">
         <div className="mx-auto w-full max-w-[1280px] text-center">
           <div
             className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#D4C1AE]"
-            style={{ textShadow: "0 2px 8px rgba(0,0,0,0.28)" }}
+            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.38)" }}
           >
             {content.eyebrow}
           </div>
@@ -71,15 +71,15 @@ export default function HeroSection() {
             className="mt-6 font-serif-display font-semibold leading-[0.9] tracking-[-0.045em] text-white"
             style={{
               fontSize: "clamp(3.1rem, 6vw, 5.6rem)",
-              textShadow: "0 6px 24px rgba(0,0,0,0.34)",
+              textShadow: "0 8px 28px rgba(0,0,0,0.42)",
             }}
           >
             {renderHeroLines(heroLines)}
           </h1>
 
           <p
-            className="mt-7 mx-auto max-w-[700px] text-[16px] leading-[1.8] text-white/92 md:text-[18px]"
-            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.22)" }}
+            className="mx-auto mt-7 max-w-[700px] text-[16px] leading-[1.8] text-white/95 md:text-[18px]"
+            style={{ textShadow: "0 3px 12px rgba(0,0,0,0.28)" }}
           >
             {content.heroBody}
           </p>
@@ -97,7 +97,7 @@ export default function HeroSection() {
             <Link
               href={ROUTES.projects}
               onClick={() => trackCTA("explore-portfolio", "home-hero")}
-              className="inline-flex h-14 items-center justify-center gap-3 rounded-full border border-white/24 bg-black/18 px-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm transition hover:bg-black/28"
+              className="inline-flex h-14 items-center justify-center gap-3 rounded-full border border-white/24 bg-black/22 px-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm transition hover:bg-black/32"
             >
               View Portfolio
             </Link>

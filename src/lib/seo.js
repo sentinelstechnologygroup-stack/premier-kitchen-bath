@@ -4,7 +4,7 @@ export const SITE = {
   url: "https://premierkitchens.us",
   title: "Premier Kitchen & Bath | Houston Kitchen & Bath Remodeling Since 1979",
   description:
-    "Premier Kitchens is a Houston kitchen and bath remodeling company specializing in custom renovations, premium craftsmanship, and beautifully refined living spaces designed around the way you live.",
+    "Premier Kitchens & Bath is a Houston kitchen and bath remodeling company specializing in custom renovations, premium craftsmanship, and beautifully refined living spaces designed around the way you live.",
   ogImage: "/images/seo/premier-kitchens-social.jpg",
   location: {
     city: "Houston",

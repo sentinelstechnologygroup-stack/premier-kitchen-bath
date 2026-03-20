@@ -27,11 +27,11 @@ export default function SiteFooter() {
         <div>
           <div className="leading-none">
             <div className="font-serif-display text-[18px] font-semibold tracking-[0.08em]">
-              PREMIER KITCHENS
+              PREMIER KITCHEN &amp; BATH
             </div>
 
             <div className="mt-1 text-[9px] uppercase tracking-[0.34em] text-[#F5F0EA]/70">
-              Kitchen &amp; Bath
+              Houston Remodeling Since 1979
             </div>
           </div>
 
@@ -90,15 +90,15 @@ export default function SiteFooter() {
             <p>
               1918 Baker Rd.
               <br />
-              Houston, TX 77074
+              Houston, TX 77094
             </p>
 
             <p>
               <a
-                href="tel:17135206570"
+                href="tel:12815583700"
                 className="transition hover:text-[#F5F0EA]"
               >
-                (713) 520-6570
+                (281) 558-3700
               </a>
               <br />
               <a
@@ -109,19 +109,16 @@ export default function SiteFooter() {
               </a>
             </p>
 
-            <p>Saturday: 9am – 1pm</p>
+            <p>Monday through Friday, 8:00–5:00</p>
           </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-[1440px] border-t border-[#F5F0EA]/10 px-6 md:px-12 lg:px-20" />
 
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-3 px-6 py-6 text-[12px] text-[#F5F0EA]/60 md:flex-row md:items-center md:justify-between md:px-12 lg:px-20">
-        <div>© {new Date().getFullYear()} Premier Kitchens. All rights reserved.</div>
-
-        <div className="text-[10px] uppercase tracking-[0.22em] text-[#F5F0EA]/40">
-          Houston, Texas • Since 1979
-        </div>
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-3 px-6 py-6 text-[12px] text-[#F5F0EA]/55 md:flex-row md:items-center md:justify-between md:px-12 lg:px-20">
+        <div>© {new Date().getFullYear()} Premier Kitchen &amp; Bath. All rights reserved.</div>
+        <div>Serving the Houston area.</div>
       </div>
     </footer>
   );
