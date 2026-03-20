@@ -5,20 +5,21 @@ import React, { useEffect } from "react";
 import HeroBanner from "@/components/shared/HeroBanner";
 
 export default function PageShell({
-  children,
   hero = false,
   heroImage,
   eyebrow,
   title,
   subtitle,
-  heroExtras = null,
-  showCtaStrip = true,
-  showBottomCta = true,
+  children,
 }) {
   useEffect(() => {
     if (typeof document === "undefined") return;
 
-    document.body.classList.toggle("premier-has-hero", !!hero);
+    if (hero) {
+      document.body.classList.add("premier-has-hero");
+    } else {
+      document.body.classList.remove("premier-has-hero");
+    }
 
     return () => {
       document.body.classList.remove("premier-has-hero");
@@ -26,28 +27,22 @@ export default function PageShell({
   }, [hero]);
 
   return (
-    <div className="min-h-screen bg-[#F3EEE7] text-[#1F1A17]">
+    <div className="min-h-screen bg-[#F6F1EA] text-[#1E1A17]">
       {hero ? (
         <HeroBanner
           image={heroImage}
-          imageAlt={typeof title === "string" ? title : "Premier Kitchen & Bath"}
+          imageAlt={Array.isArray(title) ? title.join(" ") : title || ""}
           eyebrow={eyebrow}
           title={title}
           subtitle={subtitle}
-          extras={heroExtras}
-          forceTwoRows={false}
-          heightClassName="h-[56vh] min-h-[520px] max-h-[760px]"
-          bodyClassName="pt-24 pb-14 md:pt-28 md:pb-16 lg:pt-32 lg:pb-20"
-          titleClassName="max-w-[13ch] leading-[0.9] text-[3rem] sm:text-[3.55rem] md:text-[4.45rem] lg:text-[5.35rem] xl:text-[6rem]"
-          subtitleClassName="max-w-[52rem]"
-          overlayClassName=""
+          className="min-h-[620px] md:min-h-[700px]"
+          heightClassName="h-[64vh] min-h-[620px] max-h-[860px]"
+          overlayClassName="bg-[#0F0D0C]/68"
+          bodyClassName="mx-auto max-w-[980px] text-center"
         />
       ) : null}
 
-      <main className="bg-[#F3EEE7]">{children}</main>
-
-      {showCtaStrip ? null : null}
-      {showBottomCta ? null : null}
+      <main>{children}</main>
     </div>
   );
 }

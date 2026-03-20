@@ -13,9 +13,10 @@ export default function SiteHeader({ currentPageName }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hasHeroUnderHeader, setHasHeroUnderHeader] = useState(false);
+  const [isHomeHero, setIsHomeHero] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -26,16 +27,17 @@ export default function SiteHeader({ currentPageName }) {
   }, [pathname]);
 
   useEffect(() => {
-    const syncHeroState = () => {
+    const syncBodyState = () => {
       if (typeof document === "undefined") return;
-      setHasHeroUnderHeader(
-        document.body.classList.contains("premier-has-hero")
-      );
+
+      const body = document.body;
+      setHasHeroUnderHeader(body.classList.contains("premier-has-hero"));
+      setIsHomeHero(body.classList.contains("premier-home-hero"));
     };
 
-    syncHeroState();
+    syncBodyState();
 
-    const observer = new MutationObserver(syncHeroState);
+    const observer = new MutationObserver(syncBodyState);
     observer.observe(document.body, {
       attributes: true,
       attributeFilter: ["class"],
@@ -50,12 +52,14 @@ export default function SiteHeader({ currentPageName }) {
   );
 
   const shellClass = heroTop
-    ? "fixed inset-x-0 top-0 z-[1000] border-b border-white/10 bg-transparent"
+    ? `fixed inset-x-0 top-0 z-[1000] border-b border-white/12 ${
+        isHomeHero ? "bg-[rgba(10,9,8,0.18)]" : "bg-[rgba(10,9,8,0.30)]"
+      } backdrop-blur-md`
     : "fixed inset-x-0 top-0 z-[1000] border-b border-[#1E1A17]/10 bg-[#F6F1EA]/96 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.05)]";
 
   const textClass = heroTop ? "text-white" : "text-[#1E1A17]";
   const navClass = heroTop
-    ? "text-white/90 hover:text-white"
+    ? "text-white/92 hover:text-white"
     : "text-[#1E1A17] hover:text-[#7A6552]";
 
   const onScheduleClick = (where) => {
@@ -72,11 +76,11 @@ export default function SiteHeader({ currentPageName }) {
     <header className={shellClass}>
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:h-[76px] md:px-12 lg:px-20">
         <Link href={ROUTES.home} className={`leading-none ${textClass}`}>
-          <div className="font-serif-display text-[15px] font-semibold tracking-[0.08em] md:text-[18px]">
+          <div className="font-serif-display text-[15px] font-semibold tracking-[0.08em] [text-shadow:0_2px_12px_rgba(0,0,0,0.35)] md:text-[18px]">
             PREMIER KITCHEN &amp; BATH
           </div>
-          <div className="mt-1 text-[8px] uppercase tracking-[0.30em] opacity-75 md:text-[9px] md:tracking-[0.34em]">
-            Houston Remodeling Since 1979
+          <div className="mt-1 text-[8px] uppercase tracking-[0.30em] opacity-80 [text-shadow:0_2px_10px_rgba(0,0,0,0.3)] md:text-[9px] md:tracking-[0.34em]">
+            HOUSTON REMODELING SINCE 1979
           </div>
         </Link>
 
@@ -85,7 +89,7 @@ export default function SiteHeader({ currentPageName }) {
             <Link
               key={item.label}
               href={item.href}
-              className={`text-[11px] font-semibold uppercase tracking-[0.24em] transition-colors ${navClass}`}
+              className={`text-[11px] font-semibold uppercase tracking-[0.24em] transition-colors [text-shadow:0_2px_10px_rgba(0,0,0,0.28)] ${navClass}`}
             >
               {item.label}
             </Link>
@@ -95,7 +99,7 @@ export default function SiteHeader({ currentPageName }) {
         <div className="hidden items-center gap-5 lg:flex">
           <a
             href="tel:12815583700"
-            className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${textClass}`}
+            className={`text-[11px] font-semibold uppercase tracking-[0.18em] [text-shadow:0_2px_10px_rgba(0,0,0,0.28)] ${textClass}`}
           >
             (281) 558-3700
           </a>
@@ -105,7 +109,7 @@ export default function SiteHeader({ currentPageName }) {
             onClick={() => onScheduleClick("Header CTA")}
             className={`inline-flex h-12 items-center gap-2 rounded-full px-6 text-[11px] font-semibold uppercase tracking-[0.18em] transition ${
               heroTop
-                ? "border border-white/22 bg-white/10 text-white backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.18)] hover:bg-white/16"
+                ? "border border-white/22 bg-white/14 text-white backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.24)] hover:bg-white/20"
                 : "bg-[#1E1A17] text-[#F6F1EA] hover:bg-[#322A24]"
             }`}
           >
@@ -118,7 +122,7 @@ export default function SiteHeader({ currentPageName }) {
           type="button"
           className={`inline-flex h-10 w-10 items-center justify-center rounded-full border lg:hidden ${
             heroTop
-              ? "border-white/20 bg-white/10 text-white backdrop-blur-sm"
+              ? "border-white/20 bg-white/12 text-white backdrop-blur-sm"
               : "border-[#1E1A17]/10 bg-[#F6F1EA] text-[#1E1A17]"
           }`}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}

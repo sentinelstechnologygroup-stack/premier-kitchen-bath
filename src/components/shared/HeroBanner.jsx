@@ -6,33 +6,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const DEFAULT_TRANSITION = { duration: 1.2, ease: [0.33, 1, 0.68, 1] };
 
-function normalizeTitleLines(title) {
-  if (!title) return [];
-
+function renderTitle(title) {
   if (Array.isArray(title)) {
-    return title
-      .map((line) => String(line || "").replace(/\s+/g, " ").trim())
-      .filter(Boolean);
+    return title.map((line, idx) => (
+      <span key={`${line}-${idx}`} className="block">
+        {line}
+      </span>
+    ));
   }
 
-  const clean = String(title).replace(/\r/g, "").trim();
-  if (!clean) return [];
-
-  if (clean.includes("|")) {
-    return clean
-      .split("|")
-      .map((part) => part.replace(/\s+/g, " ").trim())
-      .filter(Boolean);
-  }
-
-  if (clean.includes("\n")) {
-    return clean
-      .split("\n")
-      .map((part) => part.replace(/\s+/g, " ").trim())
-      .filter(Boolean);
-  }
-
-  return [clean];
+  return title;
 }
 
 export default function HeroBanner({
@@ -50,7 +33,6 @@ export default function HeroBanner({
   subtitleClassName = "",
   overlayClassName = "",
   dots = false,
-  forceTwoRows = false,
   heightClassName = "h-[56vh] min-h-[460px] max-h-[740px]",
 }) {
   const heroImages = useMemo(() => {
@@ -59,157 +41,116 @@ export default function HeroBanner({
     return [];
   }, [images, image]);
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const isSlider = heroImages.length > 1;
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    if (!isSlider) return undefined;
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [heroImages.length, isSlider]);
+    if (heroImages.length <= 1) return undefined;
 
-  const currentImage = heroImages[currentSlide] || "";
+    const id = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
 
-  const titleLines = useMemo(() => {
-    const lines = normalizeTitleLines(title);
+    return () => window.clearInterval(id);
+  }, [heroImages.length]);
 
-    if (!forceTwoRows || lines.length <= 2) return lines;
-
-    return [
-      lines.slice(0, Math.ceil(lines.length / 2)).join(" "),
-      lines.slice(Math.ceil(lines.length / 2)).join(" "),
-    ];
-  }, [title, forceTwoRows]);
-
-  const isMultiLine = titleLines.length > 1;
+  const activeImage = heroImages[activeIndex] || "";
 
   return (
     <section
-      className={`relative w-full overflow-hidden ${heightClassName} ${className}`}
+      className={`relative isolate overflow-hidden ${heightClassName} ${className}`}
     >
       <AnimatePresence mode="wait">
         <motion.div
-          key={currentImage || "hero-static"}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          key={activeImage}
+          className="absolute inset-0"
+          initial={{ scale: 1.04, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={DEFAULT_TRANSITION}
-          className="absolute inset-0"
         >
-          {currentImage ? (
-            <img
-              src={currentImage}
-              alt={imageAlt}
-              className="absolute inset-0 h-full w-full object-cover object-center"
-              loading="eager"
-              decoding="async"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-[#1F2E23]" />
-          )}
-
-          <div className="absolute inset-0 bg-[#102018]/46" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#09110D]/68 via-[#102018]/22 to-[#102018]/64" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F1B15]/18 via-transparent to-[#0F1B15]/18" />
-          <div className="absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-[#102018]/78 to-transparent" />
-          {overlayClassName ? (
-            <div className={`absolute inset-0 ${overlayClassName}`} />
-          ) : null}
+          <img
+            src={activeImage}
+            alt={imageAlt}
+            className="h-full w-full object-cover object-center"
+          />
         </motion.div>
       </AnimatePresence>
 
       <div
-        className={`absolute inset-0 flex items-center justify-center px-6 md:px-12 lg:px-20 ${bodyClassName}`}
-      >
-        <div className="mx-auto flex w-full max-w-[1440px] justify-center">
-          <div className="flex w-full max-w-[1320px] flex-col items-center justify-center text-center">
-            {eyebrow ? (
-              <div className="mb-5 font-sans-clean text-[10px] font-semibold uppercase tracking-[0.34em] text-white/82 [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
-                {eyebrow}
-              </div>
-            ) : null}
+        className={`absolute inset-0 bg-[#0F0D0C]/68 ${overlayClassName}`}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-black/58 via-black/18 to-black/34"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-black/34 via-transparent to-black/20"
+        aria-hidden="true"
+      />
 
-            {titleLines.length ? (
-              <motion.h1
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.95,
-                  delay: 0.2,
-                  ease: [0.33, 1, 0.68, 1],
-                }}
-                className={[
-                  "mx-auto flex flex-col items-center text-center font-serif-display font-light tracking-[-0.035em] text-[#F5F0EA] [text-shadow:0_2px_16px_rgba(0,0,0,0.34)]",
-                  isMultiLine
-                    ? "w-full max-w-[16ch] leading-[0.88] text-[2.95rem] sm:text-[3.55rem] md:text-[4.6rem] lg:text-[5.45rem] xl:text-[6.05rem]"
-                    : "w-full max-w-[14ch] leading-[0.9] text-[3rem] sm:text-[3.55rem] md:text-[4.45rem] lg:text-[5.35rem] xl:text-[6rem]",
-                  titleClassName,
-                ].join(" ")}
-              >
-                {titleLines.map((line, index) => (
-                  <span
-                    key={`${line}-${index}`}
-                    className="block w-full whitespace-nowrap text-center"
-                  >
-                    {line}
-                  </span>
-                ))}
-              </motion.h1>
-            ) : null}
+      <div className="relative z-10 mx-auto flex h-full max-w-[1280px] items-center px-6 md:px-10 lg:px-14">
+        <div className={`w-full text-white ${bodyClassName}`}>
+          {eyebrow ? (
+            <div
+              className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#D4C1AE]"
+              style={{
+                textShadow:
+                  "0 3px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.75)",
+              }}
+            >
+              {eyebrow}
+            </div>
+          ) : null}
 
-            {subtitle ? (
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.85,
-                  delay: 0.35,
-                  ease: [0.33, 1, 0.68, 1],
-                }}
-                className={[
-                  "mx-auto mt-6 text-center font-sans-clean text-[15px] leading-[1.72] text-[#F5F0EA]/92 md:text-[17px] [text-shadow:0_1px_12px_rgba(0,0,0,0.26)]",
-                  "max-w-[48rem]",
-                  subtitleClassName,
-                ].join(" ")}
-              >
-                {subtitle}
-              </motion.p>
-            ) : null}
+          {title ? (
+            <h1
+              className={`mt-6 font-serif-display text-[clamp(2.6rem,6vw,5.7rem)] font-semibold leading-[0.9] tracking-[-0.045em] text-white ${titleClassName}`}
+              style={{
+                textShadow:
+                  "0 10px 36px rgba(0,0,0,0.62), 0 3px 12px rgba(0,0,0,0.42)",
+              }}
+            >
+              {renderTitle(title)}
+            </h1>
+          ) : null}
 
-            {actions ? (
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.85,
-                  delay: 0.5,
-                  ease: [0.33, 1, 0.68, 1],
-                }}
-                className="mt-9 flex justify-center"
-              >
-                {actions}
-              </motion.div>
-            ) : null}
+          {subtitle ? (
+            <p
+              className={`mx-auto mt-7 max-w-[900px] text-[16px] leading-[1.8] text-white/95 md:text-[18px] ${subtitleClassName}`}
+              style={{
+                textShadow:
+                  "0 4px 16px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.32)",
+              }}
+            >
+              {subtitle}
+            </p>
+          ) : null}
 
-            {extras ? (
-              <div className="mt-8 flex justify-center">{extras}</div>
-            ) : null}
-          </div>
+          {actions ? (
+            <div
+              className="mt-8 [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]"
+              style={{ filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.18))" }}
+            >
+              {actions}
+            </div>
+          ) : null}
+
+          {extras ? <div className="mt-8">{extras}</div> : null}
         </div>
       </div>
 
-      {dots && isSlider ? (
-        <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 gap-2">
-          {heroImages.map((_, idx) => (
+      {dots && heroImages.length > 1 ? (
+        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+          {heroImages.map((_, index) => (
             <button
-              key={idx}
-              onClick={() => setCurrentSlide(idx)}
-              className={`h-px w-8 rounded-full transition-all ${
-                idx === currentSlide ? "bg-[#F5F0EA]" : "bg-[#F5F0EA]/30"
+              key={index}
+              type="button"
+              aria-label={`Go to slide ${index + 1}`}
+              onClick={() => setActiveIndex(index)}
+              className={`h-2.5 w-2.5 rounded-full transition ${
+                index === activeIndex ? "bg-white" : "bg-white/45"
               }`}
-              aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
         </div>
