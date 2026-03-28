@@ -24,16 +24,14 @@ export default function SiteFooter() {
   return (
     <footer className="bg-[#12100F] text-[#F5F0EA]">
       <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 px-6 py-16 md:grid-cols-4 md:px-12 lg:px-20">
-        <div>
-          <div className="leading-none">
-            <div className="font-serif-display text-[18px] font-semibold tracking-[0.08em]">
-              PREMIER KITCHEN &amp; BATH
-            </div>
 
-            <div className="mt-1 text-[9px] uppercase tracking-[0.34em] text-[#F5F0EA]/70">
-              Houston Remodeling Since 1979
-            </div>
-          </div>
+        {/* LOGO COLUMN */}
+        <div>
+          <img
+            src="/logo-premier.png"
+            alt="Premier Kitchen & Bath"
+            className="h-[70px] w-auto object-contain"
+          />
 
           <p className="mt-5 max-w-[260px] text-[14px] leading-[1.8] text-[#F5F0EA]/70">
             Houston&apos;s trusted kitchen &amp; bath renovation specialists since

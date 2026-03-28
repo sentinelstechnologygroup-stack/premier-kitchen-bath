@@ -55,12 +55,7 @@ export default function SiteHeader({ currentPageName }) {
     ? `fixed inset-x-0 top-0 z-[1000] border-b border-white/12 ${
         isHomeHero ? "bg-[rgba(10,9,8,0.18)]" : "bg-[rgba(10,9,8,0.30)]"
       } backdrop-blur-md`
-    : "fixed inset-x-0 top-0 z-[1000] border-b border-[#1E1A17]/10 bg-[#F6F1EA]/96 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.05)]";
-
-  const textClass = heroTop ? "text-white" : "text-[#1E1A17]";
-  const navClass = heroTop
-    ? "text-white/92 hover:text-white"
-    : "text-[#1E1A17] hover:text-[#7A6552]";
+    : "fixed inset-x-0 top-0 z-[1000] border-b border-white/10 bg-[#F6F1EA]/96 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.08)]";
 
   const onScheduleClick = (where) => {
     trackCTA("schedule-consultation", where, {
@@ -72,34 +67,53 @@ export default function SiteHeader({ currentPageName }) {
     });
   };
 
+  const desktopNavClass = heroTop
+    ? "text-white hover:text-white"
+    : "text-[#1E1A17] hover:text-[#7A6552]";
+
+  const desktopPhoneClass = heroTop
+    ? "text-white"
+    : "text-[#1E1A17]";
+
+  const heroTextStyle = heroTop
+    ? {
+        textShadow:
+          "0 2px 8px rgba(0,0,0,0.65), 0 1px 2px rgba(0,0,0,0.85)",
+      }
+    : undefined;
+
   return (
     <header className={shellClass}>
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:h-[76px] md:px-12 lg:px-20">
-        <Link href={ROUTES.home} className={`leading-none ${textClass}`}>
-          <div className="font-serif-display text-[15px] font-semibold tracking-[0.08em] [text-shadow:0_2px_12px_rgba(0,0,0,0.35)] md:text-[18px]">
-            PREMIER KITCHEN &amp; BATH
-          </div>
-          <div className="mt-1 text-[8px] uppercase tracking-[0.30em] opacity-80 [text-shadow:0_2px_10px_rgba(0,0,0,0.3)] md:text-[9px] md:tracking-[0.34em]">
-            HOUSTON REMODELING SINCE 1979
-          </div>
+        {/* LOGO */}
+        <Link href={ROUTES.home} className="flex items-center">
+          <img
+            src="/logo-premier.png"
+            alt="Premier Kitchen & Bath"
+            className="h-[60px] w-auto object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)] md:h-[68px]"
+          />
         </Link>
 
+        {/* DESKTOP NAV */}
         <nav className="hidden items-center gap-8 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className={`text-[11px] font-semibold uppercase tracking-[0.24em] transition-colors [text-shadow:0_2px_10px_rgba(0,0,0,0.28)] ${navClass}`}
+              className={`text-[11px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 ${desktopNavClass}`}
+              style={heroTextStyle}
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
+        {/* DESKTOP CTA */}
         <div className="hidden items-center gap-5 lg:flex">
           <a
             href="tel:12815583700"
-            className={`text-[11px] font-semibold uppercase tracking-[0.18em] [text-shadow:0_2px_10px_rgba(0,0,0,0.28)] ${textClass}`}
+            className={`text-[11px] font-bold uppercase tracking-[0.18em] transition-colors duration-300 ${desktopPhoneClass}`}
+            style={heroTextStyle}
           >
             (281) 558-3700
           </a>
@@ -107,9 +121,9 @@ export default function SiteHeader({ currentPageName }) {
           <Link
             href={ROUTES.consultation}
             onClick={() => onScheduleClick("Header CTA")}
-            className={`inline-flex h-12 items-center gap-2 rounded-full px-6 text-[11px] font-semibold uppercase tracking-[0.18em] transition ${
+            className={`inline-flex h-12 items-center gap-2 rounded-full px-6 text-[11px] font-bold uppercase tracking-[0.18em] transition ${
               heroTop
-                ? "border border-white/22 bg-white/14 text-white backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.24)] hover:bg-white/20"
+                ? "border border-white/22 bg-white/14 text-white backdrop-blur-md hover:bg-white/20"
                 : "bg-[#1E1A17] text-[#F6F1EA] hover:bg-[#322A24]"
             }`}
           >
@@ -118,57 +132,56 @@ export default function SiteHeader({ currentPageName }) {
           </Link>
         </div>
 
+        {/* MOBILE MENU */}
         <button
           type="button"
           className={`inline-flex h-10 w-10 items-center justify-center rounded-full border lg:hidden ${
             heroTop
-              ? "border-white/20 bg-white/12 text-white backdrop-blur-sm"
+              ? "border-white/20 bg-white/12 text-white"
               : "border-[#1E1A17]/10 bg-[#F6F1EA] text-[#1E1A17]"
           }`}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen((prev) => !prev)}
         >
           {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
       </div>
 
-      {mobileOpen ? (
-        <div className="border-t border-[#1E1A17]/10 bg-[#F6F1EA] lg:hidden">
-          <div className="mx-auto max-w-[1440px] px-5 py-6 md:px-12">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-5">
+      {mobileOpen && (
+        <div className="lg:hidden">
+          <div className="ml-auto w-1/2 min-w-[240px] border-l border-t border-none bg-[#fffff]/50 shadow-[-12px_12px_30px_rgba(0,0,0,0.1)]">
+            <div className="px-5 py-6">
+              <div className="flex flex-col gap-6">
                 {NAV.map((item) => (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className="text-[12px] font-semibold uppercase tracking-[0.28em] text-[#1E1A17]"
+                    className="text-[12px] font-bold uppercase tracking-[0.28em] text-[#070504]"
                   >
                     {item.label}
                   </Link>
                 ))}
-              </div>
 
-              <div className="border-t border-[#1E1A17]/10 pt-5">
-                <a
-                  href="tel:12815583700"
-                  className="block text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1E1A17]"
-                >
-                  (281) 558-3700
-                </a>
+                <div className="border-t pt-5">
+                  <a
+                    href="tel:12815583700"
+                    className="block text-[12px] font-bold uppercase tracking-[0.18em]"
+                  >
+                    (281) 558-3700
+                  </a>
 
-                <Link
-                  href={ROUTES.consultation}
-                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1E1A17] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F6F1EA]"
-                  onClick={() => onScheduleClick("Mobile Header CTA")}
-                >
-                  Consultation
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                  <Link
+                    href={ROUTES.consultation}
+                    className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1E1A17] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#F6F1EA]"
+                  >
+                    Consultation
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </header>
   );
 }

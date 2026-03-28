@@ -12,54 +12,197 @@ export const PRODUCTS_PAGE_HERO = {
 export const PRODUCT_CATEGORIES = [
   {
     title: "Cabinetry",
-    brands: ["Elmwood Kitchens", "Wellborn Cabinet", "Wolf Home Products"],
+    brands: [
+      {
+        name: "Elmwood Kitchens",
+        logo: "/products/Elmwood.jpg",
+        url: "https://www.elmwoodkitchens.com/",
+      },
+      {
+        name: "Wellborn Cabinet",
+        logo: "/products/Wellborn.jpg",
+        url: "https://www.wellborn.com/",
+      },
+      {
+        name: "Wolf Home Products",
+        logo: "/products/Wolf.jpg",
+        url: "https://www.wolfhomeproducts.com/",
+      },
+    ],
   },
   {
     title: "Surfaces",
     brands: [
-      "Caesarstone",
-      "Silestone",
-      "Cambria",
-      "CraftArt",
-      "Okite",
-      "HanStone Quartz",
+      {
+        name: "Caesarstone",
+        logo: "/products/Caesarstone.jpg",
+        url: "https://www.caesarstoneus.com/",
+      },
+      {
+        name: "Silestone",
+        logo: "/products/SileStone.jpg",
+        url: "https://www.cosentino.com/usa/silestone/",
+      },
+      {
+        name: "Cambria",
+        logo: "/products/Cambria.jpg",
+        url: "https://www.cambriausa.com/",
+      },
+      {
+        name: "CraftArt",
+        logo: "/products/CraftArt.jpg",
+        url: "https://www.craftart.com/",
+      },
+      {
+        name: "Okite",
+        logo: "/products/Okite.jpg",
+        url: "https://okite.com/",
+      },
+      {
+        name: "Zodiac Quartz Surfaces",
+        logo: "/products/Zodiac.jpg",
+        url: "https://www.theshowerhouseclub.com/wp-content/uploads/2012/12/break.png",
+      },
     ],
   },
   {
     title: "Tile & Stone",
     brands: [
-      "Dal Tile",
-      "Emser Tile",
-      "Arizona Tile",
-      "Marazzi",
-      "Keystone Tile",
-      "Stone Quarry",
+      {
+        name: "Dal Tile",
+        logo: "/products/DalTile.jpg",
+        url: "https://www.daltile.com/",
+      },
+      {
+        name: "Emser Tile",
+        logo: "/products/Emser.jpg",
+        url: "https://www.emser.com/",
+      },
+      {
+        name: "Arizona Tile",
+        logo: "/products/Arizona.jpg",
+        url: "https://www.arizonatile.com/",
+      },
+      {
+        name: "Marazzi",
+        logo: "/products/Marazzi.jpg",
+        url: "https://www.marazzitile.com/",
+      },
+      {
+        name: "Keystone Tile",
+        logo: "/products/Keystone.jpg",
+        url: "https://www.ohiotile.com/",
+      },
+      {
+        name: "Stone Quarry",
+        logo: "/products/StoneQuarry.jpg",
+        url: "https://www.stonequarryusa.com/",
+      },
     ],
   },
   {
     title: "Hardware",
     brands: [
-      "Amerock",
-      "Top Knobs",
-      "Siro Designs",
-      "Baldwin Hardware",
-      "Hickory Hardware",
-      "Richelieu",
+      {
+        name: "Amerock",
+        logo: "/products/Amerock.jpg",
+        url: "https://www.amerock.com/",
+      },
+      {
+        name: "Top Knobs",
+        logo: "/products/Top-Knobs.jpg",
+        url: "https://www.topknobs.com/",
+      },
+      {
+        name: "Siro Designs",
+        logo: "/products/Siro.jpg",
+        url: "https://www.sirodesign.com/default.aspx",
+      },
+      {
+        name: "Baldwin Hardware",
+        logo: "/products/Baldwin.jpg",
+        url: "https://www.baldwinhardware.com/",
+      },
+      {
+        name: "Hickory Hardware",
+        logo: "/products/Hickory.jpg",
+        url: "https://www.hickoryhardware.com/",
+      },
+      {
+        name: "Richelieu",
+        logo: "/products/Richelieu.jpg",
+        url: "https://www.richelieu.com/",
+      },
     ],
   },
   {
     title: "Plumbing",
-    brands: ["Kohler", "Moen", "Grohe", "Rohl", "Delta Faucet", "American Standard"],
+    brands: [
+      {
+        name: "Kohler",
+        logo: "/products/Kohler.jpg",
+        url: "https://www.kohler.com/",
+      },
+      {
+        name: "Moen",
+        logo: "/products/Moen.jpg",
+        url: "https://www.moen.com/",
+      },
+      {
+        name: "Grohe",
+        logo: "/products/Grohe.jpg",
+        url: "https://www.grohe.us/",
+      },
+      {
+        name: "Rohl",
+        logo: "/products/Rohl.jpg",
+        url: "https://www.houseofrohl.com/",
+      },
+      {
+        name: "Delta Faucet",
+        logo: "/products/Delta.jpg",
+        url: "https://www.deltafaucet.com/index.html",
+      },
+      {
+        name: "American Standard",
+        logo: "/products/American-Standard.jpg",
+        url: "https://www.americanstandard-us.com/",
+      },
+    ],
   },
   {
     title: "Lighting",
     brands: [
-      "Kichler",
-      "Hunter Fan",
-      "Maxim Lighting",
-      "Minka Lavery",
-      "Progress Lighting",
-      "Sea Gull Lighting",
+      {
+        name: "Kichler",
+        logo: "/products/Kichler.jpg",
+        url: "https://www.kichler.com/",
+      },
+      {
+        name: "Hunter Fan",
+        logo: "/products/Hunter.jpg",
+        url: "https://www.hunterfan.com/",
+      },
+      {
+        name: "Maxim Lighting",
+        logo: "/products/Maxim.jpg",
+        url: "https://www.maximlighting.com/",
+      },
+      {
+        name: "Minka Lavery",
+        logo: "/products/Minka-Lavery.jpg",
+        url: "https://www.minkagroup.net/",
+      },
+      {
+        name: "Progress Lighting",
+        logo: "/products/Progress-Lighting.jpg",
+        url: "https://www.progresslighting.com/",
+      },
+      {
+        name: "Sea Gull Lighting",
+        logo: "/products/Seagull.jpg",
+        url: "https://www.seagulllighting.com/",
+      },
     ],
   },
 ];

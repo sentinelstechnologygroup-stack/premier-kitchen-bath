@@ -50,15 +50,16 @@ export default function HeroSection() {
       <img
         src="/images/home/hero-01.jpg"
         alt="Premier Kitchen & Bath Houston kitchen remodeling"
-        className="absolute inset-0 h-full w-full object-cover object-center"
+        className="absolute inset-0 h-full w-full object-cover object-center saturate-[0.95] brightness-[0.86] contrast-[1.03]"
         loading="eager"
         decoding="async"
       />
 
-      <div className="absolute inset-0 bg-[#120F0D]/52" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#120F0D]/88 via-[#120F0D]/62 to-[#120F0D]/28" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#120F0D]/42 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D]/30 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[#120F0D]/40 backdrop-[blur(0.5px)]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#120F0D]/62 via-[#120F0D]/34 to-[#120F0D]/12" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#120F0D]/24 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D]/18 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_26%,rgba(0,0,0,0.08)_100%)]" />
 
       <div className="relative mx-auto flex min-h-[720px] max-w-[1440px] items-center px-6 pb-16 pt-28 md:min-h-[820px] md:px-12 lg:px-20">
         <div className="mx-auto w-full max-w-[1280px] text-center">

@@ -1,4 +1,3 @@
-// src/components/shared/HeroBanner.jsx
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
@@ -71,21 +70,25 @@ export default function HeroBanner({
           <img
             src={activeImage}
             alt={imageAlt}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center saturate-[0.96] brightness-[0.84] contrast-[1.03]"
           />
         </motion.div>
       </AnimatePresence>
 
       <div
-        className={`absolute inset-0 bg-[#0F0D0C]/68 ${overlayClassName}`}
+        className={`absolute inset-0 bg-[#0F0D0C]/42 backdrop-[blur(0.5px)] ${overlayClassName}`}
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-b from-black/58 via-black/18 to-black/34"
+        className="absolute inset-0 bg-gradient-to-b from-black/34 via-black/10 to-black/20"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-r from-black/34 via-transparent to-black/20"
+        className="absolute inset-0 bg-gradient-to-r from-black/24 via-transparent to-black/12"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_28%,rgba(0,0,0,0.10)_100%)]"
         aria-hidden="true"
       />
 
