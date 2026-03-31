@@ -12,43 +12,11 @@ import { ROUTES, createProjectUrl } from "@/components/utils/routes";
 import { Panel } from "@/components/ui/panel";
 import BottomCTA from "@/components/shared/BottomCTA";
 import { getPageContent } from "@/config/seo";
-
-const CATEGORIES = [
-  { key: "all", label: "All Projects" },
-  { key: "kitchen", label: "Kitchens" },
-  { key: "bathroom", label: "Bathrooms" },
-];
-
-const PROJECTS = [
-  {
-    title: "Bellaire Kitchen & Master Bath",
-    category: "bathroom",
-    image: "/images/projects/all-projects/bellaire-kitchen-master-bath/bellaire-kitchen-master-bath.jpg",
-    slug: "bellaire-kitchen-master-bath",
-    location: "The Woodlands, TX",
-  },
-  {
-    title: "Sable Stone Circle",
-    category: "kitchen",
-    image: "/images/projects/all-projects/sable-stone-circle/sable-stone-circle.jpg",
-    slug: "sable-stone-circle",
-    location: "Houston, TX",
-  },
-  {
-    title: "Spring Creek Residence",
-    category: "kitchen",
-    image: "/images/projects/all-projects/spring-creek-residence.jpg",
-    slug: "spring-creek-residence",
-    location: "Spring, TX",
-  },
-  {
-    title: "Woodlands Commons",
-    category: "bathroom",
-    image: "/images/projects/all-projects/woodlands-commons.jpg",
-    slug: "woodlands-commons",
-    location: "The Woodlands, TX",
-  },
-];
+import {
+  PROJECTS,
+  PROJECT_CATEGORIES,
+  formatCategoryLabel,
+} from "@/components/portfolio/projectData";
 
 function SectionEyebrow({ children }) {
   if (!children) return null;
@@ -58,12 +26,6 @@ function SectionEyebrow({ children }) {
       {children}
     </div>
   );
-}
-
-function formatCategoryLabel(category) {
-  if (category === "kitchen") return "Kitchen";
-  if (category === "bathroom") return "Bathroom";
-  return category;
 }
 
 export default function Projects() {
@@ -93,14 +55,14 @@ export default function Projects() {
         <section className="mx-auto max-w-[1440px] px-6 py-10 md:px-12 lg:px-20">
           <AnimatedSection>
             <div className="mb-10 flex flex-wrap gap-3">
-              {CATEGORIES.map((cat) => {
+              {PROJECT_CATEGORIES.map((cat) => {
                 const isActive = active === cat.key;
                 return (
                   <button
                     key={cat.key}
                     onClick={() => setActive(cat.key)}
                     className={[
-                      "rounded-full border px-4 py-2 text-[11px] font-sans-clean uppercase tracking-[0.22em]",
+                      "rounded-full border px-4 py-2 text-[11px] font-sans-clean uppercase tracking-[0.22em] transition-colors",
                       isActive
                         ? "border-[#1F2E23]/20 bg-[#1F2E23] text-[#F5F0EA]"
                         : "border-[#1F2E23]/15 bg-white/60 text-[#1F2E23] hover:bg-white",
@@ -124,13 +86,13 @@ export default function Projects() {
                   transition={{ duration: 0.25 }}
                   className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
                 >
-                  {filtered.map((p) => (
+                  {filtered.map((project) => (
                     <Link
-                      key={p.slug}
+                      key={project.slug}
                       href={
                         typeof createProjectUrl === "function"
-                          ? createProjectUrl(p.slug)
-                          : ROUTES.projects
+                          ? createProjectUrl(project.slug)
+                          : `${ROUTES.projects}/${project.slug}`
                       }
                       className="block"
                     >
@@ -140,8 +102,8 @@ export default function Projects() {
                       >
                         <div className="relative aspect-[4/3] overflow-hidden bg-[#E5DED4]">
                           <img
-                            src={p.image}
-                            alt={p.title}
+                            src={project.cardImage || project.heroImage}
+                            alt={project.title}
                             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                             loading="lazy"
                           />
@@ -150,16 +112,16 @@ export default function Projects() {
 
                         <div className="p-6">
                           <span className="font-sans-clean text-[9px] uppercase tracking-[0.22em] text-[#1F2E23]/55">
-                            {formatCategoryLabel(p.category)}
+                            {formatCategoryLabel(project.category)}
                           </span>
 
                           <h3 className="mb-3 mt-3 font-serif-display text-2xl font-light text-[#1F2E23] transition-colors group-hover:text-[#6B7F5E]">
-                            {p.title}
+                            {project.title}
                           </h3>
 
                           <div className="flex items-center gap-2 font-sans-clean text-sm text-[#1F2E23]/55">
                             <MapPin className="h-4 w-4" />
-                            <span>{p.location}</span>
+                            <span>{project.location}</span>
                           </div>
 
                           <div className="mt-5 inline-flex items-center gap-2 font-sans-clean text-[11px] uppercase tracking-[0.22em] text-[#1F2E23]/70 transition-colors group-hover:text-[#1F2E23]">
