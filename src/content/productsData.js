@@ -19,14 +19,19 @@ export const PRODUCT_CATEGORIES = [
         url: "https://www.elmwoodkitchens.com/",
       },
       {
-        name: "Wellborn Cabinet",
-        logo: "/products/Wellborn.jpg",
-        url: "https://www.wellborn.com/",
+        name: "J&K Cabinetry",
+        logo: "/products/JK.jpg",
+        url: "https://www.jk-cabinetry.com/",
       },
       {
         name: "Wolf Home Products",
         logo: "/products/Wolf.jpg",
         url: "https://www.wolfhomeproducts.com/",
+      },
+      {
+        name: "Primary Kitchen Cabinets",
+        logo: "/products/Primary.jpg",
+        url: "https://www.primarykitchen.com//",
       },
     ],
   },
@@ -61,7 +66,12 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Zodiac Quartz Surfaces",
         logo: "/products/Zodiac.jpg",
-        url: "https://www.theshowerhouseclub.com/wp-content/uploads/2012/12/break.png",
+        url: "https://www.theshowerhouseclub.com/wp-content/uploads/2012/12/break.com/",
+      },
+      {
+        name: "Vicostone",
+        logo: "/products/Vicostone.jpg",
+        url: "https://us.vicostone.com/",
       },
     ],
   },
@@ -97,6 +107,11 @@ export const PRODUCT_CATEGORIES = [
         name: "Stone Quarry",
         logo: "/products/StoneQuarry.jpg",
         url: "https://www.stonequarryusa.com/",
+      },
+      {
+        name: " Midwest Tile, Marble & Granite",
+        logo: "/products/Midwest.jpg",
+        url: "https://www.midwesttile.com/",
       },
     ],
   },

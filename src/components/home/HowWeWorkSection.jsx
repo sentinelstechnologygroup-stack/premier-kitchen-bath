@@ -5,27 +5,27 @@ import AnimatedSection from "../shared/AnimatedSection";
 const STEPS = [
   {
     number: "01",
-    title: "Consult",
+    title: "Initial Consultation",
     body:
-      "We begin by listening closely to your home, your lifestyle, and your priorities so the project starts with clarity.",
+      "We walk your space with you, understand what you’re trying to accomplish, and answer any questions so you know what’s possible.",
   },
   {
     number: "02",
-    title: "Design",
+    title: "Design & Planning",
     body:
-      "Our designers shape a precise plan of materials, layout, and details tailored to your space and sensibility.",
+      "Our designers turn your ideas into a clear, detailed plan with defined scope, materials, and pricing before construction begins.",
   },
   {
     number: "03",
-    title: "Craft",
+    title: "Construction",
     body:
-      "Executed by a skilled team with exacting standards. Every surface, line, and finish is placed with care.",
+      "Our team handles the entire project from start to finish, keeping the job organized, on schedule, and built with attention to detail.",
   },
   {
     number: "04",
-    title: "Deliver",
+    title: "Final Walkthrough",
     body:
-      "On time. On brief. A finished space that exceeds your expectations and endures for decades.",
+      "We walk the project with you at completion and address any final details to ensure everything meets expectations.",
   },
 ];
 

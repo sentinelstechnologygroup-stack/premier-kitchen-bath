@@ -14,10 +14,10 @@ export const PAGE_SEO = {
   home: {
     path: "/",
     title:
-      "Houston Kitchen & Bathroom Remodeling | Premier Kitchen & Bath | Since 1979",
+      "Houston's Kitchen & Bathroom Remodeling Experts| Premier Kitchen & Bath | Since 1979",
     description:
       "Houston's most trusted kitchen and bathroom remodeling company since 1979. Premium craftsmanship, custom cabinetry, and beautiful results. Schedule a free consultation at our Houston showroom.",
-    h1: "Houston Kitchen & Bathroom Remodeling Experts Since 1979",
+    h1: "Premier Kitchen & Bath, Houston's Kitchen & Bathroom Remodeling Experts Since 1979",
     schemaType: "HomePage",
     keywords: [
       "houston kitchen bathroom remodeling",
@@ -27,7 +27,7 @@ export const PAGE_SEO = {
       "custom kitchen cabinets houston",
     ],
     ui: {
-      eyebrow: "Houston Kitchen & Bath Remodeling",
+      eyebrow: "Houston's Kitchen & Bath Remodeling Experts",
       heroTitleLines: ["Kitchen & Bath", "Remodeling Experts", "Since 1979"],
       heroBody:
         "Thousands of successful kitchen and bathroom remodels. Premium craftsmanship in every detail. Beautifully refined spaces designed around the way you live.",
@@ -305,7 +305,7 @@ export const PAGE_SEO = {
       "Kitchen & Bath Showroom Houston TX | 1918 Baker Rd | Premier Kitchen & Bath",
     description:
       "Visit Premier Kitchen & Bath's Houston showroom at 1918 Baker Rd. Explore cabinetry, countertops, tile, and fixture combinations in person. Open Monday through Friday, 8:00–5:00.",
-    h1: "Visit Our Kitchen & Bath Showroom in Houston",
+    h1: "Visit Our Kitchen & Bath Showroom",
     schemaType: "LocalBusiness",
     keywords: [
       "kitchen bath showroom houston",
@@ -315,8 +315,8 @@ export const PAGE_SEO = {
       "premier kitchen bath showroom",
     ],
     ui: {
-      heroEyebrow: "Houston Showroom",
-      heroTitleLines: ["Visit Our Kitchen & Bath", "Showroom in Houston"],
+      heroEyebrow: "Showroom",
+      heroTitleLines: ["Visit Our", "Kitchen & Bath", "Showroom"],
       heroSubtitle:
         "Explore cabinetry, countertops, tile, fixtures, and finish combinations in person at Premier Kitchen & Bath.",
       introEyebrow: "Why Visit",
