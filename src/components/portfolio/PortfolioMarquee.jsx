@@ -1,19 +1,11 @@
-// @ts-nocheck
 // src/components/portfolio/PortfolioMarquee.jsx
+"use client";
+
+// @ts-nocheck
 import React, { useMemo } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-/**
- * PortfolioMarquee — Single Source of Truth
- *
- * DEFAULT sizing matches the "Commercial + Residential" teaser marquee you approved:
- * - Card width: 220/240/260/280 responsive
- * - Image: aspect-[4/3]
- * - Padding: 4
- *
- * If you ever need the larger Design hub version later, you can add a `size="large"` preset.
- */
 export default function PortfolioMarquee({
   items = [],
   title = "Design Portfolio",
@@ -23,14 +15,13 @@ export default function PortfolioMarquee({
   eyebrow = "Portfolio",
   speedSeconds = 34,
   gapPx = 16,
-  size = "small", // ✅ default is the Commercial/Residential baseline
+  size = "small",
 }) {
   const doubled = useMemo(() => [...items, ...items], [items]);
 
   const preset =
     size === "large"
       ? {
-          // optional future preset (not required right now)
           cardClass: "group shrink-0 w-[240px] sm:w-[260px] md:w-[300px] lg:w-[320px]",
           imgWrapClass: "h-[190px] sm:h-[210px] md:h-[230px] overflow-hidden",
           bodyClass: "p-6",
@@ -40,7 +31,6 @@ export default function PortfolioMarquee({
           viewClass: "text-[11px] tracking-[0.22em]",
         }
       : {
-          // ✅ Commercial/Residential baseline preset
           cardClass: "group shrink-0 w-[220px] sm:w-[240px] md:w-[260px] lg:w-[280px]",
           imgWrapClass: "aspect-[4/3] overflow-hidden",
           bodyClass: "p-4",
@@ -50,32 +40,51 @@ export default function PortfolioMarquee({
           viewClass: "text-[10px] tracking-[0.22em]",
         };
 
+  if (!items.length) return null;
+
   return (
     <div className="relative">
-      <style>{`
-        @keyframes premier-marquee {
-          0% { transform: translate3d(0,0,0); }
-          100% { transform: translate3d(-50%,0,0); }
+      <style jsx>{`
+        @keyframes premierMarqueeScroll {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-50%, 0, 0);
+          }
         }
-        .premier-marquee-outer { overflow: hidden; position: relative; }
+
+        .premier-marquee-outer {
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+        }
+
         .premier-marquee-track {
           display: flex;
           width: max-content;
           will-change: transform;
-          animation: premier-marquee ${speedSeconds}s linear infinite;
+          backface-visibility: hidden;
+          transform: translateZ(0);
+          animation-name: premierMarqueeScroll;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
         }
-        .premier-marquee-outer:hover .premier-marquee-track { animation-play-state: paused; }
+
         @media (prefers-reduced-motion: reduce) {
-          .premier-marquee-track { animation: none !important; transform: none !important; }
+          .premier-marquee-track {
+            animation: none !important;
+            transform: none !important;
+          }
         }
       `}</style>
 
       <div className="flex items-end justify-between gap-6">
         <div>
-          <p className="text-[10px] tracking-[0.28em] uppercase font-sans-clean font-semibold text-[#1F2E23]/55 mb-3">
+          <p className="mb-3 text-[10px] font-sans-clean font-semibold uppercase tracking-[0.28em] text-[#1F2E23]/55">
             {eyebrow}
           </p>
-          <h2 className="font-serif-display text-[#1F2E23] text-2xl md:text-3xl font-light tracking-tight">
+          <h2 className="font-serif-display text-2xl font-light tracking-tight text-[#1F2E23] md:text-3xl">
             {title}
           </h2>
         </div>
@@ -83,25 +92,31 @@ export default function PortfolioMarquee({
 
       <div className="mt-8">
         <div className="premier-marquee-outer">
-          {/* edge fades */}
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 w-12 z-10"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12"
             style={{ background: `linear-gradient(to right, ${bgColor}, transparent)` }}
           />
           <div
-            className="pointer-events-none absolute inset-y-0 right-0 w-12 z-10"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12"
             style={{ background: `linear-gradient(to left, ${bgColor}, transparent)` }}
           />
 
-          <div className="premier-marquee-track" style={{ gap: `${gapPx}px`, paddingBottom: "10px" }}>
+          <div
+            className="premier-marquee-track"
+            style={{
+              gap: `${gapPx}px`,
+              paddingBottom: "10px",
+              animationDuration: `${speedSeconds}s`,
+            }}
+          >
             {doubled.map((it, idx) => (
               <Link key={`${it.title}-${idx}`} href={it.href} className={preset.cardClass}>
-                <div className="rounded-2xl border border-[#1F2E23]/10 bg-[#F8F4ED] overflow-hidden">
+                <div className="overflow-hidden rounded-2xl border border-[#1F2E23]/10 bg-[#F8F4ED]">
                   <div className={preset.imgWrapClass}>
                     <img
                       src={it.image}
                       alt={it.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       loading="lazy"
                       decoding="async"
                     />
@@ -109,26 +124,26 @@ export default function PortfolioMarquee({
 
                   <div className={preset.bodyClass}>
                     <div
-                      className={`${preset.labelClass} uppercase font-sans-clean font-semibold text-[#1F2E23]/45`}
+                      className={`${preset.labelClass} font-sans-clean font-semibold uppercase text-[#1F2E23]/45`}
                     >
                       Project Gallery
                     </div>
 
-                    <div className={`mt-2 font-serif-display text-[#1F2E23] font-light ${preset.titleClass}`}>
+                    <div className={`mt-2 font-serif-display font-light text-[#1F2E23] ${preset.titleClass}`}>
                       {it.title}
                     </div>
 
                     {it.subtitle ? (
-                      <p className={`mt-2 text-[#1F2E23]/65 font-sans-clean ${preset.subClass}`}>
+                      <p className={`mt-2 font-sans-clean text-[#1F2E23]/65 ${preset.subClass}`}>
                         {it.subtitle}
                       </p>
                     ) : null}
 
                     <div
-                      className={`mt-3 inline-flex items-center gap-2 uppercase font-sans-clean font-semibold text-[#1F2E23]/80 ${preset.viewClass}`}
+                      className={`mt-3 inline-flex items-center gap-2 font-sans-clean font-semibold uppercase text-[#1F2E23]/80 ${preset.viewClass}`}
                     >
                       View Gallery
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
                 </div>
@@ -138,11 +153,12 @@ export default function PortfolioMarquee({
         </div>
 
         <div className="mt-8 flex justify-center">
-          <Link href={ctaHref}
-            className="inline-flex items-center gap-3 text-[11px] tracking-[0.25em] uppercase font-sans-clean font-semibold text-[#1F2E23]/70 hover:text-[#1F2E23] transition-colors"
+          <Link
+            href={ctaHref}
+            className="inline-flex items-center gap-3 text-[11px] font-sans-clean font-semibold uppercase tracking-[0.25em] text-[#1F2E23]/70 transition-colors hover:text-[#1F2E23]"
           >
             {ctaLabel}
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>

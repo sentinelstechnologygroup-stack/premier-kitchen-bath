@@ -3,48 +3,36 @@
 
 import React from "react";
 import Link from "next/link";
+import { PROJECTS } from "@/components/portfolio/projectData";
 
-const PROJECTS = [
-  {
-    title: "Custom Luxury Bathroom",
-    image: "/images/projects/carousel/bathroom-01.jpg",
-    href: "/projects/luxury-bathroom",
-  },
-  {
-    title: "Modern Bathroom Remodel",
-    image: "/images/projects/carousel/bathroom-02.jpg",
-    href: "/projects/modern-bathroom",
-  },
-  {
-    title: "Classic Bathroom Design",
-    image: "/images/projects/carousel/bathroom-03.jpg",
-    href: "/projects/classic-bathroom",
-  },
-  {
-    title: "Transitional Bathroom",
-    image: "/images/projects/carousel/bathroom-04.jpg",
-    href: "/projects/transitional-bathroom",
-  },
-  {
-    title: "Bright Primary Bath",
-    image: "/images/projects/carousel/bathroom-05.jpg",
-    href: "/projects/primary-bath",
-  },
+const PROJECTS_TO_SHOW = [
+  "chenenceaux",
+  "walk-in-shower-with-dual-fixtures",
+  "granite-and-tile-bath-remodel",
+  "timeless-primary-bath-with-elegant-finishes",
+  "custom-tile-shower-upgrade-with-pebble-floor",
 ];
 
+const SELECTED_BATHROOM_PROJECTS = PROJECTS_TO_SHOW
+  .map((slug) => PROJECTS.find((project) => project.slug === slug))
+  .filter(Boolean)
+  .map((project) => ({
+    title: project.title,
+    image: project.cardImage || project.heroImage,
+    href: `/projects/${project.slug}`,
+  }));
+
 export default function SelectedBathroomProjectsCarousel() {
-  const track = [...PROJECTS, ...PROJECTS];
+  const track = [...SELECTED_BATHROOM_PROJECTS, ...SELECTED_BATHROOM_PROJECTS];
 
   return (
     <section className="overflow-hidden py-12 md:py-14">
-      {/* Header */}
       <div className="mx-auto mb-8 max-w-[1440px] px-6 md:px-12 lg:px-20">
         <h2 className="font-serif-display text-[2rem] font-semibold tracking-[-0.02em] text-[#241D19] md:text-[2.5rem]">
           Selected Projects
         </h2>
       </div>
 
-      {/* Marquee */}
       <div className="relative w-full overflow-hidden">
         <div className="projects-track flex gap-6 md:gap-8">
           {track.map((project, index) => (
@@ -69,7 +57,6 @@ export default function SelectedBathroomProjectsCarousel() {
         </div>
       </div>
 
-      {/* Animation */}
       <style jsx>{`
         .projects-track {
           width: max-content;

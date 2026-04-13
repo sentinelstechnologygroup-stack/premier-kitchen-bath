@@ -3,37 +3,27 @@
 
 import React from "react";
 import Link from "next/link";
+import { PROJECTS } from "@/components/portfolio/projectData";
 
-const PROJECTS = [
-  {
-    title: "Custom Luxury Kitchen",
-    image: "/images/projects/carousel/kitchen-01.jpg",
-    href: "/projects/luxury-kitchen",
-  },
-  {
-    title: "Modern Kitchen Remodel",
-    image: "/images/projects/carousel/kitchen-02.jpg",
-    href: "/projects/modern-kitchen",
-  },
-  {
-    title: "Classic Kitchen Design",
-    image: "/images/projects/carousel/kitchen-03.jpg",
-    href: "/projects/classic-kitchen",
-  },
-  {
-    title: "Transitional Kitchen",
-    image: "/images/projects/carousel/kitchen-04.jpg",
-    href: "/projects/transitional-kitchen",
-  },
-  {
-    title: "Statement Island Kitchen",
-    image: "/images/projects/carousel/kitchen-05.jpg",
-    href: "/projects/island-kitchen",
-  },
+const PROJECTS_TO_SHOW = [
+  "taj-mahal-quartzite-kitchen",
+  "via-lactea-granite-kitchen",
+  "transitional-two-tone-kitchen",
+  "marble-kitchen-with-custom-navy-island",
+  "briar-rose-kitchen-remodel",
 ];
 
+const SELECTED_KITCHEN_PROJECTS = PROJECTS_TO_SHOW
+  .map((slug) => PROJECTS.find((project) => project.slug === slug))
+  .filter(Boolean)
+  .map((project) => ({
+    title: project.title,
+    image: project.cardImage || project.heroImage,
+    href: `/projects/${project.slug}`,
+  }));
+
 export default function SelectedKitchenProjectsCarousel() {
-  const track = [...PROJECTS, ...PROJECTS];
+  const track = [...SELECTED_KITCHEN_PROJECTS, ...SELECTED_KITCHEN_PROJECTS];
 
   return (
     <section className="overflow-hidden bg-[#F6F1EA] py-12 md:py-14">

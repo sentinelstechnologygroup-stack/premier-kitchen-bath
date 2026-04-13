@@ -27,8 +27,8 @@ export const PAGE_SEO = {
       "custom kitchen cabinets houston",
     ],
     ui: {
-      eyebrow: "Houston's Kitchen & Bath Remodeling Experts",
-      heroTitleLines: ["Kitchen & Bath", "Remodeling Experts", "Since 1979"],
+      eyebrow: "Premier Kitchen & Bath",
+      heroTitleLines: ["Houston's Kitchen & Bath", "Remodeling Experts", "Since 1979"],
       heroBody:
         "Thousands of successful kitchen and bathroom remodels. Premium craftsmanship in every detail. Beautifully refined spaces designed around the way you live.",
       philosophyTitle:
@@ -235,7 +235,7 @@ export const PAGE_SEO = {
       heroTitleLines: [
         "Kitchen & Bathroom",
         "Remodel Portfolio",
-        "in Houston",
+        " "
       ],
       heroSubtitle:
         "Browse a curated view of kitchen and bathroom remodeling work shaped by craftsmanship, material coordination, and disciplined execution.",

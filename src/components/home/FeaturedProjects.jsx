@@ -3,29 +3,32 @@ import React from "react";
 import Link from "next/link";
 import AnimatedSection from "../shared/AnimatedSection";
 import { ROUTES } from "@/components/utils/routes";
+import { PROJECTS } from "@/components/portfolio/projectData";
 
-const PROJECTS = [
-  {
-    title: "Traditional Kitchen Renovation",
-    category: "Kitchen Remodel",
-    image: "/images/home/hero-01.jpg",
-  },
-  {
-    title: "Light-Filled Bathroom Refresh",
-    category: "Bathroom Remodel",
-    image: "/images/home/featured-02.jpg",
-  },
-  {
-    title: "Contemporary Interior Upgrade",
-    category: "Full Interior Renovation",
-    image: "/images/home/featured-03.jpg",
-  },
-  {
-    title: "Luxury Home Transformation",
-    category: "Custom Remodeling",
-    image: "/images/home/featured-04.jpg",
-  },
+const FEATURED_PROJECT_SLUGS = [
+  "briar-rose-kitchen-remodel",
+  "chenenceaux",
+  "taj-mahal-quartzite-kitchen",
+  "sable-stone-circle",
+  "timeless-primary-bath-with-elegant-finishes",
 ];
+
+const FEATURED_PROJECTS = FEATURED_PROJECT_SLUGS
+  .map((slug) => PROJECTS.find((project) => project.slug === slug))
+  .filter(Boolean)
+  .map((project) => ({
+    title: project.title,
+    category:
+      project.category === "kitchen"
+        ? "Kitchen Remodel"
+        : project.category === "bathroom"
+          ? "Bathroom Remodel"
+          : project.category === "outdoor"
+            ? "Outdoor Living"
+            : "Project Gallery",
+    image: project.cardImage || project.heroImage,
+    href: `/projects/${project.slug}`,
+  }));
 
 export default function FeaturedProjects() {
   return (
@@ -52,9 +55,9 @@ export default function FeaturedProjects() {
         </AnimatedSection>
 
         <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {PROJECTS.map((project, idx) => (
+          {FEATURED_PROJECTS.map((project, idx) => (
             <AnimatedSection key={project.title} delay={idx * 0.08}>
-              <Link href={ROUTES.projects} className="group block">
+              <Link href={project.href} className="group block">
                 <div className="overflow-hidden rounded-[26px] bg-[#E6DDD2]">
                   <div className="aspect-[1.12/1] overflow-hidden">
                     <img
