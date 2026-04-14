@@ -158,7 +158,7 @@ export default function ProductsPage() {
                 <Panel className="overflow-hidden border border-[#1F2E23]/10 bg-[#F8F4ED]">
                   <img
                     src="/images/showroom/materials.jpg"
-                    alt="Premier Kitchens & Bath materials"
+                    alt="Premier Kitchen & Bath materials"
                     className="aspect-[16/11] w-full object-cover"
                   />
                 </Panel>

@@ -2,9 +2,9 @@
 import ProductsPage from "@/components/pages/Products";
 
 export const metadata = {
-  title: "Products | Premier Kitchens & Bath",
+  title: "Products | Premier Kitchen & Bath",
   description:
-    "Explore Premier Kitchens & Bath product partners across cabinetry, surfaces, tile, hardware, plumbing, and lighting for kitchen and bathroom renovations.",
+    "Explore Premier Kitchen & Bath product partners across cabinetry, surfaces, tile, hardware, plumbing, and lighting for kitchen and bathroom renovations.",
 };
 
 export default function Page() {

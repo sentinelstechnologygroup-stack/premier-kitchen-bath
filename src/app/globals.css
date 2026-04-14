@@ -264,3 +264,14 @@
   background: rgba(255, 255, 255, 0.28);
   border-radius: 9999px;
 }
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.965);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

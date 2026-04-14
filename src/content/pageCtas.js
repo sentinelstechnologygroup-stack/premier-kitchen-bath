@@ -6,7 +6,7 @@ export const CTA_VARIANTS = {
     eyebrow: "Ready to begin?",
     title: "Visit Our Showroom to See It All In Person",
     body:
-      "Explore cabinetry, surfaces, tile, fixtures, hardware, and finish combinations in person with guidance from the Premier Kitchens & Bath team.",
+      "Explore cabinetry, surfaces, tile, fixtures, hardware, and finish combinations in person with guidance from the Premier Kitchen & Bath team.",
     primaryLabel: "Visit the Showroom",
     primaryHref: ROUTES.showroom,
     secondaryLabel: "Request Free Estimate",

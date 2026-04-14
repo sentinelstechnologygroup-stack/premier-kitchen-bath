@@ -6,7 +6,7 @@ export const CTA_VARIANTS = {
     eyebrow: "Ready to begin?",
     title: "Visit Our Showroom to See It All In Person",
     body:
-      "Explore cabinetry, surfaces, tile, fixtures, hardware, and finish combinations in person with guidance from the Premier Kitchens & Bath team.",
+      "Explore cabinetry, surfaces, tile, fixtures, hardware, and finish combinations in person with guidance from the Premier Kitchen & Bath team.",
     primaryLabel: "Visit the Showroom",
     primaryHref: ROUTES.showroom,
     secondaryLabel: "Request Free Estimate",
@@ -16,7 +16,7 @@ export const CTA_VARIANTS = {
   },
 
   kitchens: {
-    eyebrow: "Premier Kitchens & Bath Showroom",
+    eyebrow: "Premier Kitchen & Bath Showroom",
     title: "Ready to Reimagine Your Kitchen?",
     body:
       "Visit our Houston showroom, compare cabinetry and surface combinations in person, and begin shaping a kitchen renovation tailored to your home and daily life.",
@@ -29,7 +29,7 @@ export const CTA_VARIANTS = {
   },
 
   bathrooms: {
-    eyebrow: "Premier Kitchens & Bath Showroom",
+    eyebrow: "Premier Kitchen & Bath Showroom",
     title: "Ready to Reimagine Your Bathroom?",
     body:
       "Visit our Houston showroom, compare bath finishes in person, and begin shaping a bathroom renovation that feels refined, functional, and unmistakably yours.",

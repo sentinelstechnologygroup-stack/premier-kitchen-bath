@@ -1,104 +1,180 @@
 // src/components/gallery/GalleryGrid.jsx
-import React, { useMemo, useState, useCallback } from "react";
-import { Panel } from "@/components/ui/panel";
-import GalleryLightbox from "@/components/gallery/GalleryLightbox";
+"use client";
+
+import React, { useEffect, useMemo, useState } from "react";
+
+function normalizeItem(item, index) {
+  if (typeof item === "string") {
+    return {
+      id: `gallery-image-${index}`,
+      src: item,
+      alt: `Project image ${index + 1}`,
+      caption: `Project image ${index + 1}`,
+    };
+  }
+
+  return {
+    id: item?.id ?? `gallery-image-${index}`,
+    src: item?.src ?? item?.image ?? item?.url ?? "",
+    alt: item?.alt ?? item?.title ?? `Project image ${index + 1}`,
+    caption: item?.caption ?? item?.title ?? "",
+  };
+}
 
 export default function GalleryGrid({
   items = [],
-  label = "Gallery",
   columns = 3,
-  gap = 10, // ✅ increased spacing by default
+  gap = 6,
+  roundedClass = "rounded-[22px]",
   tileAspect = "aspect-[4/3]",
 }) {
-  const images = useMemo(() => (items || []).filter(Boolean), [items]);
+  const normalizedItems = useMemo(() => {
+    return items
+      .map((item, index) => normalizeItem(item, index))
+      .filter((item) => item.src);
+  }, [items]);
+
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const isOpen = activeIndex >= 0;
-  const close = useCallback(() => setActiveIndex(-1), []);
-  const prev = useCallback(
-    () => setActiveIndex((i) => (i <= 0 ? images.length - 1 : i - 1)),
-    [images.length]
-  );
-  const next = useCallback(
-    () => setActiveIndex((i) => (i >= images.length - 1 ? 0 : i + 1)),
-    [images.length]
-  );
+  const hasLightbox =
+    activeIndex >= 0 && activeIndex < normalizedItems.length;
+  const activeItem = hasLightbox ? normalizedItems[activeIndex] : null;
 
-  const gridCols =
-    columns === 1
-      ? "grid-cols-1"
-      : columns === 2
-      ? "grid-cols-1 md:grid-cols-2"
-      : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
+  const openLightbox = (index) => {
+    setActiveIndex(index);
+  };
 
-  // ✅ Tailwind-safe gap mapping (avoids dynamic class pitfalls)
-  const gapClass =
-    gap === 0
-      ? "gap-0"
-      : gap === 1
-      ? "gap-1"
-      : gap === 2
-      ? "gap-2"
-      : gap === 3
-      ? "gap-3"
-      : gap === 4
-      ? "gap-4"
-      : gap === 5
-      ? "gap-5"
-      : gap === 6
-      ? "gap-6"
-      : gap === 7
-      ? "gap-7"
-      : gap === 8
-      ? "gap-8"
-      : gap === 9
-      ? "gap-9"
-      : gap === 10
-      ? "gap-10"
-      : gap === 12
-      ? "gap-12"
-      : "gap-10";
+  const closeLightbox = () => {
+    setActiveIndex(-1);
+  };
+
+  const showPrev = (event) => {
+    event?.stopPropagation();
+    setActiveIndex((prev) =>
+      prev <= 0 ? normalizedItems.length - 1 : prev - 1
+    );
+  };
+
+  const showNext = (event) => {
+    event?.stopPropagation();
+    setActiveIndex((prev) =>
+      prev >= normalizedItems.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  useEffect(() => {
+    if (!hasLightbox) {
+      document.body.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") showPrev();
+      if (event.key === "ArrowRight") showNext();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [hasLightbox, normalizedItems.length]);
+
+  const gridClass =
+    columns === 2
+      ? "grid-cols-1 sm:grid-cols-2"
+      : columns === 4
+        ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+        : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
 
   return (
     <>
-      <div className={`grid ${gridCols} ${gapClass}`}>
-        {images.map((img, idx) => (
-          <Panel
-            key={img.src || idx}
-            variant="light"
-            className="bg-transparent overflow-hidden rounded-3xl"
+      <div
+        className={`grid ${gridClass}`}
+        style={{ gap: `${gap}px` }}
+      >
+        {normalizedItems.map((item, index) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => openLightbox(index)}
+            className={`group relative block w-full overflow-hidden bg-[#E9E1D7] text-left ${roundedClass} focus:outline-none focus:ring-2 focus:ring-[#8A6A4A]/40`}
+            aria-label={`Open image ${index + 1} of ${normalizedItems.length}`}
           >
-            <button
-              type="button"
-              onClick={() => setActiveIndex(idx)}
-              className="group block w-full text-left"
-              aria-label={`Open image ${idx + 1}`}
-            >
-              {/* ✅ Image ONLY (no caption band below) */}
-              <div className={`relative ${tileAspect} bg-[#E5DED4] overflow-hidden`}>
-                <img
-                  src={img.src}
-                  alt={img.alt || `${label} ${idx + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="absolute inset-0 bg-[#1F2E23]/0 group-hover:bg-[#1F2E23]/35 transition-all duration-500" />
-              </div>
-            </button>
-          </Panel>
+            <div className={`relative w-full overflow-hidden ${tileAspect}`}>
+              <img
+                src={item.src}
+                alt={item.alt}
+                className="absolute inset-0 h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-[1.03]"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </button>
         ))}
       </div>
 
-      <GalleryLightbox
-        open={isOpen}
-        items={images}
-        index={Math.max(0, activeIndex)}
-        onClose={close}
-        onPrev={prev}
-        onNext={next}
-        title={label}
-      />
+      {hasLightbox && activeItem ? (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/88 p-4 md:p-8"
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Project image viewer"
+        >
+          <button
+            type="button"
+            onClick={closeLightbox}
+            className="absolute right-4 top-4 z-[10001] inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/40 text-2xl leading-none text-white transition hover:bg-black/60"
+            aria-label="Close gallery viewer"
+          >
+            ×
+          </button>
+
+          {normalizedItems.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={showPrev}
+                className="absolute left-3 top-1/2 z-[10001] -translate-y-1/2 rounded-full border border-white/20 bg-black/40 px-4 py-3 text-white transition hover:bg-black/60 md:left-6"
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+
+              <button
+                type="button"
+                onClick={showNext}
+                className="absolute right-3 top-1/2 z-[10001] -translate-y-1/2 rounded-full border border-white/20 bg-black/40 px-4 py-3 text-white transition hover:bg-black/60 md:right-6"
+                aria-label="Next image"
+              >
+                ›
+              </button>
+            </>
+          )}
+
+          <div
+            className="relative z-[10000] mx-auto flex max-h-[90vh] w-full max-w-[1400px] items-center justify-center"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img
+              src={activeItem.src}
+              alt={activeItem.alt}
+              className="max-h-[90vh] w-auto max-w-full rounded-[20px] object-contain shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+
+          <div className="pointer-events-none absolute bottom-4 left-1/2 z-[10001] -translate-x-1/2 rounded-full border border-white/12 bg-black/40 px-4 py-2 text-[12px] font-medium tracking-[0.16em] text-white/90 backdrop-blur-sm">
+            {activeIndex + 1} / {normalizedItems.length}
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

@@ -52,7 +52,7 @@ export const PAGE_SEO = {
         },
       },
       showroomCta: {
-        eyebrow: "Houston Showroom",
+        eyebrow: "Premier Kitchen & Bath Showroom",
         title: "Visit Our Kitchen & Bath Showroom",
         body:
           "Explore cabinetry, granite and quartz countertops, tile, and fixture combinations in person at our Houston showroom. Meet with our team, review your goals, and begin planning a kitchen or bathroom remodel tailored to your home.",

@@ -14,7 +14,7 @@ export default function BottomCTA({
   variant = null,
   eyebrow = "Ready to start?",
   title = "Schedule a Design Consultation",
-  body = "Premier Kitchens & Bath is a Houston kitchen and bath remodeling company specializing in custom renovations and premium craftsmanship. Schedule a consultation to discuss your vision, explore design possibilities, and plan your project timeline. Our team typically responds within one business day.",
+  body = "Premier Kitchen & Bath is a Houston kitchen and bath remodeling company specializing in custom renovations and premium craftsmanship. Schedule a consultation to discuss your vision, explore design possibilities, and plan your project timeline. Our team typically responds within one business day.",
   primaryLabel = "Consultation",
   primaryHref = ROUTES.consultation ?? "/contact",
   secondaryLabel = "View Projects",
