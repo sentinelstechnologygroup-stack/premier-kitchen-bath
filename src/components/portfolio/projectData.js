@@ -44,7 +44,6 @@ export const PROJECTS = [
     title: "Taj Mahal Quartzite Kitchen",
     category: "kitchen",
     location: "Fulshear, TX",
-    // completionDate: "2025",
     subtitle:
       "Fulshear kitchen remodel featuring Taj Mahal quartzite countertops, painted cabinetry, and a custom bar design.",
     heroImage: "/images/portfolio/kitchen/taj-mahal-quartzite-kitchen/hero.jpg",
@@ -79,7 +78,6 @@ export const PROJECTS = [
     title: "Bellaire Kitchen & Master Bath",
     category: "kitchen",
     location: "Bellaire, TX",
-    // completionDate: "2025",
     subtitle:
       "Kitchen transformation centered on layout efficiency and finish cohesion.",
     heroImage: "/images/portfolio/bathroom/bellaire-kitchen-master-bath/hero.jpg",
@@ -113,7 +111,6 @@ export const PROJECTS = [
     title: "Marble Kitchen with Custom Navy Island",
     category: "kitchen",
     location: "Houston, TX",
-    // completionDate: "2025",
     subtitle:
       "Houston kitchen remodel featuring custom cabinetry, marble countertops, and a functional island design.",
     heroImage: "/images/portfolio/kitchen/marble-kitchen-with-custom-navy-island/hero.jpg",
@@ -176,10 +173,7 @@ export const PROJECTS = [
       "The space is anchored by our in-stock 3 cm Cristallo quartzite countertops, delivering a natural, high-end look with subtle movement and depth. A farmhouse apron-front sink and a full-height subway tile backsplash carried to the ceiling enhance the clean, timeless design, while the same-level bar top maintains open sightlines and a more modern, uninterrupted feel.",
       "Updated lighting and fixtures complete the space, bringing together a kitchen that feels bright, open, and intentionally designed for both everyday living and entertaining.",
     ],
-    gallery: makeGallery("/images/portfolio/kitchen/briar-rose-kitchen-remodel", 15
-
-
-    ),
+    gallery: makeGallery("/images/portfolio/kitchen/briar-rose-kitchen-remodel", 15),
   },
 
   {
@@ -187,7 +181,6 @@ export const PROJECTS = [
     title: "Luxury Primary Bath with Coffered Ceiling",
     category: "bathroom",
     location: "Houston, TX",
-    // completionDate: "2025",
     subtitle:
       "High-end primary bathroom renovation featuring extensive tile work, quartz surfaces, and custom architectural detailing.",
     heroImage: "/images/portfolio/bathroom/luxury-primary-bath/hero.jpg",
@@ -196,7 +189,7 @@ export const PROJECTS = [
       "This primary bathroom was fully renovated to create a space that reflects the client’s goal of a more luxurious, high-end feel while improving overall functionality. The design features charcoal cabinetry paired with marble tile across the floors and walls, along with quartz countertops and a matching tub deck for a clean, cohesive finish.",
       "Extensive tile work was completed throughout the space, including the shower walls, main flooring, and a dedicated backsplash at the makeup area. A checkerboard tile pattern was incorporated into the shower floor to introduce contrast and visual detail. The shower was rebuilt with a new rough-in valve and diverter system, allowing use of the rain head, wall-mounted shower head, or both simultaneously.",
       "A new soaking tub was installed with a custom-built deck, creating a strong focal point within the layout. Additional upgrades include a custom mirror, updated plumbing and lighting fixtures, and a coffered ceiling with crown molding and recessed lighting to add depth and architectural character.",
-      "The project was completed with a frameless glass shower enclosure featuring built-in ShowerGuard protection. The final result is a well-executed, high-end primary bathroom that emphasizes quality materials, thoughtful layout, and attention to detail."
+      "The project was completed with a frameless glass shower enclosure featuring built-in ShowerGuard protection. The final result is a well-executed, high-end primary bathroom that emphasizes quality materials, thoughtful layout, and attention to detail.",
     ],
     gallery: makeGallery("/images/portfolio/bathroom/luxury-primary-bath", 11),
   },
@@ -301,7 +294,6 @@ export const PROJECTS = [
     title: "Sable Stone Circle",
     category: "outdoor",
     location: "Houston, TX",
-    // completionDate: "2025",
     subtitle:
       "Outdoor living project designed for hosting, flow, and durable finish performance.",
     heroImage: "/images/portfolio/outdoor/sable-stone-circle/hero.jpg",
@@ -312,15 +304,61 @@ export const PROJECTS = [
     ],
     gallery: makeGallery("/images/portfolio/outdoor/sable-stone-circle", 6),
   },
-];
 
-export function getProjectBySlug(slug) {
-  return PROJECTS.find((project) => project.slug === slug);
-}
+  {
+    slug: "orchard-hill-kitchen-laundry-remodel",
+    title: "Orchard Hill Kitchen & Laundry Remodel with River Green Onyx",
+    category: "kitchen",
+    location: "Houston, TX",
+    completionDate: "2026",
+    subtitle:
+      "Custom kitchen and laundry remodel featuring River Green Onyx, Pure White Quartz, custom cabinetry, and full-height backsplash detailing.",
+    heroImage: "/images/portfolio/kitchen/orchard-hill-kitchen-laundry-remodel/hero.jpg",
+    cardImage: "/images/portfolio/kitchen/orchard-hill-kitchen-laundry-remodel/hero.jpg",
+    description: [
+      "We designed and built this custom kitchen and laundry remodel to create a brighter, more intentional space with a clean, high-end look.",
+      "The kitchen features Primary Kitchen Cabinetry, including pantry cabinets, a built-in spice rack, pull-out trash cabinet, and a custom vent hood. A farmhouse apron-front sink was installed, and the decorative tile backsplash was carried all the way to the ceiling to add depth and character.",
+      "The island is topped with in-stock River Green Onyx, creating a bold focal point, while the perimeter countertops and laundry room feature in-stock Pure White Quartz for a clean, consistent finish throughout.",
+      "Luxury vinyl plank flooring was installed throughout the kitchen to bring in the warmth of hardwood with the durability and water resistance of vinyl. Under-cabinet lighting was added to highlight the backsplash and improve visibility, and integrated plugmold outlets help keep the backsplash clean and uncluttered.",
+      "The project was completed with a fully custom laundry room, including matching cabinetry and quartz countertops to tie everything together.",
+    ],
+    gallery: makeGallery("/images/portfolio/kitchen/orchard-hill-kitchen-laundry-remodel", 10),
+  },
+
+  // src/components/portfolio/projectData.js
+
+{
+  slug: "white-shaker-kitchen-remodel-with-quartz-countertops",
+  title: "White Shaker Kitchen Remodel with Quartz Countertops",
+  category: "kitchen",
+  location: "Houston, TX",
+  completionDate: "2026",
+  subtitle:
+    "White shaker kitchen remodel featuring quartz countertops, integrated storage upgrades, real wood flooring, and a distinctive brick accent wall.",
+  heroImage:
+    "/images/portfolio/kitchen/white-shaker-kitchen-remodel-with-quartz-countertops/hero.jpg",
+  cardImage:
+    "/images/portfolio/kitchen/white-shaker-kitchen-remodel-with-quartz-countertops/hero.jpg",
+  description: [
+    "This kitchen features Primary Kitchen white shaker cabinetry, bringing a clean and timeless look to the space while improving overall functionality.",
+    "The layout includes thoughtful storage upgrades such as a pull-out trash cabinet, built-in spice rack, and refrigerator surround cabinetry for a more integrated feel. The cabinetry is paired with our in-stock quartz countertops, offering a durable and low-maintenance surface with a soft, natural look.",
+    "Real wood flooring adds warmth and contrast, while the light paint tones and cabinetry help brighten the entire space. The brick accent wall creates a unique focal point, adding character and depth that balances the clean finishes throughout the kitchen.",
+    "Under-cabinet lighting enhances both visibility and ambiance, highlighting the countertops and backsplash while making the space more enjoyable to use day to day.",
+  ],
+  gallery: makeGallery(
+    "/images/portfolio/kitchen/white-shaker-kitchen-remodel-with-quartz-countertops",
+    4
+  ),
+},
+];
 
 export function getProjectsByCategory(category) {
   if (!category || category === "all") return PROJECTS;
   return PROJECTS.filter((project) => project.category === category);
+}
+
+export function getProjectBySlug(slug) {
+  return PROJECTS.find((project) => project.slug === slug);
 }
 
 export function formatCategoryLabel(category) {

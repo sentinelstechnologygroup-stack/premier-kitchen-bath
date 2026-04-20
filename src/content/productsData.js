@@ -14,11 +14,6 @@ export const PRODUCT_CATEGORIES = [
     title: "Cabinetry",
     brands: [
       {
-        name: "Elmwood Kitchens",
-        logo: "/products/Elmwood.jpg",
-        url: "https://www.elmwoodkitchens.com/",
-      },
-      {
         name: "J&K Cabinetry",
         logo: "/products/JK.jpg",
         url: "https://www.jk-cabinetry.com/",
@@ -31,7 +26,7 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Primary Kitchen Cabinets",
         logo: "/products/Primary.jpg",
-        url: "https://www.primarykitchen.com//",
+        url: "https://www.primarykitchen.com/",
       },
     ],
   },
@@ -109,7 +104,7 @@ export const PRODUCT_CATEGORIES = [
         url: "https://www.stonequarryusa.com/",
       },
       {
-        name: " Midwest Tile, Marble & Granite",
+        name: "Midwest Tile, Marble & Granite",
         logo: "/products/Midwest.jpg",
         url: "https://www.midwesttile.com/",
       },
@@ -129,19 +124,14 @@ export const PRODUCT_CATEGORIES = [
         url: "https://www.topknobs.com/",
       },
       {
-        name: "Siro Designs",
-        logo: "/products/Siro.jpg",
-        url: "https://www.sirodesign.com/default.aspx",
+        name: "Jeffrey Alexander",
+        logo: "/products/Jeffrey-Alexander.jpg",
+        url: "https://www.jeffreyalexander.com/",
       },
       {
-        name: "Baldwin Hardware",
-        logo: "/products/Baldwin.jpg",
-        url: "https://www.baldwinhardware.com/",
-      },
-      {
-        name: "Hickory Hardware",
-        logo: "/products/Hickory.jpg",
-        url: "https://www.hickoryhardware.com/",
+        name: "Elements",
+        logo: "/products/Elements.jpg",
+        url: "https://www.elementsbyhardwareresources.com/",
       },
       {
         name: "Richelieu",
@@ -164,14 +154,14 @@ export const PRODUCT_CATEGORIES = [
         url: "https://www.moen.com/",
       },
       {
-        name: "Grohe",
-        logo: "/products/Grohe.jpg",
-        url: "https://www.grohe.us/",
+        name: "Baths of America",
+        logo: "/products/Baths-of-America.jpg",
+        url: "https://www.bathsofamerica.com/",
       },
       {
-        name: "Rohl",
-        logo: "/products/Rohl.jpg",
-        url: "https://www.houseofrohl.com/",
+        name: "Ferguson",
+        logo: "/products/Ferguson.jpg",
+        url: "https://www.ferguson.com/",
       },
       {
         name: "Delta Faucet",
@@ -217,6 +207,11 @@ export const PRODUCT_CATEGORIES = [
         name: "Sea Gull Lighting",
         logo: "/products/Seagull.jpg",
         url: "https://www.seagulllighting.com/",
+      },
+      {
+        name: "Task Lighting",
+        logo: "/products/Task-Lighting.jpg",
+        url: "https://www.tasklighting.com/",
       },
     ],
   },

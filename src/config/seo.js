@@ -11,54 +11,58 @@ export const SEO_DEFAULTS = {
 };
 
 export const PAGE_SEO = {
-  home: {
-    path: "/",
-    title:
-      "Houston's Kitchen & Bathroom Remodeling Experts| Premier Kitchen & Bath | Since 1979",
-    description:
-      "Houston's most trusted kitchen and bathroom remodeling company since 1979. Premium craftsmanship, custom cabinetry, and beautiful results. Schedule a free consultation at our Houston showroom.",
-    h1: "Premier Kitchen & Bath, Houston's Kitchen & Bathroom Remodeling Experts Since 1979",
-    schemaType: "HomePage",
-    keywords: [
-      "houston kitchen bathroom remodeling",
-      "kitchen remodeling houston",
-      "bathroom remodeling houston tx",
-      "houston remodeling company",
-      "custom kitchen cabinets houston",
+home: {
+  path: "/",
+  title:
+    "Houston's Kitchen & Bathroom Remodeling Experts | Premier Kitchen & Bath | Since 1979",
+  description:
+    "Houston's most trusted kitchen and bathroom remodeling company since 1979. Premium craftsmanship, custom cabinetry, and beautiful results. Schedule a free consultation at our Houston showroom.",
+  h1: "Premier Kitchen & Bath",
+  schemaType: "HomePage",
+  keywords: [
+    "houston kitchen bathroom remodeling",
+    "kitchen remodeling houston",
+    "bathroom remodeling houston tx",
+    "houston remodeling company",
+    "custom kitchen cabinets houston",
+  ],
+  ui: {
+    eyebrow: "",
+    heroTitleLines: [
+      "Premier Kitchen & Bath",
+      "Houston's Remodeling Experts",
+      "Since 1979",
     ],
-    ui: {
-      eyebrow: "Premier Kitchen & Bath",
-      heroTitleLines: ["Houston's Kitchen & Bath", "Remodeling Experts", "Since 1979"],
-      heroBody:
-        "Thousands of successful kitchen and bathroom remodels. Premium craftsmanship in every detail. Beautifully refined spaces designed around the way you live.",
-      philosophyTitle:
-        "Premier Kitchen & Bath\nWe don't remodel houses.\nWe refine the spaces you live in.",
-      philosophyBody:
-        "Since 1979, Premier Kitchen & Bath has shaped the kitchens and bathrooms of Houston's most discerning homes across River Oaks, Memorial, Tanglewood, and the Energy Corridor.",
-      services: {
-        kitchens: {
-          eyebrow: "What We Do",
-          title: "Kitchen\nRemodeling",
-          body:
-            "From custom cabinetry and granite countertops to integrated appliances and kitchen islands, we design Houston kitchens that are as beautiful to cook in as they are to look at.",
-          cta: "Explore Kitchens",
-        },
-        bathrooms: {
-          eyebrow: "What We Do",
-          title: "Bathroom\nRemodeling",
-          body:
-            "Spa-like bathroom remodels crafted for Houston homes. We transform ordinary bathrooms into spaces of quiet luxury—walk-in showers, soaking tubs, custom vanities, and precision tile work.",
-          cta: "Explore Bathrooms",
-        },
-      },
-      showroomCta: {
-        eyebrow: "Premier Kitchen & Bath Showroom",
-        title: "Visit Our Kitchen & Bath Showroom",
+    heroBody:
+      "Thousands of successful kitchen and bathroom remodels. Premium craftsmanship in every detail. Beautifully refined spaces designed around the way you live.",
+    philosophyTitle:
+      "Premier Kitchen & Bath\nWe don't remodel houses.\nWe refine the spaces you live in.",
+    philosophyBody:
+      "Since 1979, Premier Kitchen & Bath has shaped the kitchens and bathrooms of Houston's most discerning homes across River Oaks, Memorial, Tanglewood, and the Energy Corridor.",
+    services: {
+      kitchens: {
+        eyebrow: "What We Do",
+        title: "Kitchen\nRemodeling",
         body:
-          "Explore cabinetry, granite and quartz countertops, tile, and fixture combinations in person at our Houston showroom. Meet with our team, review your goals, and begin planning a kitchen or bathroom remodel tailored to your home.",
+          "From custom cabinetry and granite countertops to integrated appliances and kitchen islands, we design Houston kitchens that are as beautiful to cook in as they are to look at.",
+        cta: "Explore Kitchens",
+      },
+      bathrooms: {
+        eyebrow: "What We Do",
+        title: "Bathroom\nRemodeling",
+        body:
+          "Spa-like bathroom remodels crafted for Houston homes. We transform ordinary bathrooms into spaces of quiet luxury—walk-in showers, soaking tubs, custom vanities, and precision tile work.",
+        cta: "Explore Bathrooms",
       },
     },
+    showroomCta: {
+      eyebrow: "Premier Kitchen & Bath Showroom",
+      title: "Visit Our Kitchen & Bath Showroom",
+      body:
+        "Explore cabinetry, granite and quartz countertops, tile, and fixture combinations in person at our Houston showroom. Meet with our team, review your goals, and begin planning a kitchen or bathroom remodel tailored to your home.",
+    },
   },
+},
 
   kitchens: {
     path: "/kitchens",
@@ -100,17 +104,20 @@ export const PAGE_SEO = {
         {
           number: "01",
           title: "Vision Session",
-          body: "We define the way your kitchen needs to function, how you entertain, and what aesthetic direction fits your home.",
+          body:
+            "We define the way your kitchen needs to function, how you entertain, and what aesthetic direction fits your home.",
         },
         {
           number: "02",
           title: "Curated Design",
-          body: "Cabinetry, surfaces, fixtures, and appliances are selected into a cohesive plan that balances beauty and utility.",
+          body:
+            "Cabinetry, surfaces, fixtures, and appliances are selected into a cohesive plan that balances beauty and utility.",
         },
         {
           number: "03",
           title: "Flawless Build",
-          body: "Our team executes with precision so the finished kitchen feels intentional, seamless, and built to endure.",
+          body:
+            "Our team executes with precision so the finished kitchen feels intentional, seamless, and built to endure.",
         },
       ],
       ctaButtonLabel: "Schedule Consultation",
@@ -153,7 +160,8 @@ export const PAGE_SEO = {
       introBody:
         "A bathroom renovation is one of the most personal projects a home can undergo. We approach each one with care—balancing spa-like serenity with practical function. From walk-in showers and soaking tubs to custom vanities and radiant floors, every detail is considered.",
       ctaEyebrow: "Plan Your Bathroom Project",
-      ctaTitle: "Ready to define layout, finishes, and budget with our team?",
+      ctaTitle:
+        "Ready to define layout, finishes, and budget with our team?",
       ctaBody:
         "Start with a consultation to review your goals, preferred style, and the materials that will shape the finished space.",
       processEyebrow: "Our Process",
@@ -162,17 +170,20 @@ export const PAGE_SEO = {
         {
           number: "01",
           title: "Vision Session",
-          body: "We explore your sense of style, how you use the space, and what would make it feel distinctly yours.",
+          body:
+            "We explore your sense of style, how you use the space, and what would make it feel distinctly yours.",
         },
         {
           number: "02",
           title: "Curated Design",
-          body: "Tile, stone, fixtures, lighting, and vanities are selected with purpose and organized into a cohesive design direction.",
+          body:
+            "Tile, stone, fixtures, lighting, and vanities are selected with purpose and organized into a cohesive design direction.",
         },
         {
           number: "03",
           title: "Flawless Build",
-          body: "Our craftsmen bring the design to life with the skill, care, and precision required for a lasting result.",
+          body:
+            "Our craftsmen bring the design to life with the skill, care, and precision required for a lasting result.",
         },
       ],
       ctaButtonLabel: "Schedule Consultation",
@@ -218,7 +229,8 @@ export const PAGE_SEO = {
 
   projects: {
     path: "/projects",
-    title: "Kitchen & Bathroom Remodel Portfolio Houston | Premier Kitchen & Bath",
+    title:
+      "Kitchen & Bathroom Remodel Portfolio Houston | Premier Kitchen & Bath",
     description:
       "Browse completed kitchen and bathroom remodels by Premier Kitchen & Bath across Houston, TX. Custom luxury, modern, classic, and transitional projects.",
     h1: "Kitchen & Bathroom Remodel Portfolio in Houston",
@@ -235,7 +247,7 @@ export const PAGE_SEO = {
       heroTitleLines: [
         "Kitchen & Bathroom",
         "Remodel Portfolio",
-        " "
+        " ",
       ],
       heroSubtitle:
         "Browse a curated view of kitchen and bathroom remodeling work shaped by craftsmanship, material coordination, and disciplined execution.",
@@ -246,7 +258,8 @@ export const PAGE_SEO = {
 
   reviews: {
     path: "/reviews",
-    title: "Premier Kitchen & Bath Reviews | Houston Remodeling Client Feedback",
+    title:
+      "Premier Kitchen & Bath Reviews | Houston Remodeling Client Feedback",
     description:
       "Read Premier Kitchen & Bath reviews from Houston-area homeowners. See client feedback on kitchen remodeling, bathroom remodeling, communication, craftsmanship, and finished results.",
     h1: "Premier Kitchen & Bath Reviews",
@@ -273,7 +286,8 @@ export const PAGE_SEO = {
 
   contact: {
     path: "/contact",
-    title: "Contact Premier Kitchen & Bath | Houston Remodeling Consultations",
+    title:
+      "Contact Premier Kitchen & Bath | Houston Remodeling Consultations",
     description:
       "Schedule a kitchen or bathroom remodeling consultation with Premier Kitchen & Bath in Houston, TX. Visit our showroom or contact our team to begin your project.",
     h1: "Schedule a Consultation",

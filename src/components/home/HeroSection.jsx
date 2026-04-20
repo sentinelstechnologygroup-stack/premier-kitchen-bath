@@ -23,14 +23,44 @@ function getHeroLines(content) {
 function renderHeroLines(lines = []) {
   if (!Array.isArray(lines) || lines.length === 0) return null;
 
-  return lines.map((line, idx) => (
-    <span
-      key={`${line}-${idx}`}
-      className="block whitespace-normal md:whitespace-nowrap"
-    >
-      {line}
-    </span>
-  ));
+  return lines.map((line, idx) => {
+    const isBrand = idx === 0;
+
+    return (
+      <span
+        key={`${line}-${idx}`}
+        className="block whitespace-normal"
+        style={{
+          color: isBrand ? "#E8D8C7" : "#FFFFFF",
+
+          // 🔥 improved hierarchy
+          fontSize: isBrand
+            ? "1.02em"
+            : idx === 1
+            ? "0.66em"
+            : "0.62em",
+
+          letterSpacing: isBrand ? "-0.03em" : "-0.02em",
+          lineHeight: isBrand ? 0.95 : 1.02,
+          opacity: isBrand ? 1 : 0.96,
+
+          // 🔥 stronger brand pop (subtle outline effect)
+          textShadow: isBrand
+            ? `
+              0 10px 34px rgba(0,0,0,0.75),
+              0 4px 14px rgba(0,0,0,0.55),
+              0 0 2px rgba(0,0,0,0.65)
+            `
+            : `
+              0 6px 22px rgba(0,0,0,0.6),
+              0 2px 8px rgba(0,0,0,0.35)
+            `,
+        }}
+      >
+        {line}
+      </span>
+    );
+  });
 }
 
 export default function HeroSection() {
@@ -55,6 +85,7 @@ export default function HeroSection() {
         decoding="async"
       />
 
+      {/* overlays */}
       <div className="absolute inset-0 bg-[#120F0D]/40 backdrop-[blur(0.5px)]" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#120F0D]/62 via-[#120F0D]/34 to-[#120F0D]/12" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#120F0D]/24 via-transparent to-transparent" />
@@ -62,34 +93,22 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_26%,rgba(0,0,0,0.08)_100%)]" />
 
       <div className="relative mx-auto flex min-h-[720px] max-w-[1440px] items-center px-6 pb-16 pt-28 md:min-h-[820px] md:px-12 lg:px-20">
-        <div className="mx-auto w-full max-w-[1280px] text-center">
-          <div className="relative inline-block">
-            <span className="absolute inset-0 -z-10 rounded-sm bg-black/20 backdrop-blur-sm" />
-
-            <div
-              className="px-2 py-[2px] text-[10px] font-semibold uppercase tracking-[0.34em] text-[#E8D8C7]"
-              style={{
-                textShadow:
-                  "0 2px 6px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.8)",
-              }}
-            >
-              {content.eyebrow}
-            </div>
-          </div>
-
+        <div className="mx-auto w-full max-w-[1120px] text-center">
+          
+          {/* H1 */}
           <h1
-            className="mt-6 font-serif-display font-semibold leading-[0.9] tracking-[-0.045em] text-white"
+            className="mx-auto font-serif-display font-semibold tracking-[-0.04em] max-w-[1080px]"
             style={{
-              fontSize: "clamp(3.1rem, 6vw, 5.6rem)",
-              textShadow:
-                "0 10px 36px rgba(0,0,0,0.62), 0 3px 12px rgba(0,0,0,0.42)",
+              fontSize: "clamp(3rem, 5.5vw, 5.4rem)",
+              lineHeight: 0.94,
             }}
           >
             {renderHeroLines(heroLines)}
           </h1>
 
+          {/* body */}
           <p
-            className="mx-auto mt-7 max-w-[700px] text-[16px] leading-[1.8] text-white/95 md:text-[18px]"
+            className="mx-auto mt-8 max-w-[720px] text-[16px] leading-[1.8] text-white/95 md:text-[18px]"
             style={{
               textShadow:
                 "0 4px 16px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.32)",
@@ -98,6 +117,7 @@ export default function HeroSection() {
             {content.heroBody}
           </p>
 
+          {/* CTA */}
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href={ROUTES.consultation}
