@@ -126,12 +126,12 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Jeffrey Alexander",
         logo: "/products/Jeffrey-Alexander.jpg",
-        url: "https://www.jeffreyalexander.com/",
+        url: "https://www.hardwareresources.com/decorative-hardware/display-boards-towers/display-boards/db807-gry.html",
       },
       {
         name: "Elements",
         logo: "/products/Elements.jpg",
-        url: "https://www.elementsbyhardwareresources.com/",
+        url: "https://www.hardwareresources.com/decorative-hardware/",
       },
       {
         name: "Richelieu",
@@ -156,12 +156,12 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Baths of America",
         logo: "/products/Baths-of-America.jpg",
-        url: "https://www.bathsofamerica.com/",
+        url: "https://bathsofamerica.com/",
       },
       {
         name: "Ferguson",
         logo: "/products/Ferguson.jpg",
-        url: "https://www.ferguson.com/",
+        url: "https://www.fergusonhome.com/plumbing/c108411",
       },
       {
         name: "Delta Faucet",
@@ -211,7 +211,7 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Task Lighting",
         logo: "/products/Task-Lighting.jpg",
-        url: "https://www.tasklighting.com/",
+        url: "https://www.hardwareresources.com/task-lighting/",
       },
     ],
   },
