@@ -37,7 +37,7 @@ export default function ContactClient() {
       typeof window === "undefined" ||
       !window.turnstile ||
       !TURNSTILE_SITE_KEY ||
-      TURNSTILE_SITE_KEY === "YOUR_REAL_TURNSTILE_SITE_KEY" ||
+      TURNSTILE_SITE_KEY === "0x4AAAAAADAzts7sUT-gN21G" ||
       renderedRef.current
     ) {
       return;
