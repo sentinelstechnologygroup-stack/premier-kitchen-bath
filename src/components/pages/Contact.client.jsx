@@ -1,7 +1,7 @@
 // src/components/pages/Contact.client.jsx
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import Script from "next/script";
 import { Phone, Mail, MapPin, X } from "lucide-react";
 import PageShell from "@/components/PageShell";
@@ -18,7 +18,7 @@ const MEDIA = {
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeevrzko";
 
 // Replace with your real Cloudflare Turnstile site key
-const TURNSTILE_SITE_KEY = "YOUR_TURNSTILE_SITE_KEY";
+const TURNSTILE_SITE_KEY = "0x4AAAAAADAzts7sUT-gN21G";
 
 export default function ContactClient() {
   const content = getPageContent("contact");
@@ -26,28 +26,75 @@ export default function ContactClient() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [turnstileReady, setTurnstileReady] = useState(false);
+  const [turnstileLoaded, setTurnstileLoaded] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+
+  const widgetIdRef = useRef(null);
+  const turnstileRenderedRef = useRef(false);
 
   const closeModal = () => setSubmitted(false);
 
-  useEffect(() => {
-    // Render widget after script loads
+  const renderTurnstile = () => {
+    if (
+      typeof window === "undefined" ||
+      !window.turnstile ||
+      !TURNSTILE_SITE_KEY ||
+      TURNSTILE_SITE_KEY === "YOUR_REAL_TURNSTILE_SITE_KEY" ||
+      turnstileRenderedRef.current
+    ) {
+      return;
+    }
+
+    const container = document.getElementById("cf-turnstile-container");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    try {
+      const widgetId = window.turnstile.render("#cf-turnstile-container", {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: "light",
+        appearance: "always",
+        callback: (token) => {
+          setTurnstileToken(token || "");
+          setErrorMessage("");
+        },
+        "expired-callback": () => {
+          setTurnstileToken("");
+        },
+        "error-callback": () => {
+          setTurnstileToken("");
+          setErrorMessage(
+            "Captcha could not be verified. Please refresh the page and try again."
+          );
+        },
+      });
+
+      widgetIdRef.current = widgetId;
+      turnstileRenderedRef.current = true;
+      setTurnstileLoaded(true);
+    } catch {
+      setErrorMessage(
+        "Captcha could not be loaded. Please refresh the page and try again."
+      );
+    }
+  };
+
+  const resetTurnstile = () => {
     if (
       typeof window !== "undefined" &&
       window.turnstile &&
-      TURNSTILE_SITE_KEY &&
-      TURNSTILE_SITE_KEY !== "YOUR_TURNSTILE_SITE_KEY"
+      widgetIdRef.current !== null
     ) {
-      const container = document.getElementById("cf-turnstile-container");
-      if (container && !container.hasChildNodes()) {
-        window.turnstile.render("#cf-turnstile-container", {
-          sitekey: TURNSTILE_SITE_KEY,
-          theme: "light",
-        });
-        setTurnstileReady(true);
+      try {
+        window.turnstile.reset(widgetIdRef.current);
+      } catch {
+        // no-op
       }
     }
-  }, []);
+
+    setTurnstileToken("");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,8 +107,6 @@ export default function ContactClient() {
     // Honeypot
     if (data.get("company")) return;
 
-    // Turnstile token is injected by the widget as cf-turnstile-response
-    const turnstileToken = data.get("cf-turnstile-response");
     if (!turnstileToken) {
       setErrorMessage("Captcha verification is required before submitting.");
       return;
@@ -89,26 +134,10 @@ export default function ContactClient() {
       }
 
       form.reset();
+      resetTurnstile();
       setSubmitted(true);
-
-      // Reset Turnstile after successful submit
-      if (typeof window !== "undefined" && window.turnstile) {
-        const responseInput = form.querySelector(
-          'input[name="cf-turnstile-response"]'
-        );
-        if (responseInput) {
-          // Re-render widget cleanly
-          const container = document.getElementById("cf-turnstile-container");
-          if (container) {
-            container.innerHTML = "";
-            window.turnstile.render("#cf-turnstile-container", {
-              sitekey: TURNSTILE_SITE_KEY,
-              theme: "light",
-            });
-          }
-        }
-      }
     } catch (error) {
+      resetTurnstile();
       setErrorMessage(
         error?.message ||
           "There was an issue submitting the form. Please try again."
@@ -132,25 +161,9 @@ export default function ContactClient() {
       <SEO pageKey="contact" />
 
       <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
         strategy="afterInteractive"
-        onLoad={() => {
-          if (
-            typeof window !== "undefined" &&
-            window.turnstile &&
-            TURNSTILE_SITE_KEY &&
-            TURNSTILE_SITE_KEY !== "0x4AAAAAADAzts7sUT-gN21G"
-          ) {
-            const container = document.getElementById("cf-turnstile-container");
-            if (container && !container.hasChildNodes()) {
-              window.turnstile.render("#cf-turnstile-container", {
-                sitekey: TURNSTILE_SITE_KEY,
-                theme: "light",
-              });
-              setTurnstileReady(true);
-            }
-          }
-        }}
+        onLoad={renderTurnstile}
       />
 
       <PageShell
@@ -291,6 +304,12 @@ export default function ContactClient() {
                       />
                     </div>
 
+                    {!turnstileLoaded ? (
+                      <div className="text-sm text-[#1F2E23]/60">
+                        Loading security check...
+                      </div>
+                    ) : null}
+
                     {errorMessage ? (
                       <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                         {errorMessage}
@@ -300,7 +319,7 @@ export default function ContactClient() {
                     <Button
                       type="submit"
                       variant="premier"
-                      disabled={submitting || !turnstileReady}
+                      disabled={submitting || !turnstileLoaded}
                     >
                       {submitting ? "Submitting..." : "Submit Inquiry"}
                     </Button>
