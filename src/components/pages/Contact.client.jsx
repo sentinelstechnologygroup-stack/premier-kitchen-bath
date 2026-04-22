@@ -16,7 +16,7 @@ const MEDIA = {
 };
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeevrzko";
-const TURNSTILE_SITE_KEY = "0x4AAAAAADAzts7sUT-gN21G"; // 🔥 replace with your actual Turnstile site key
+const TURNSTILE_SITE_KEY = "0x4AAAAAADAzts7sUT-gN21G";
 
 export default function ContactClient() {
   const content = getPageContent("contact");
