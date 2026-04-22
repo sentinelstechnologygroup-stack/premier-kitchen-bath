@@ -16,9 +16,7 @@ const MEDIA = {
 };
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeevrzko";
-
-// Replace with your real Cloudflare Turnstile site key
-const TURNSTILE_SITE_KEY = "0x4AAAAAADAzts7sUT-gN21G";
+const TURNSTILE_SITE_KEY = "0x4AAAAAADAzts7sUT-gN21G"; // 🔥 replace with your actual Turnstile site key
 
 export default function ContactClient() {
   const content = getPageContent("contact");
@@ -30,7 +28,7 @@ export default function ContactClient() {
   const [turnstileToken, setTurnstileToken] = useState("");
 
   const widgetIdRef = useRef(null);
-  const turnstileRenderedRef = useRef(false);
+  const renderedRef = useRef(false);
 
   const closeModal = () => setSubmitted(false);
 
@@ -40,7 +38,7 @@ export default function ContactClient() {
       !window.turnstile ||
       !TURNSTILE_SITE_KEY ||
       TURNSTILE_SITE_KEY === "YOUR_REAL_TURNSTILE_SITE_KEY" ||
-      turnstileRenderedRef.current
+      renderedRef.current
     ) {
       return;
     }
@@ -51,7 +49,7 @@ export default function ContactClient() {
     container.innerHTML = "";
 
     try {
-      const widgetId = window.turnstile.render("#cf-turnstile-container", {
+      widgetIdRef.current = window.turnstile.render("#cf-turnstile-container", {
         sitekey: TURNSTILE_SITE_KEY,
         theme: "light",
         appearance: "always",
@@ -70,10 +68,10 @@ export default function ContactClient() {
         },
       });
 
-      widgetIdRef.current = widgetId;
-      turnstileRenderedRef.current = true;
+      renderedRef.current = true;
       setTurnstileLoaded(true);
-    } catch {
+    } catch (error) {
+      console.error("Turnstile render error:", error);
       setErrorMessage(
         "Captcha could not be loaded. Please refresh the page and try again."
       );
@@ -88,8 +86,8 @@ export default function ContactClient() {
     ) {
       try {
         window.turnstile.reset(widgetIdRef.current);
-      } catch {
-        // no-op
+      } catch (error) {
+        console.error("Turnstile reset error:", error);
       }
     }
 
@@ -102,15 +100,16 @@ export default function ContactClient() {
     if (submitting) return;
 
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
 
-    // Honeypot
-    if (data.get("company")) return;
+    if (formData.get("company")) return;
 
     if (!turnstileToken) {
       setErrorMessage("Captcha verification is required before submitting.");
       return;
     }
+
+    formData.set("cf-turnstile-response", turnstileToken);
 
     setSubmitting(true);
     setErrorMessage("");
@@ -118,25 +117,37 @@ export default function ContactClient() {
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
-        body: data,
+        body: formData,
         headers: {
           Accept: "application/json",
         },
       });
 
-      const result = await response.json().catch(() => null);
+      const text = await response.text();
+      let result = null;
 
-      if (!response.ok) {
-        const message =
-          result?.errors?.[0]?.message ||
-          "There was an issue submitting the form. Please try again.";
-        throw new Error(message);
+      try {
+        result = text ? JSON.parse(text) : null;
+      } catch {
+        result = { raw: text };
       }
 
+      if (!response.ok) {
+        console.error("Formspree error:", response.status, result);
+        throw new Error(
+          result?.errors?.[0]?.message ||
+            result?.error ||
+            result?.raw ||
+            `Submission failed with status ${response.status}.`
+        );
+      }
+
+      console.log("Formspree success:", result);
       form.reset();
       resetTurnstile();
       setSubmitted(true);
     } catch (error) {
+      console.error("Submit failure:", error);
       resetTurnstile();
       setErrorMessage(
         error?.message ||
@@ -229,13 +240,37 @@ export default function ContactClient() {
                           </div>
                         </div>
                       </div>
+
+                      <div className="border-t border-[#1F2E23]/10 pt-8">
+                        <div className="mb-2 text-[10px] uppercase tracking-[0.25em] text-[#1F2E23]/45">
+                          Service Area
+                        </div>
+                        <p className="text-sm leading-[1.75] text-[#1F2E23]/70">
+                          {content.serviceAreaText}
+                        </p>
+                      </div>
+
+                      <div className="border-t border-[#1F2E23]/10 pt-8">
+                        <div className="mb-2 text-[10px] uppercase tracking-[0.25em] text-[#1F2E23]/45">
+                          Office Hours
+                        </div>
+                        <p className="text-sm leading-[1.75] text-[#1F2E23]/70">
+                          Monday through Friday, 8:00–5:00
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </AnimatedSection>
 
                 <AnimatedSection>
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    <input type="text" name="company" className="hidden" />
+                  <form id="contact-form" onSubmit={handleSubmit} className="space-y-8">
+                    <input
+                      type="text"
+                      name="company"
+                      className="hidden"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
 
                     <div>
                       <FieldLabel>Full Name *</FieldLabel>
@@ -271,13 +306,15 @@ export default function ContactClient() {
 
                     <div>
                       <FieldLabel>Project Type *</FieldLabel>
-                      <select name="projectType" required className={InputBase}>
-                        <option value="">Select</option>
-                        <option>Kitchen Remodel</option>
-                        <option>Bathroom Remodel</option>
-                        <option>Full Renovation</option>
-                        <option>Showroom Visit</option>
-                        <option>Consultation</option>
+                      <select name="projectType" required className={InputBase} defaultValue="">
+                        <option value="" disabled>
+                          Select a project type
+                        </option>
+                        <option value="Kitchen Remodel">Kitchen Remodel</option>
+                        <option value="Bathroom Remodel">Bathroom Remodel</option>
+                        <option value="Full Renovation">Full Renovation</option>
+                        <option value="Showroom Visit">Showroom Visit</option>
+                        <option value="Consultation">Consultation</option>
                       </select>
                     </div>
 
@@ -287,6 +324,7 @@ export default function ContactClient() {
                         name="message"
                         required
                         className={`${InputBase} min-h-[140px]`}
+                        placeholder="Share scope, timeline, location, and any design direction you already have in mind."
                       />
                     </div>
 
@@ -298,10 +336,7 @@ export default function ContactClient() {
 
                     <div>
                       <FieldLabel>Security Check</FieldLabel>
-                      <div
-                        id="cf-turnstile-container"
-                        className="min-h-[66px]"
-                      />
+                      <div id="cf-turnstile-container" className="min-h-[66px]" />
                     </div>
 
                     {!turnstileLoaded ? (
@@ -333,7 +368,7 @@ export default function ContactClient() {
 
       {submitted && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6">
-          <div className="relative w-full max-w-md rounded-xl bg-white p-8 text-center">
+          <div className="relative w-full max-w-md rounded-xl bg-white p-8 text-center shadow-2xl">
             <button
               onClick={closeModal}
               className="absolute right-4 top-4 text-[#1F2E23]/55 hover:text-[#1F2E23]"
@@ -341,9 +376,15 @@ export default function ContactClient() {
             >
               <X />
             </button>
+
+            <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#1F2E23]/45">
+              Inquiry Received
+            </div>
+
             <h3 className="mb-4 text-2xl font-serif-display text-[#1F2E23]">
               Thank you
             </h3>
+
             <p className="text-[#1F2E23]/70">
               We’ve received your inquiry and will contact you shortly.
             </p>
