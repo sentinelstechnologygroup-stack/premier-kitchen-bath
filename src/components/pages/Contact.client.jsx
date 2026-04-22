@@ -1,8 +1,7 @@
 // src/components/pages/Contact.client.jsx
 "use client";
 
-import React, { useRef, useState } from "react";
-import Script from "next/script";
+import React, { useState } from "react";
 import { Phone, Mail, MapPin, X } from "lucide-react";
 import PageShell from "@/components/PageShell";
 import AnimatedSection from "@/components/shared/AnimatedSection";
@@ -16,7 +15,6 @@ const MEDIA = {
 };
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeevrzko";
-const TURNSTILE_SITE_KEY = "0x4AAAAAADAzts7sUT-gN21G";
 
 export default function ContactClient() {
   const content = getPageContent("contact");
@@ -24,75 +22,8 @@ export default function ContactClient() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [turnstileLoaded, setTurnstileLoaded] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState("");
-
-  const widgetIdRef = useRef(null);
-  const renderedRef = useRef(false);
 
   const closeModal = () => setSubmitted(false);
-
-  const renderTurnstile = () => {
-    if (
-      typeof window === "undefined" ||
-      !window.turnstile ||
-      !TURNSTILE_SITE_KEY ||
-      TURNSTILE_SITE_KEY === "0x4AAAAAADAzts7sUT-gN21G" ||
-      renderedRef.current
-    ) {
-      return;
-    }
-
-    const container = document.getElementById("cf-turnstile-container");
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    try {
-      widgetIdRef.current = window.turnstile.render("#cf-turnstile-container", {
-        sitekey: TURNSTILE_SITE_KEY,
-        theme: "light",
-        appearance: "always",
-        callback: (token) => {
-          setTurnstileToken(token || "");
-          setErrorMessage("");
-        },
-        "expired-callback": () => {
-          setTurnstileToken("");
-        },
-        "error-callback": () => {
-          setTurnstileToken("");
-          setErrorMessage(
-            "Captcha could not be verified. Please refresh the page and try again."
-          );
-        },
-      });
-
-      renderedRef.current = true;
-      setTurnstileLoaded(true);
-    } catch (error) {
-      console.error("Turnstile render error:", error);
-      setErrorMessage(
-        "Captcha could not be loaded. Please refresh the page and try again."
-      );
-    }
-  };
-
-  const resetTurnstile = () => {
-    if (
-      typeof window !== "undefined" &&
-      window.turnstile &&
-      widgetIdRef.current !== null
-    ) {
-      try {
-        window.turnstile.reset(widgetIdRef.current);
-      } catch (error) {
-        console.error("Turnstile reset error:", error);
-      }
-    }
-
-    setTurnstileToken("");
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,14 +33,8 @@ export default function ContactClient() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // Honeypot
     if (formData.get("company")) return;
-
-    if (!turnstileToken) {
-      setErrorMessage("Captcha verification is required before submitting.");
-      return;
-    }
-
-    formData.set("cf-turnstile-response", turnstileToken);
 
     setSubmitting(true);
     setErrorMessage("");
@@ -144,11 +69,9 @@ export default function ContactClient() {
 
       console.log("Formspree success:", result);
       form.reset();
-      resetTurnstile();
       setSubmitted(true);
     } catch (error) {
       console.error("Submit failure:", error);
-      resetTurnstile();
       setErrorMessage(
         error?.message ||
           "There was an issue submitting the form. Please try again."
@@ -170,12 +93,6 @@ export default function ContactClient() {
   return (
     <>
       <SEO pageKey="contact" />
-
-      <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
-        strategy="afterInteractive"
-        onLoad={renderTurnstile}
-      />
 
       <PageShell
         hero
@@ -334,17 +251,6 @@ export default function ContactClient() {
                       value="Premier Kitchen & Bath Inquiry"
                     />
 
-                    <div>
-                      <FieldLabel>Security Check</FieldLabel>
-                      <div id="cf-turnstile-container" className="min-h-[66px]" />
-                    </div>
-
-                    {!turnstileLoaded ? (
-                      <div className="text-sm text-[#1F2E23]/60">
-                        Loading security check...
-                      </div>
-                    ) : null}
-
                     {errorMessage ? (
                       <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                         {errorMessage}
@@ -354,7 +260,7 @@ export default function ContactClient() {
                     <Button
                       type="submit"
                       variant="premier"
-                      disabled={submitting || !turnstileLoaded}
+                      disabled={submitting}
                     >
                       {submitting ? "Submitting..." : "Submit Inquiry"}
                     </Button>
