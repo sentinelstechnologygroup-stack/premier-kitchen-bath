@@ -1,7 +1,8 @@
 // src/components/pages/Contact.client.jsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Script from "next/script";
 import { Phone, Mail, MapPin, X } from "lucide-react";
 import PageShell from "@/components/PageShell";
 import AnimatedSection from "@/components/shared/AnimatedSection";
@@ -14,35 +15,106 @@ const MEDIA = {
   hero: "/images/contact/hero.jpg",
 };
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeevrzko";
+
+// Replace with your real Cloudflare Turnstile site key
+const TURNSTILE_SITE_KEY = "YOUR_TURNSTILE_SITE_KEY";
+
 export default function ContactClient() {
   const content = getPageContent("contact");
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [turnstileReady, setTurnstileReady] = useState(false);
 
   const closeModal = () => setSubmitted(false);
+
+  useEffect(() => {
+    // Render widget after script loads
+    if (
+      typeof window !== "undefined" &&
+      window.turnstile &&
+      TURNSTILE_SITE_KEY &&
+      TURNSTILE_SITE_KEY !== "YOUR_TURNSTILE_SITE_KEY"
+    ) {
+      const container = document.getElementById("cf-turnstile-container");
+      if (container && !container.hasChildNodes()) {
+        window.turnstile.render("#cf-turnstile-container", {
+          sitekey: TURNSTILE_SITE_KEY,
+          theme: "light",
+        });
+        setTurnstileReady(true);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = e.target;
+    if (submitting) return;
+
+    const form = e.currentTarget;
     const data = new FormData(form);
 
-    // Honeypot check
+    // Honeypot
     if (data.get("company")) return;
 
-    const response = await fetch("https://formspree.io/f/xeevrzko", {
-      method: "POST",
-      body: data,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    // Turnstile token is injected by the widget as cf-turnstile-response
+    const turnstileToken = data.get("cf-turnstile-response");
+    if (!turnstileToken) {
+      setErrorMessage("Captcha verification is required before submitting.");
+      return;
+    }
 
-    if (response.ok) {
+    setSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: data,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        const message =
+          result?.errors?.[0]?.message ||
+          "There was an issue submitting the form. Please try again.";
+        throw new Error(message);
+      }
+
       form.reset();
       setSubmitted(true);
-    } else {
-      alert("There was an issue submitting the form. Please try again.");
+
+      // Reset Turnstile after successful submit
+      if (typeof window !== "undefined" && window.turnstile) {
+        const responseInput = form.querySelector(
+          'input[name="cf-turnstile-response"]'
+        );
+        if (responseInput) {
+          // Re-render widget cleanly
+          const container = document.getElementById("cf-turnstile-container");
+          if (container) {
+            container.innerHTML = "";
+            window.turnstile.render("#cf-turnstile-container", {
+              sitekey: TURNSTILE_SITE_KEY,
+              theme: "light",
+            });
+          }
+        }
+      }
+    } catch (error) {
+      setErrorMessage(
+        error?.message ||
+          "There was an issue submitting the form. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -59,6 +131,28 @@ export default function ContactClient() {
     <>
       <SEO pageKey="contact" />
 
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          if (
+            typeof window !== "undefined" &&
+            window.turnstile &&
+            TURNSTILE_SITE_KEY &&
+            TURNSTILE_SITE_KEY !== "0x4AAAAAADAzts7sUT-gN21G"
+          ) {
+            const container = document.getElementById("cf-turnstile-container");
+            if (container && !container.hasChildNodes()) {
+              window.turnstile.render("#cf-turnstile-container", {
+                sitekey: TURNSTILE_SITE_KEY,
+                theme: "light",
+              });
+              setTurnstileReady(true);
+            }
+          }
+        }}
+      />
+
       <PageShell
         hero
         heroImage={MEDIA.hero}
@@ -72,8 +166,6 @@ export default function ContactClient() {
           <div className="mx-auto max-w-[1440px]">
             <Panel className="border border-[#1F2E23]/10 bg-white">
               <div className="grid grid-cols-1 gap-16 px-8 py-14 md:grid-cols-2 md:gap-20 md:px-12 md:py-16 lg:px-16">
-
-                {/* LEFT SIDE */}
                 <AnimatedSection>
                   <div>
                     <h2 className="mb-10 font-serif-display text-3xl font-light text-[#1F2E23] md:text-4xl">
@@ -87,7 +179,10 @@ export default function ContactClient() {
                           <div className="mb-2 text-[10px] uppercase tracking-[0.25em] text-[#1F2E23]/45">
                             Phone
                           </div>
-                          <a href="tel:12815583700" className="text-lg text-[#1F2E23] hover:text-[#545E55]">
+                          <a
+                            href="tel:12815583700"
+                            className="text-lg text-[#1F2E23] hover:text-[#545E55]"
+                          >
                             (281) 558-3700
                           </a>
                         </div>
@@ -99,7 +194,10 @@ export default function ContactClient() {
                           <div className="mb-2 text-[10px] uppercase tracking-[0.25em] text-[#1F2E23]/45">
                             Email
                           </div>
-                          <a href="mailto:Info@PremierKitchens.us" className="text-lg text-[#1F2E23] hover:text-[#545E55]">
+                          <a
+                            href="mailto:Info@PremierKitchens.us"
+                            className="text-lg text-[#1F2E23] hover:text-[#545E55]"
+                          >
                             Info@PremierKitchens.us
                           </a>
                         </div>
@@ -112,7 +210,9 @@ export default function ContactClient() {
                             Address
                           </div>
                           <div className="text-base text-[#1F2E23]">
-                            1918 Baker Rd<br />Houston, TX 77094
+                            1918 Baker Rd
+                            <br />
+                            Houston, TX 77094
                           </div>
                         </div>
                       </div>
@@ -120,26 +220,40 @@ export default function ContactClient() {
                   </div>
                 </AnimatedSection>
 
-                {/* RIGHT SIDE FORM */}
                 <AnimatedSection>
                   <form onSubmit={handleSubmit} className="space-y-8">
-
-                    {/* Honeypot */}
                     <input type="text" name="company" className="hidden" />
 
                     <div>
                       <FieldLabel>Full Name *</FieldLabel>
-                      <input name="name" required className={InputBase} />
+                      <input
+                        name="name"
+                        required
+                        className={InputBase}
+                        autoComplete="name"
+                      />
                     </div>
 
                     <div>
                       <FieldLabel>Email *</FieldLabel>
-                      <input type="email" name="email" required className={InputBase} />
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        className={InputBase}
+                        autoComplete="email"
+                      />
                     </div>
 
                     <div>
                       <FieldLabel>Phone *</FieldLabel>
-                      <input type="tel" name="phone" required className={InputBase} />
+                      <input
+                        type="tel"
+                        name="phone"
+                        required
+                        className={InputBase}
+                        autoComplete="tel"
+                      />
                     </div>
 
                     <div>
@@ -156,32 +270,64 @@ export default function ContactClient() {
 
                     <div>
                       <FieldLabel>Project Details *</FieldLabel>
-                      <textarea name="message" required className={`${InputBase} min-h-[140px}`} />
+                      <textarea
+                        name="message"
+                        required
+                        className={`${InputBase} min-h-[140px]`}
+                      />
                     </div>
 
-                    <input type="hidden" name="_subject" value="Premier Kitchen & Bath Inquiry" />
+                    <input
+                      type="hidden"
+                      name="_subject"
+                      value="Premier Kitchen & Bath Inquiry"
+                    />
 
-                    <Button type="submit" variant="premier">
-                      Submit Inquiry
+                    <div>
+                      <FieldLabel>Security Check</FieldLabel>
+                      <div
+                        id="cf-turnstile-container"
+                        className="min-h-[66px]"
+                      />
+                    </div>
+
+                    {errorMessage ? (
+                      <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        {errorMessage}
+                      </div>
+                    ) : null}
+
+                    <Button
+                      type="submit"
+                      variant="premier"
+                      disabled={submitting || !turnstileReady}
+                    >
+                      {submitting ? "Submitting..." : "Submit Inquiry"}
                     </Button>
                   </form>
                 </AnimatedSection>
-
               </div>
             </Panel>
           </div>
         </section>
       </PageShell>
 
-      {/* SUCCESS POPUP */}
       {submitted && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white p-8 rounded-xl text-center max-w-md">
-            <button onClick={closeModal} className="absolute top-4 right-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6">
+          <div className="relative w-full max-w-md rounded-xl bg-white p-8 text-center">
+            <button
+              onClick={closeModal}
+              className="absolute right-4 top-4 text-[#1F2E23]/55 hover:text-[#1F2E23]"
+              aria-label="Close"
+            >
               <X />
             </button>
-            <h3 className="text-2xl mb-4">Thank you</h3>
-            <p>We’ve received your inquiry and will contact you shortly.</p>
+            <h3 className="mb-4 text-2xl font-serif-display text-[#1F2E23]">
+              Thank you
+            </h3>
+            <p className="text-[#1F2E23]/70">
+              We’ve received your inquiry and will contact you shortly.
+            </p>
           </div>
         </div>
       )}
