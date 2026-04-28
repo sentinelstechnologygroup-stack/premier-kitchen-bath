@@ -1,0 +1,24 @@
+<!-- public/sitemap.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://premierkitchens.us/</loc></url>
+  <url><loc>https://premierkitchens.us/about/</loc></url>
+  <url><loc>https://premierkitchens.us/contact/</loc></url>
+  <url><loc>https://premierkitchens.us/kitchens/</loc></url>
+  <url><loc>https://premierkitchens.us/bathrooms/</loc></url>
+  <url><loc>https://premierkitchens.us/products/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/</loc></url>
+  <url><loc>https://premierkitchens.us/reviews/</loc></url>
+  <url><loc>https://premierkitchens.us/showroom/</loc></url>
+
+  <url><loc>https://premierkitchens.us/projects/taj-mahal-quartzite-kitchen/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/open-kitchen-with-built-in-pantry/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/bellaire-kitchen-master-bath/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/via-lactea-granite-kitchen/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/marble-kitchen-with-custom-navy-island/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/transitional-two-tone-kitchen/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/white-carrara-quartz-contemporary-kitchen/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/briar-rose-kitchen-remodel/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/orchard-hill-kitchen-laundry-remodel/</loc></url>
+  <url><loc>https://premierkitchens.us/projects/white-shaker-kitchen-remodel-with-quartz-countertops/</loc></url>
+</urlset>

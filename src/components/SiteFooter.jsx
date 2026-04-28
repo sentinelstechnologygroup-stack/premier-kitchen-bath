@@ -13,17 +13,10 @@ const NAV_LINKS = [
   { label: "Contact", href: ROUTES.contact },
 ];
 
-const RESOURCE_LINKS = [
-  { label: "Granite Guide", href: ROUTES.blog },
-  { label: "Remodeling Calculator", href: ROUTES.blog },
-  { label: "Blog", href: ROUTES.blog },
-  { label: "Privacy Policy", href: ROUTES.privacy },
-];
-
 export default function SiteFooter() {
   return (
     <footer className="bg-[#12100F] text-[#F5F0EA]">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 px-6 py-16 md:grid-cols-4 md:px-12 lg:px-20">
+      <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 px-6 py-16 md:grid-cols-3 md:px-12 lg:px-20">
 
         {/* LOGO COLUMN */}
         <div>
@@ -39,6 +32,7 @@ export default function SiteFooter() {
           </p>
         </div>
 
+        {/* NAVIGATION */}
         <div>
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#D8C6B6]">
             Navigate
@@ -59,26 +53,7 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#D8C6B6]">
-            Resources
-          </div>
-
-          <div className="mt-5 flex flex-col gap-3">
-            {RESOURCE_LINKS.filter(
-              (link) => typeof link.href === "string" && link.href.length > 0
-            ).map((link) => (
-              <Link
-                key={`resource-${link.label}-${link.href}`}
-                href={link.href}
-                className="text-sm text-[#F5F0EA]/70 transition hover:text-[#F5F0EA]"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-
+        {/* CONTACT */}
         <div>
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#D8C6B6]">
             Contact

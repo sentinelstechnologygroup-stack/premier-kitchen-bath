@@ -7,7 +7,8 @@ function normalizeItem(item, index) {
   if (typeof item === "string") {
     return {
       id: `gallery-image-${index}`,
-      src: item,
+      thumbSrc: item,
+      fullSrc: item,
       alt: `Project image ${index + 1}`,
       caption: `Project image ${index + 1}`,
     };
@@ -15,7 +16,8 @@ function normalizeItem(item, index) {
 
   return {
     id: item?.id ?? `gallery-image-${index}`,
-    src: item?.src ?? item?.image ?? item?.url ?? "",
+    thumbSrc: item?.thumbSrc ?? item?.src ?? item?.image ?? item?.url ?? "",
+    fullSrc: item?.fullSrc ?? item?.src ?? item?.image ?? item?.url ?? "",
     alt: item?.alt ?? item?.title ?? `Project image ${index + 1}`,
     caption: item?.caption ?? item?.title ?? "",
   };
@@ -31,7 +33,7 @@ export default function GalleryGrid({
   const normalizedItems = useMemo(() => {
     return items
       .map((item, index) => normalizeItem(item, index))
-      .filter((item) => item.src);
+      .filter((item) => item.thumbSrc);
   }, [items]);
 
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -40,13 +42,8 @@ export default function GalleryGrid({
     activeIndex >= 0 && activeIndex < normalizedItems.length;
   const activeItem = hasLightbox ? normalizedItems[activeIndex] : null;
 
-  const openLightbox = (index) => {
-    setActiveIndex(index);
-  };
-
-  const closeLightbox = () => {
-    setActiveIndex(-1);
-  };
+  const openLightbox = (index) => setActiveIndex(index);
+  const closeLightbox = () => setActiveIndex(-1);
 
   const showPrev = (event) => {
     event?.stopPropagation();
@@ -93,10 +90,7 @@ export default function GalleryGrid({
 
   return (
     <>
-      <div
-        className={`grid ${gridClass}`}
-        style={{ gap: `${gap}px` }}
-      >
+      <div className={`grid ${gridClass}`} style={{ gap: `${gap}px` }}>
         {normalizedItems.map((item, index) => (
           <button
             key={item.id}
@@ -107,7 +101,7 @@ export default function GalleryGrid({
           >
             <div className={`relative w-full overflow-hidden ${tileAspect}`}>
               <img
-                src={item.src}
+                src={item.thumbSrc}
                 alt={item.alt}
                 className="absolute inset-0 h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-[1.03]"
                 loading="lazy"
@@ -120,7 +114,7 @@ export default function GalleryGrid({
 
       {hasLightbox && activeItem ? (
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/88 p-4 md:p-8"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[rgba(233,225,215,0.62)] backdrop-blur-[18px] p-4 md:p-6"
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
@@ -129,7 +123,7 @@ export default function GalleryGrid({
           <button
             type="button"
             onClick={closeLightbox}
-            className="absolute right-4 top-4 z-[10001] inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/40 text-2xl leading-none text-white transition hover:bg-black/60"
+            className="absolute right-4 top-4 z-[10001] inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/45 bg-white/35 text-[28px] leading-none text-[#2A211B] shadow-[0_10px_30px_rgba(0,0,0,0.12)] backdrop-blur-md transition hover:bg-white/55"
             aria-label="Close gallery viewer"
           >
             ×
@@ -140,7 +134,7 @@ export default function GalleryGrid({
               <button
                 type="button"
                 onClick={showPrev}
-                className="absolute left-3 top-1/2 z-[10001] -translate-y-1/2 rounded-full border border-white/20 bg-black/40 px-4 py-3 text-white transition hover:bg-black/60 md:left-6"
+                className="absolute left-3 top-1/2 z-[10001] -translate-y-1/2 rounded-full border border-white/45 bg-white/35 px-4 py-3 text-[26px] leading-none text-[#2A211B] shadow-[0_10px_30px_rgba(0,0,0,0.12)] backdrop-blur-md transition hover:bg-white/55 md:left-5"
                 aria-label="Previous image"
               >
                 ‹
@@ -149,7 +143,7 @@ export default function GalleryGrid({
               <button
                 type="button"
                 onClick={showNext}
-                className="absolute right-3 top-1/2 z-[10001] -translate-y-1/2 rounded-full border border-white/20 bg-black/40 px-4 py-3 text-white transition hover:bg-black/60 md:right-6"
+                className="absolute right-3 top-1/2 z-[10001] -translate-y-1/2 rounded-full border border-white/45 bg-white/35 px-4 py-3 text-[26px] leading-none text-[#2A211B] shadow-[0_10px_30px_rgba(0,0,0,0.12)] backdrop-blur-md transition hover:bg-white/55 md:right-5"
                 aria-label="Next image"
               >
                 ›
@@ -158,19 +152,19 @@ export default function GalleryGrid({
           )}
 
           <div
-            className="relative z-[10000] mx-auto flex max-h-[90vh] w-full max-w-[1400px] items-center justify-center"
+            className="relative z-[10000] flex items-center justify-center"
             onClick={(event) => event.stopPropagation()}
           >
             <img
-              src={activeItem.src}
+              src={activeItem.fullSrc || activeItem.src}
               alt={activeItem.alt}
-              className="max-h-[90vh] w-auto max-w-full rounded-[20px] object-contain shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
+              className="w-[84vw] max-w-[1300px] h-auto max-h-[82vh] object-contain rounded-[18px]"
               loading="eager"
               decoding="async"
             />
           </div>
 
-          <div className="pointer-events-none absolute bottom-4 left-1/2 z-[10001] -translate-x-1/2 rounded-full border border-white/12 bg-black/40 px-4 py-2 text-[12px] font-medium tracking-[0.16em] text-white/90 backdrop-blur-sm">
+          <div className="pointer-events-none absolute bottom-4 left-1/2 z-[10001] -translate-x-1/2 rounded-full border border-white/35 bg-white/30 px-4 py-2 text-[12px] font-semibold tracking-[0.14em] text-[#2A211B] shadow-[0_10px_30px_rgba(0,0,0,0.10)] backdrop-blur-md">
             {activeIndex + 1} / {normalizedItems.length}
           </div>
         </div>

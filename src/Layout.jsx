@@ -2,10 +2,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Script from "next/script";
 import { usePathname } from "next/navigation";
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
-import { trackScrollDepth, trackPageView, startEngagementTimer } from "@/lib/intelligence";
+import {
+  trackScrollDepth,
+  trackPageView,
+  startEngagementTimer,
+} from "@/lib/intelligence";
 
 export default function Layout({ children, currentPageName = "unknown" }) {
   const pathname = usePathname();
@@ -22,11 +27,15 @@ export default function Layout({ children, currentPageName = "unknown" }) {
 
     read();
 
-    const Obs = typeof MutationObserver !== "undefined" ? MutationObserver : null;
+    const Obs =
+      typeof MutationObserver !== "undefined" ? MutationObserver : null;
     if (!Obs) return;
 
     const observer = new Obs(read);
-    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
     return () => observer.disconnect();
   }, [pathname]);
@@ -45,10 +54,13 @@ export default function Layout({ children, currentPageName = "unknown" }) {
 
     const handleScroll = () => {
       if (rafId) return;
+
       rafId = window.requestAnimationFrame(() => {
         rafId = null;
+
         const denom = document.body.scrollHeight - window.innerHeight;
         if (denom <= 0) return;
+
         const depth = (window.scrollY / denom) * 100;
         trackScrollDepth(depth);
       });
@@ -64,10 +76,18 @@ export default function Layout({ children, currentPageName = "unknown" }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F3EEE7]">
-      <SiteHeader currentPageName={currentPageName} heroUnderHeader={heroUnderHeader} />
-      <div className={heroUnderHeader ? "" : HEADER_OFFSET}>{children}</div>
-      <SiteFooter />
-    </div>
+    <>
+      <Script src="/sis-config.js" strategy="afterInteractive" />
+      <Script src="/sis-tracker.js" strategy="afterInteractive" />
+
+      <div className="min-h-screen bg-[#F3EEE7]">
+        <SiteHeader
+          currentPageName={currentPageName}
+          heroUnderHeader={heroUnderHeader}
+        />
+        <div className={heroUnderHeader ? "" : HEADER_OFFSET}>{children}</div>
+        <SiteFooter />
+      </div>
+    </>
   );
 }

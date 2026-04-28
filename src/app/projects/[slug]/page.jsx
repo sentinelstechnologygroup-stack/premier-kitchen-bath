@@ -1,10 +1,14 @@
 // src/app/projects/[slug]/page.jsx
-"use client";
 
-import React, { use, useEffect, useMemo, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "@/components/portfolio/projectData";
+import GallerySection from "@/components/gallery/GallerySection";
+import {
+  getProjectBySlug,
+  getAllProjectSlugs,
+  formatCategoryLabel,
+} from "@/components/portfolio/projectData";
 
 function normalizeGalleryItem(item, projectTitle, index) {
   if (typeof item === "string") {
@@ -12,6 +16,7 @@ function normalizeGalleryItem(item, projectTitle, index) {
       id: `gallery-image-${index}`,
       src: item,
       alt: `${projectTitle} image ${index + 1}`,
+      caption: `${projectTitle} image ${index + 1}`,
     };
   }
 
@@ -19,86 +24,42 @@ function normalizeGalleryItem(item, projectTitle, index) {
     id: item?.id ?? `gallery-image-${index}`,
     src: item?.src ?? item?.image ?? item?.url ?? "",
     alt: item?.alt ?? item?.title ?? `${projectTitle} image ${index + 1}`,
+    caption:
+      item?.caption ?? item?.title ?? `${projectTitle} image ${index + 1}`,
   };
 }
 
+export function generateStaticParams() {
+  return getAllProjectSlugs().map((slug) => ({
+    slug,
+  }));
+}
+
 export default function ProjectDetailPage({ params }) {
-  const resolvedParams = use(params);
-  const project = getProjectBySlug(resolvedParams.slug);
-
-  const galleryItems = useMemo(() => {
-    return (project?.gallery || [])
-      .map((item, index) =>
-        normalizeGalleryItem(item, project?.title || "Project", index)
-      )
-      .filter((item) => item.src);
-  }, [project]);
-
-  const [activeIndex, setActiveIndex] = useState(-1);
-
-  const hasLightbox = activeIndex >= 0 && activeIndex < galleryItems.length;
-  const activeItem = hasLightbox ? galleryItems[activeIndex] : null;
-
-  const openLightbox = (index) => {
-    setActiveIndex(index);
-  };
-
-  const closeLightbox = () => {
-    setActiveIndex(-1);
-  };
-
-  const showPrev = (event) => {
-    event?.stopPropagation();
-    setActiveIndex((prev) =>
-      prev <= 0 ? galleryItems.length - 1 : prev - 1
-    );
-  };
-
-  const showNext = (event) => {
-    event?.stopPropagation();
-    setActiveIndex((prev) =>
-      prev >= galleryItems.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  useEffect(() => {
-    if (!hasLightbox) {
-      document.body.style.overflow = "";
-      return;
-    }
-
-    document.body.style.overflow = "hidden";
-
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") closeLightbox();
-      if (event.key === "ArrowLeft") showPrev();
-      if (event.key === "ArrowRight") showNext();
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [hasLightbox, galleryItems.length]);
+  const project = getProjectBySlug(params.slug);
 
   if (!project) {
     notFound();
   }
 
-  return (
-    <>
-      <main className="bg-[#F3EFE8]">
-        <section className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-20 lg:px-20">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.24em] text-[#1F2E23]"
-          >
-            ← Back to Projects
-          </Link>
+  const galleryItems = (project?.gallery || [])
+    .map((item, index) =>
+      normalizeGalleryItem(item, project?.title || "Project", index)
+    )
+    .filter((item) => item.src);
 
-          <div className="mt-10 max-w-[960px]">
+  return (
+    <main className="bg-[#F3EFE8]">
+      <section className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-20 lg:px-20">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.24em] text-[#1F2E23]"
+        >
+          ← Back to Projects
+        </Link>
+
+        <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-14">
+          <div className="md:col-span-8">
             <p className="text-[12px] font-semibold uppercase tracking-[0.24em] text-[#8A7F73]">
               {project.location}
             </p>
@@ -112,110 +73,66 @@ export default function ProjectDetailPage({ params }) {
                 {project.subtitle}
               </p>
             ) : null}
+
+            {project.description?.length ? (
+              <div className="mt-10 grid max-w-[900px] gap-5">
+                {project.description.map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="text-[16px] leading-[1.85] text-[#3E352F]"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            ) : null}
           </div>
 
-          {project.description?.length ? (
-            <div className="mt-10 grid max-w-[900px] gap-5">
-              {project.description.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="text-[16px] leading-[1.85] text-[#3E352F]"
-                >
-                  {paragraph}
-                </p>
-              ))}
+          <div className="md:col-span-4">
+            <div className="space-y-6 border-t border-[#1F2E23]/10 pt-6 md:border-t-0 md:border-l md:pl-8">
+              <div>
+                <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8A7F73]">
+                  Category
+                </span>
+                <span className="text-[15px] text-[#1F2E23]">
+                  {formatCategoryLabel(project.category)}
+                </span>
+              </div>
+
+              <div>
+                <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8A7F73]">
+                  Location
+                </span>
+                <span className="text-[15px] text-[#1F2E23]">
+                  {project.location}
+                </span>
+              </div>
+
+              {project.completionDate ? (
+                <div>
+                  <span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8A7F73]">
+                    Completion
+                  </span>
+                  <span className="text-[15px] text-[#1F2E23]">
+                    {project.completionDate}
+                  </span>
+                </div>
+              ) : null}
             </div>
-          ) : null}
-
-          {galleryItems.length ? (
-            <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {galleryItems.map((image, index) => (
-                <button
-                  key={image.id}
-                  type="button"
-                  onClick={() => openLightbox(index)}
-                  className="group relative block w-full cursor-zoom-in overflow-hidden rounded-[20px] bg-white text-left focus:outline-none focus:ring-2 focus:ring-[#8A6A4A]/40"
-                  aria-label={`Open image ${index + 1} of ${galleryItems.length}`}
-                >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="absolute inset-0 h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-[1.03]"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                </button>
-              ))}
-            </div>
-          ) : null}
-        </section>
-      </main>
-
-      {hasLightbox && activeItem ? (
-        <div
-          className="fixed inset-0 z-[9999] flex cursor-zoom-out items-center justify-center bg-black/20 p-3 backdrop-blur-2xl md:p-6"
-          onClick={closeLightbox}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Project image viewer"
-        >
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/8 via-black/6 to-black/18" />
-          <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-white/12" />
-
-          <button
-            type="button"
-            onClick={closeLightbox}
-            className="absolute right-6 top-6 z-[10001] flex h-12 w-12 items-center justify-center rounded-full bg-white/12 text-2xl text-white backdrop-blur-md transition hover:scale-110 hover:bg-white/20"
-            aria-label="Close gallery viewer"
-          >
-            ×
-          </button>
-
-          {galleryItems.length > 1 ? (
-            <button
-              type="button"
-              onClick={showPrev}
-              className="absolute left-5 top-1/2 z-[10001] -translate-y-1/2 rounded-full bg-white/12 px-4 py-3 text-white backdrop-blur-md transition hover:scale-110 hover:bg-white/20 md:left-6"
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
-          ) : null}
-
-          {galleryItems.length > 1 ? (
-            <button
-              type="button"
-              onClick={showNext}
-              className="absolute right-5 top-1/2 z-[10001] -translate-y-1/2 rounded-full bg-white/12 px-4 py-3 text-white backdrop-blur-md transition hover:scale-110 hover:bg-white/20 md:right-6"
-              aria-label="Next image"
-            >
-              ›
-            </button>
-          ) : null}
-
-          <div
-            className="relative z-[10000] flex h-[min(88vh,1200px)] w-[min(94vw,1900px)] items-center justify-center"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="relative flex h-full w-full items-center justify-center rounded-[24px]">
-              <img
-                src={activeItem.src}
-                alt={activeItem.alt}
-                className="animate-[zoomIn_0.35s_ease] h-full w-full object-contain drop-shadow-[0_40px_120px_rgba(0,0,0,0.38)]"
-                loading="eager"
-                decoding="async"
-              />
-              <div className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-white/10" />
-            </div>
-          </div>
-
-          <div className="absolute bottom-6 left-1/2 z-[10001] -translate-x-1/2 rounded-full bg-white/12 px-4 py-2 text-[12px] tracking-[0.18em] text-white backdrop-blur-md">
-            {activeIndex + 1} / {galleryItems.length}
           </div>
         </div>
+      </section>
+
+      {galleryItems.length > 0 ? (
+        <GallerySection
+          title="Project Gallery"
+          description="Click any image to expand. Use the arrows to browse the gallery. Press Escape or click outside the image to close."
+          items={galleryItems}
+          label={project.title}
+          columns={3}
+          gap={10}
+        />
       ) : null}
-    </>
+    </main>
   );
 }
